@@ -183,3 +183,6 @@ function updateBarChart() {
     barChart.update();
   }
 }
+
+//Search bar
+
