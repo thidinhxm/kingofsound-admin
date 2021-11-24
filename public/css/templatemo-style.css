@@ -63,13 +63,11 @@ button:focus {
   margin-bottom: 30px;
 }
 .tm-block {
-  padding: 40px;
+  padding: 40px 40px 10px 40px;
   -webkit-box-shadow: 1px 1px 5px 0 #455c71;
   -moz-box-shadow: 1px 1px 5px 0 #455c71;
   box-shadow: 1px 1px 5px 0 #455c71;
-  min-height: 350px;
   height: 100%;
-  max-height: 450px;
 }
 .tm-block-avatar,
 .tm-block-settings {
@@ -429,16 +427,18 @@ input[type="checkbox"]:focus {
   outline: 0 none;
   box-shadow: none;
 }
-.tm-block-products {
-  min-height: 725px;
-}
-.tm-block-product-categories {
-  min-height: 650px;
-}
 .tm-product-table-container {
+  margin-bottom: 20px;
+}
+.tm-categories-table-container {
+  margin-bottom: 20px;
   max-height: 465px;
-  margin-bottom: 15px;
-  overflow-y: scroll;
+  overflow-y:scroll ;
+}
+.tm-product-table-container img
+{
+  height: 50px;
+  width: 50pxnpm;
 }
 .tm-product-table tr {
   font-weight: 600;
@@ -732,4 +732,44 @@ h1.tm-site-title.mb-0{
 }
 .modal-3 a.active, .modal-3 a:active {
   background-color: #37B247;
+}
+
+/*Search bar*/
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 36px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #00B4CC;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 100%;
 }
