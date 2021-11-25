@@ -773,3 +773,12 @@ h1.tm-site-title.mb-0{
 .wrap{
   width: 100%;
 }
+
+
+/*Notification*/
+
+.Notification{
+  text-align: center;
+  color: orange;
+  margin-bottom: 20px;
+}

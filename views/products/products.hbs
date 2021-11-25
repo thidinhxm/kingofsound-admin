@@ -3,138 +3,143 @@
   <div class="container">
     <div class="container">
       <div div="row" style="margin: 20px auto;">
-        <form action = "/products/search" method = "get">
+        <form action="/products" method="get">
           <div class="wrap">
-          <div class="search">
-            <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id = "search_name" name  = "search_name">
-            <button type="submit" class="searchButton">
-              <i class="fa fa-search"></i>
-            </button>
-          </div>
+            <div class="search">
+              <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
+                name="search_name" value = "{{search_name}}">
+              <button type="submit" class="searchButton">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
         </form>
-        </div>
-      </div>
-    </div>
-    <div class="row tm-content-row">
-      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-        <div class="tm-bg-primary-dark tm-block tm-block-products">
-          <div class="row">
-            <div class="col-md-6">
-              <a href="/products/add-product" class="btn btn-primary btn-block text-uppercase mb-3">Thêm sản phẩm</a>
-            </div>
-            <div class="col-md-6">
-              <button class="btn btn-primary btn-block text-uppercase">
-                Xoá sản phẩm
-              </button>
-            </div>
-          </div>
-          <div class="tm-product-table-container">
-            <table class="table table-hover tm-table-small tm-product-table">
-              <thead>
-                <tr>
-                  <th scope="col">&nbsp;</th>
-                  <th scope="col"></th>
-                  <th scope="col">Tên sản phẩm</th>
-                  <th scope="col">Loại</th>
-                  <th scope="col">Kho</th>
-                  <th scope="col">Giá</th>
-                  <th scope="col">&nbsp;</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each products}}
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                  <td><img src="{{'images.image_link'}}" alt=""></td>
-                  <td class="tm-product-name">{{product_name}}</td>
-                  <td>{{'category.category_name'}}</td>
-                  <td>{{quantity}}</td>
-                  <td>{{price}}</td>
-                  <td>
-                    <a href="#" class="tm-product-delete-link">
-                      <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                    </a>
-                  </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-          <nav aria-label="Page navigation example">
-            <ul class="pagination" style="display: flex; justify-content: center;">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Previous</span>
-                </a>
-              </li>
-              <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-              <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
-              <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
-              <li class="page-item"><a class="page-link" href="?page=4">4</a></li>
-              <li class="page-item"><a class="page-link" href="?page=5">5</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <!-- table container -->
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-        <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
-          <div class="row">
-            <div class="col-md-6">
-              <a href="/products/add-product" class="btn btn-primary btn-block text-uppercase mb-3">Thêm loại sản
-                phẩm</a>
-            </div>
-            <div class="col-md-6">
-              <button class="btn btn-primary btn-block text-uppercase">
-                Xoá loại sản phẩm
-              </button>
-            </div>
-          </div>
-
-          <div class="tm-categories-table-container">
-            <table class="table tm-table-small tm-product-table">
-              <tbody>
-                <thead>
-                  <tr>
-                    <th scope="col">&nbsp;</th>
-                    <th scope="col">Mã loại sản phẩm</th>
-                    <th scope="col">Loại sản phẩm</th>
-                    <th scope="col">&nbsp;</th>
-                  </tr>
-                </thead>
-                {{#each categories }}
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                  <td class="tm-product-name">{{category_id}}</td>
-                  <td class="tm-product-name">{{category_name}}</td>
-                  <td class="text-center">
-                    <a href="#" class="tm-product-delete-link">
-                      <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                    </a>
-                  </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-          <!-- table container -->
-        </div>
       </div>
     </div>
   </div>
+  <div class="row tm-content-row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+      <div class="tm-bg-primary-dark tm-block tm-block-products">
+        <div class="row">
+          <div class="col-md-6">
+            <a href="/products/add-product" class="btn btn-primary btn-block text-uppercase mb-3">Thêm sản phẩm</a>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-primary btn-block text-uppercase">
+              Xoá sản phẩm
+            </button>
+          </div>
+        </div>
+        <div class="tm-product-table-container">
+          <table class="table table-hover tm-table-small tm-product-table">
+            <thead>
+              <tr>
+                <th scope="col">&nbsp;</th>
+                <th scope="col"></th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Loại</th>
+                <th scope="col">Kho</th>
+                <th scope="col">Giá</th>
+                <th scope="col">&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#if products}}
+              {{#each products}}
+              <tr>
+                <th scope="row"><input type="checkbox" /></th>
+                <td><img src="{{'images.image_link'}}" alt=""></td>
+                <td class="tm-product-name">{{product_name}}</td>
+                <td>{{'category.category_name'}}</td>
+                <td>{{quantity}}</td>
+                <td>{{price}}</td>
+                <td>
+                  <a href="#" class="tm-product-delete-link">
+                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                  </a>
+                </td>
+              </tr>
+              {{/each}}
+              {{else}}
+              <h1 class="Notification">Không có sản phẩm nào phù hợp!</h1>
+              {{/if}}
+            </tbody>
+          </table>
+        </div>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination" style="display: flex; justify-content: center;">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="?search_name={{{search_name}}}&page=1">1</a></li>
+            <li class="page-item"><a class="page-link" href="?search_name={{{search_name}}}&page=2">2</a></li>
+            <li class="page-item"><a class="page-link" href="?search_name={{{search_name}}}&page=3">3</a></li>
+            <li class="page-item"><a class="page-link" href="?search_name={{{search_name}}}&page=4">4</a></li>
+            <li class="page-item"><a class="page-link" href="?search_name={{{search_name}}}&page=5">5</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- table container -->
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+      <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+        <div class="row">
+          <div class="col-md-6">
+            <a href="/products/add-product" class="btn btn-primary btn-block text-uppercase mb-3">Thêm loại sản
+              phẩm</a>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-primary btn-block text-uppercase">
+              Xoá loại sản phẩm
+            </button>
+          </div>
+        </div>
 
-  <script>
-    $(function () {
-      $(".tm-product-name").on("click", function () {
-        window.location.href = "edit-product.html";
-      });
+        <div class="tm-categories-table-container">
+          <table class="table tm-table-small tm-product-table">
+            <tbody>
+              <thead>
+                <tr>
+                  <th scope="col">&nbsp;</th>
+                  <th scope="col">Mã loại sản phẩm</th>
+                  <th scope="col">Loại sản phẩm</th>
+                  <th scope="col">&nbsp;</th>
+                </tr>
+              </thead>
+              {{#each categories }}
+              <tr>
+                <th scope="row"><input type="checkbox" /></th>
+                <td class="tm-product-name">{{category_id}}</td>
+                <td class="tm-product-name">{{category_name}}</td>
+                <td class="text-center">
+                  <a href="#" class="tm-product-delete-link">
+                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                  </a>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+        <!-- table container -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $(".tm-product-name").on("click", function () {
+      window.location.href = "edit-product.html";
     });
-  </script>
-  </body>
+  });
+</script>
+</body>
