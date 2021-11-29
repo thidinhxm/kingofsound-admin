@@ -8,6 +8,7 @@ var _images = require("./images");
 var _orders = require("./orders");
 var _products = require("./products");
 var _reactions = require("./reactions");
+var _reweiws = require("./reweiws");
 var _roles = require("./roles");
 var _user_roles = require("./user_roles");
 var _users = require("./users");
@@ -22,19 +23,20 @@ function initModels(sequelize) {
   var orders = _orders(sequelize, DataTypes);
   var products = _products(sequelize, DataTypes);
   var reactions = _reactions(sequelize, DataTypes);
+  var reweiws = _reweiws(sequelize, DataTypes);
   var roles = _roles(sequelize, DataTypes);
   var user_roles = _user_roles(sequelize, DataTypes);
   var users = _users(sequelize, DataTypes);
 
   orders.belongsToMany(products, { as: 'product_id_products_detailorders', through: detailorders, foreignKey: "order_id", otherKey: "product_id" });
   products.belongsToMany(orders, { as: 'order_id_orders', through: detailorders, foreignKey: "product_id", otherKey: "order_id" });
-  products.belongsToMany(users, { as: 'user_id_users', through: comments, foreignKey: "product_id", otherKey: "user_id" });
-  products.belongsToMany(users, { as: 'user_id_users_detailcarts', through: detailcarts, foreignKey: "product_id", otherKey: "user_id" });
+  products.belongsToMany(users, { as: 'user_id_users', through: detailcarts, foreignKey: "product_id", otherKey: "user_id" });
   products.belongsToMany(users, { as: 'user_id_users_reactions', through: reactions, foreignKey: "product_id", otherKey: "user_id" });
+  products.belongsToMany(users, { as: 'user_id_users_reweiws', through: reweiws, foreignKey: "product_id", otherKey: "user_id" });
   roles.belongsToMany(users, { as: 'user_id_users_user_roles', through: user_roles, foreignKey: "role_id", otherKey: "user_id" });
-  users.belongsToMany(products, { as: 'product_id_products', through: comments, foreignKey: "user_id", otherKey: "product_id" });
-  users.belongsToMany(products, { as: 'product_id_products_detailcarts', through: detailcarts, foreignKey: "user_id", otherKey: "product_id" });
+  users.belongsToMany(products, { as: 'product_id_products', through: detailcarts, foreignKey: "user_id", otherKey: "product_id" });
   users.belongsToMany(products, { as: 'product_id_products_reactions', through: reactions, foreignKey: "user_id", otherKey: "product_id" });
+  users.belongsToMany(products, { as: 'product_id_products_reweiws', through: reweiws, foreignKey: "user_id", otherKey: "product_id" });
   users.belongsToMany(roles, { as: 'role_id_roles', through: user_roles, foreignKey: "user_id", otherKey: "role_id" });
   products.belongsTo(brands, { as: "brand", foreignKey: "brand_id"});
   brands.hasMany(products, { as: "products", foreignKey: "brand_id"});
@@ -42,6 +44,8 @@ function initModels(sequelize) {
   categories.hasMany(categories, { as: "categories", foreignKey: "parent_category"});
   products.belongsTo(categories, { as: "category", foreignKey: "category_id"});
   categories.hasMany(products, { as: "products", foreignKey: "category_id"});
+  comments.belongsTo(comments, { as: "parent_comment", foreignKey: "parent_comment_id"});
+  comments.hasMany(comments, { as: "comments", foreignKey: "parent_comment_id"});
   detailorders.belongsTo(orders, { as: "order", foreignKey: "order_id"});
   orders.hasMany(detailorders, { as: "detailorders", foreignKey: "order_id"});
   comments.belongsTo(products, { as: "product", foreignKey: "product_id"});
@@ -54,6 +58,8 @@ function initModels(sequelize) {
   products.hasMany(images, { as: "images", foreignKey: "product_id"});
   reactions.belongsTo(products, { as: "product", foreignKey: "product_id"});
   products.hasMany(reactions, { as: "reactions", foreignKey: "product_id"});
+  reweiws.belongsTo(products, { as: "product", foreignKey: "product_id"});
+  products.hasMany(reweiws, { as: "reweiws", foreignKey: "product_id"});
   user_roles.belongsTo(roles, { as: "role", foreignKey: "role_id"});
   roles.hasMany(user_roles, { as: "user_roles", foreignKey: "role_id"});
   comments.belongsTo(users, { as: "user", foreignKey: "user_id"});
@@ -64,6 +70,8 @@ function initModels(sequelize) {
   users.hasMany(orders, { as: "orders", foreignKey: "user_id"});
   reactions.belongsTo(users, { as: "user", foreignKey: "user_id"});
   users.hasMany(reactions, { as: "reactions", foreignKey: "user_id"});
+  reweiws.belongsTo(users, { as: "user", foreignKey: "user_id"});
+  users.hasMany(reweiws, { as: "reweiws", foreignKey: "user_id"});
   user_roles.belongsTo(users, { as: "user", foreignKey: "user_id"});
   users.hasMany(user_roles, { as: "user_roles", foreignKey: "user_id"});
 
@@ -77,6 +85,7 @@ function initModels(sequelize) {
     orders,
     products,
     reactions,
+    reweiws,
     roles,
     user_roles,
     users,

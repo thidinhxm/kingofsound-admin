@@ -48,3 +48,21 @@ exports.listByName = (search_name,page = 0, itemPerPage = 8) =>
         ,offset:page*itemPerPage,limit:itemPerPage
     });
 }
+
+exports.Amount = (itemPerPage = 8) =>
+{
+        return models.products.count();
+}
+exports.AmountByName = (search_name = "",itemPerPage = 8) =>
+{
+        return  models.products.count(
+            {
+                where:
+        {
+            product_name:{
+                [Op.substring]:search_name 
+            }
+        }
+            }
+        );
+}

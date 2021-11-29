@@ -20,6 +20,14 @@ app.engine('hbs', exphbs({
 	defaultLayout: 'layout',
 	layoutsDir: path.join(__dirname, '/views/layouts'),
 	partialsDir: path.join(__dirname, '/views/partials'),
+	helpers: {
+		'pages': function(n,incr, block) {
+			var accum = '';
+			for(var i = 0; i < n; i+=incr)
+				accum += block.fn(i/incr+1);
+			return accum;
+		}
+	}
 }))
 app.set('view engine', 'hbs');
 
