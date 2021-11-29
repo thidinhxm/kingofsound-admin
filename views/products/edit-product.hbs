@@ -7,9 +7,11 @@
                 <h2 class="tm-block-title d-inline-block">Chỉnh sửa thông tin sản phẩm</h2>
               </div>
             </div>
+            {{#with currentProduct}}
             <div class="row tm-edit-product-row">
+            
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="" method="post" class="tm-edit-product-form">
+                <form  method="get" class="tm-edit-product-form" action="/products/{{product_id}}">
                   <div class="form-group mb-3">
                     <label
                       for="name"
@@ -19,7 +21,7 @@
                       id="name"
                       name="name"
                       type="text"
-                      value="Tai nghe Sony WF 1000XM3"
+                      value="{{product_name}}"
                       class="form-control validate"
                     />
                   </div>
@@ -28,11 +30,13 @@
                       for="description"
                       >Mô tả</label
                     >
-                    <textarea                    
-                      class="form-control validate tm-small"
-                      rows="5"
-                      required
-                    >Dẫn đầu xu hướng tai nghe không dây</textarea>
+                   <input
+                      id="description"
+                      name="description"
+                      type="text"
+                      value="{{descriptions}}"
+                      class="form-control validate"
+                    />
                   </div>
                   <div class="form-group mb-3">
                     <label
@@ -59,25 +63,26 @@
                             id="expire_date"
                             name="expire_date"
                             type="text"
-                            value="22 Oct, 2020"
+                            value="{{model_year}}"
                             class="form-control validate"
                             data-large-mode="true"
                           />
                         </div>
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
-                            for="stock"
+                            for="price"
                             >Giá tiền
                           </label>
                           <input
-                            id="stock"
-                            name="stock"
+                            id="price"
+                            name="price"
                             type="text"
-                            value="190$"
+                            value="{{price}}"
                             class="form-control validate"
                           />
                         </div>
                   </div>
+                  
                   
               </div>
               <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
@@ -104,13 +109,15 @@
             </form>
             </div>
           </div>
+            {{/with}}
         </div>
       </div>
     </div>
+
     <script>
       $(function() {
         $("#expire_date").datepicker({
-          defaultDate: "10/22/2020"
+          defaultDate: "10/22/2025"
         });
       });
     </script>
