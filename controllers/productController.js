@@ -1,4 +1,9 @@
 const productService = require("../services/productService")
+const products = require("../models/products");
+const { models } = require("../models");
+const randomString = require("randomstring");
+const dbProduct = models.products;
+
 const itemPerPage = 8;
 exports.list = async(req, res)  =>
 {   
@@ -16,3 +21,83 @@ exports.list = async(req, res)  =>
         res.render('products/products',{products:products.rows,categories,Pages:products.count/itemPerPage});
     }    
 }
+
+
+exports.listByName = async (req, res) => {
+  const search_name = req.query.search_name;
+  const products = await productService.listByName(search_name, !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0);
+  const categories = await productService.listcategory();
+  res.render('products/products', { products, categories });
+}
+
+exports.add = (req, res, next) => {
+  res.render('products/add-product');
+}
+
+exports.store = async (req, res) => {
+
+
+  const newProduct = await models.products.create({
+    product_id: randomString.generate(7),
+    category_id: 'speaker0',
+    product_name: req.body.name,
+    price: req.body.price,
+    descriptions: req.body.descriptions,
+    model_year: req.body.model_year,
+    isActive: 1,
+  });
+
+  res.redirect('/products');
+
+}
+
+exports.edit = async (req, res) => {
+
+  const currentProduct = await models.products.findOne({ where: { product_id: req.params.id }, raw: true })
+  const currentCategory = currentProduct.category_id;
+  const imgProduct = await models.images.findOne({ where: { product_id: req.params.id }, raw: true });
+  const categoryProduct = await models.categories.findOne({ where: { category_id: currentCategory }, raw: true });
+
+  res.render('products/edit-product', { currentProduct, imgProduct });
+}
+
+exports.update = async (req, res, next) => {
+
+  const productUpdate = {
+    product_name: req.body.name,
+    price: req.body.price,
+    categories: req.body.category,
+    model_year: req.body.model_year,
+    descriptions: req.body.descriptions
+  }
+  models.products.update(productUpdate, { where: { product_id: req.params.id } })
+    .then(res.redirect('/products'))
+
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Product."
+      });
+    });
+
+}
+
+
+
+exports.delete = async (req, res) => {
+  await models.products.update(
+    {
+      isActive: false
+    },
+    {
+      where:
+      {
+        product_id: req.params.id,
+      }
+    })
+    // const currentProduct = await models.products.findOne({ where: { product_id: req.params.id }, raw: true })
+  
+    (res.redirect('/products'));
+};
+
+

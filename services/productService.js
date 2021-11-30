@@ -5,6 +5,11 @@ exports.listcategory = () =>
 {
     return models.categories.findAll({raw:true});
 }
+
+exports.listProducts = () =>
+{
+    return models.products.findAll({raw:true});
+}
 exports.list = (page = 0, itemPerPage = 8) =>
 {
     return models.products.findAndCountAll({

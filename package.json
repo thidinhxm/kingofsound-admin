@@ -14,8 +14,10 @@
     "express-handlebars-paginate": "^1.0.3",
     "http-errors": "~1.6.3",
     "install": "^0.13.0",
+    "method-override": "^3.0.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
+    "randomstring": "^1.2.1",
     "sequelize": "^6.11.0",
     "sequelize-auto": "^0.8.5"
   },

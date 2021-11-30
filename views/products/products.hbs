@@ -41,6 +41,8 @@
                 <th scope="col">Kho</th>
                 <th scope="col">Giá</th>
                 <th scope="col">&nbsp;</th>
+                <th scope="col"></th>
+
               </tr>
               {{/if}}
             </thead>
@@ -55,7 +57,14 @@
                 <td>{{quantity}}</td>
                 <td>{{price}}</td>
                 <td>
-                  <a href="#" class="tm-product-delete-link">
+                  <a href="/products/{{product_id}}/edit" class=" tm-product-delete-link">
+                    <i class="far fa-edit tm-product-delete-icon"></i>
+                  </a>
+                </td>
+
+                <td>
+                  <a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+                    data-target="#delete-product-modal" data-id="{{product_id}}">
                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
                   </a>
                 </td>
@@ -77,7 +86,7 @@
               </a>
             </li>
             {{#if search_name}}
-            {{#pages Pages search_name}} 
+            {{#pages Pages search_name}}
             <li class="page-item"><a class="page-link" href="?search_name={{search_name}}&page={{index}}">{{index}}</a>
             </li>
             {{/pages}}
@@ -121,6 +130,7 @@
                   <th scope="col">Mã loại sản phẩm</th>
                   <th scope="col">Loại sản phẩm</th>
                   <th scope="col">&nbsp;</th>
+
                 </tr>
               </thead>
               {{#each categories }}
@@ -143,12 +153,60 @@
     </div>
   </div>
 </div>
+{{!-- Confirm delete modal --}}
+<div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xoá sản phẩm</h5>
+        <button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xoá sản phẩm này ?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Xoá bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+
+{{!-- Delete hidden for, --}}
+<form method="post" name="delete-product-form" action="'/products/{{product_id}}/delete'">
+</form>
+
+
+{{!--
 <script>
   $(function () {
     $(".tm-product-name").on("click", function () {
       window.location.href = "edit-product.html";
     });
   });
+</script> --}}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var productID
+    var deleteForm = document.forms['delete-product-form'];
+    $('#delete-product-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      productID = button.data('id')
+
+    });
+
+    var btnDeleteProduct = document.getElementById('btn-delete-product');
+
+    btnDeleteProduct.onclick = function () {
+      deleteForm.action = '/products/' + productID + '/delete';
+      deleteForm.submit();
+    }
+
+  });
+
 </script>
+
 </body>
