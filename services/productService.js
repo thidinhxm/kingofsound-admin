@@ -7,7 +7,7 @@ exports.listcategory = () =>
 }
 exports.list = (page = 0, itemPerPage = 8) =>
 {
-    return models.products.findAll({
+    return models.products.findAndCountAll({
         include : [{
             model : models.images,
             as : 'images',
@@ -26,7 +26,7 @@ exports.list = (page = 0, itemPerPage = 8) =>
 exports.listByName = (search_name,page = 0, itemPerPage = 8) =>
 {
     
-    return models.products.findAll({
+    return models.products.findAndCountAll({
         include : [{
             model : models.images,
             as : 'images',
@@ -49,20 +49,3 @@ exports.listByName = (search_name,page = 0, itemPerPage = 8) =>
     });
 }
 
-exports.Amount = (itemPerPage = 8) =>
-{
-        return models.products.count();
-}
-exports.AmountByName = (search_name = "",itemPerPage = 8) =>
-{
-        return  models.products.count(
-            {
-                where:
-        {
-            product_name:{
-                [Op.substring]:search_name 
-            }
-        }
-            }
-        );
-}

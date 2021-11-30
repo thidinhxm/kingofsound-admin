@@ -7,7 +7,7 @@
           <div class="wrap">
             <div class="search">
               <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
-                name="search_name" value = "{{search_name}}">
+                name="search_name" value="{{search_name}}">
               <button type="submit" class="searchButton">
                 <i class="fa fa-search"></i>
               </button>
@@ -32,7 +32,7 @@
         <div class="tm-product-table-container">
           <table class="table table-hover tm-table-small tm-product-table">
             <thead>
-              {{#if Amount}}
+              {{#if Pages}}
               <tr>
                 <th scope="col">&nbsp;</th>
                 <th scope="col"></th>
@@ -67,7 +67,7 @@
             </tbody>
           </table>
         </div>
-        {{#if Amount}}
+        {{#if Pages}}
         <nav aria-label="Page navigation example">
           <ul class="pagination" style="display: flex; justify-content: center;">
             <li class="page-item">
@@ -76,15 +76,16 @@
                 <span class="sr-only">Previous</span>
               </a>
             </li>
-           {{#if search_name}}
-           {{#pages Amount itemPerPage }}
-              <li class="page-item"><a class="page-link" href="?search_name={{{search_name}}}&page={{this}}">{{this}}</a></li>
-          {{/pages}}
-           {{else}}
-            {{#pages Amount itemPerPage }}
-                <li class="page-item"><a class="page-link" href="?page={{this}}">{{this}}</a></li>
-          {{/pages}}
-           {{/if}}
+            {{#if search_name}}
+            {{#pages Pages search_name}} 
+            <li class="page-item"><a class="page-link" href="?search_name={{search_name}}&page={{index}}">{{index}}</a>
+            </li>
+            {{/pages}}
+            {{else}}
+            {{#pages Pages search_name}}
+            <li class="page-item"><a class="page-link" href="?page={{index}}">{{index}}</a></li>
+            {{/pages}}
+            {{/if}}
             <li class="page-item">
               <a class="page-link" href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>

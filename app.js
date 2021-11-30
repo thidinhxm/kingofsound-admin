@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const exphbs = require('express-handlebars')
+const paginateHelper = require('express-handlebars-paginate')
 
 const indexRouter = require('./routes/index');
 const productsRouter = require('./routes/products')
@@ -21,15 +22,17 @@ app.engine('hbs', exphbs({
 	layoutsDir: path.join(__dirname, '/views/layouts'),
 	partialsDir: path.join(__dirname, '/views/partials'),
 	helpers: {
-		'pages': function(n,incr, block) {
+		'pages': function(n,search_name,block) {
 			var accum = '';
-			for(var i = 0; i < n; i+=incr)
-				accum += block.fn(i/incr+1);
+			for(var i = 1; i < n+1; ++i)
+				accum += block.fn({index:i,search_name:search_name});
 			return accum;
 		}
 	}
 }))
 app.set('view engine', 'hbs');
+
+
 
 app.use(logger('dev'));
 app.use(express.json());
