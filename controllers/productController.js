@@ -30,7 +30,7 @@ exports.listByName = async (req, res) => {
   res.render('products/products', { products, categories });
 }
 
-exports.add = async (req, res, next) => {
+exports.add = async (req, res) => {
   const categories = await productService.listcategory();
 
   res.render('products/add-product',{categories});
@@ -49,6 +49,13 @@ exports.store = async (req, res) => {
     model_year: req.body.model_year,
     isActive: 1,
   });
+  
+  const imgProduct = await models.images.create({
+    product_id: newProduct.product_id,
+    image_stt: 1,
+    image_link: req.body.image_link
+  });
+
 
   res.redirect('/products');
 
