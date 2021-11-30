@@ -2,6 +2,8 @@ const productService = require("../services/productService")
 const products = require("../models/products");
 const {models} = require("../models");
 const dbProduct= models.products;
+const randomString = require("randomstring");
+
 
 
 
@@ -23,25 +25,20 @@ exports.add = (req, res, next) =>{
     res.render('products/add-product');
 }
 
-exports.store=(req,res, next) => {
+exports.store = async(req,res) => {
 
-    // res.json(req.body)
-    const newProduct= {
-        product_id: "113",
+
+     const newProduct= await models.products.create({
+        product_id: randomString.generate(7),
         category_id: 'speaker0',
         product_name:  req.body.name,
         price:  req.body.price,
-        categories:  req.body.category
-    };
-
-    models.products.create(newProduct)
-    .then(res.redirect('/products'))
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Product."
-      });
+        descriptions: req.body.descriptions,
+        model_year: req.body.model_year,
+        isActive: 1,
     });
+   
+    res.redirect('/products');
 
 }
 
@@ -54,22 +51,24 @@ exports.edit= async (req,res) => {
 
 }
 
-exports.update= (req,res, next) => {
-  // const updateProduct = dbProduct.findOne({where: { product_id: req.params.id},raw:true})
+exports.update= async(req,res, next) => {
 
-  // models.products.find({ where: { product_id:  req.params.id } })
-  // .on('success', function (product) {
-  //   // Check if record exists in db
-  //   if (product) {
-  //     product.update({
-  //       product_name: updateProduct.product_name,
-  //       descriptions: updateProduct.descriptions,
-  //       model_year = updateProduct.model_year
-  //     })
-  //     .success(function () {})
-  //   }
-  // })
-    res.send("DMM")
+    const productUpdate ={
+    product_name:  req.body.name,
+    price:  req.body.price,
+    categories:  req.body.category,
+    model_year: req.body.model_year,
+    descriptions: req.body.descriptions
+   }
+   models.products.update(productUpdate, {where:{product_id:req.params.id}})
+    .then(res.redirect('/products'))
+
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Product."
+      });
+    });
 
     }
 
