@@ -18,6 +18,9 @@ exports.list = (page = 0, itemPerPage = 8) =>
             model : models.categories,
             as : 'category',
         }],
+        where:{
+            isActive:true
+        },
         raw : true
         ,offset:page*itemPerPage,limit:itemPerPage
     });
@@ -41,7 +44,8 @@ exports.listByName = (search_name,page = 0, itemPerPage = 8) =>
         {
             product_name:{
                 [Op.substring]:search_name 
-            }
+            },
+            isActive:true
         }
         ,
         raw : true
