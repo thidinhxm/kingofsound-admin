@@ -15,7 +15,7 @@ const productsController = require("../controllers/productController")
     router.get('/:id/edit',productsController.edit);
     router.post('/:id/update',productsController.update);
     
-    router.post('/:id',productsController.delete);
+    router.post('/:id/delete',productsController.delete);
     
     
     router.get('/search',productsController.listByName);

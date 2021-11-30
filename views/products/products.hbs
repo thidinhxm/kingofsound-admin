@@ -163,7 +163,7 @@
 
 
 {{!-- Delete hidden for, --}}
-<form method="post" name="delete-product-form">
+<form method="post" name="delete-product-form" action="'/products/{{product_id}}/delete'">
 </form>
 
 
@@ -188,7 +188,8 @@
       var btnDeleteProduct = document.getElementById('btn-delete-product');
 
       btnDeleteProduct.onclick = function () {
-        deleteForm.action="/products/'+ productID+ '?_method=DELETE";
+        deleteForm.action='/products/'+ productID+'/delete';
+        deleteForm.submit();
       }
 
     });

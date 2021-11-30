@@ -1,66 +1,66 @@
 const productService = require("../services/productService")
 const products = require("../models/products");
-const {models} = require("../models");
-const dbProduct= models.products;
+const { models } = require("../models");
+const dbProduct = models.products;
 const randomString = require("randomstring");
 
 
 
 
 
-exports.list = async(req, res)  =>
-{
-    const products = await productService.list(!isNaN(req.query.page)&&req.query.page>0?req.query.page-1:0);
-    const categories = await productService.listcategory();
-    res.render('products/products',{products,categories});
+exports.list = async (req, res) => {
+  const products = await productService.list(!isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0);
+  const categories = await productService.listcategory();
+  res.render('products/products', { products, categories });
 }
-exports.listByName = async(req, res)  =>
-{   const search_name = req.query.search_name;
-    const products = await productService.listByName(search_name,!isNaN(req.query.page)&&req.query.page>0?req.query.page-1:0);
-    const categories = await productService.listcategory();
-    res.render('products/products',{products,categories});
-}
-
-exports.add = (req, res, next) =>{
-    res.render('products/add-product');
+exports.listByName = async (req, res) => {
+  const search_name = req.query.search_name;
+  const products = await productService.listByName(search_name, !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0);
+  const categories = await productService.listcategory();
+  res.render('products/products', { products, categories });
 }
 
-exports.store = async(req,res) => {
-
-
-     const newProduct= await models.products.create({
-        product_id: randomString.generate(7),
-        category_id: 'speaker0',
-        product_name:  req.body.name,
-        price:  req.body.price,
-        descriptions: req.body.descriptions,
-        model_year: req.body.model_year,
-        isActive: 1,
-    });
-   
-    res.redirect('/products');
-
+exports.add = (req, res, next) => {
+  res.render('products/add-product');
 }
 
-exports.edit= async (req,res) => {
+exports.store = async (req, res) => {
 
-  const currentProduct =await dbProduct.findOne({where: { product_id: req.params.id},raw:true})
-  res.render('products/edit-product',{currentProduct});
-  // res.json(currentProduct)
-  
+
+  const newProduct = await models.products.create({
+    product_id: randomString.generate(7),
+    category_id: 'speaker0',
+    product_name: req.body.name,
+    price: req.body.price,
+    descriptions: req.body.descriptions,
+    model_year: req.body.model_year,
+    isActive: 1,
+  });
+
+  res.redirect('/products');
 
 }
 
-exports.update= async(req,res, next) => {
+exports.edit = async (req, res) => {
 
-    const productUpdate ={
-    product_name:  req.body.name,
-    price:  req.body.price,
-    categories:  req.body.category,
+  const currentProduct = await models.products.findOne({ where: { product_id: req.params.id }, raw: true })
+  const currentCategory = currentProduct.category_id;
+  const imgProduct = await models.images.findOne({ where: { product_id: req.params.id }, raw: true });
+  const categoryProduct = await models.categories.findOne({ where: { category_id: currentCategory }, raw: true });
+
+  res.render('products/edit-product', { currentProduct, imgProduct });
+}
+
+exports.update = async (req, res, next) => {
+
+  const productUpdate = {
+    product_name: req.body.name,
+    price: req.body.price,
+    categories: req.body.category,
     model_year: req.body.model_year,
     descriptions: req.body.descriptions
-   }
-   models.products.update(productUpdate, {where:{product_id:req.params.id}})
+  }
+  models.products.update(productUpdate, { where: { product_id: req.params.id } })
     .then(res.redirect('/products'))
 
     .catch(err => {
@@ -70,21 +70,24 @@ exports.update= async(req,res, next) => {
       });
     });
 
-    }
+}
 
 
 
-exports.delete = (req, res) => {
-  models.products.find({ where: { product_id: req.body.product_id } })
-  .on('success', function (project) {
-    // Check if record exists in db
-    if (project) {
-      project.update({
-        isActive:false
-      })
-      .success(function () {})
-    }
-  })
+exports.delete = async (req, res) => {
+  await models.products.update(
+    {
+      isActive: false
+    },
+    {
+      where:
+      {
+        product_id: req.params.id,
+      }
+    })
+    // const currentProduct = await models.products.findOne({ where: { product_id: req.params.id }, raw: true })
+  
+    (res.redirect('/products'));
 };
 
 
