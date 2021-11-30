@@ -27,9 +27,9 @@
                 <label for="category">Phân loại </label>
                 <select class="custom-select tm-select-accounts" id="category" name="category">
                   <option selected>Chọn loại sản phẩm </option>
-                  <option value="Loa">Loa</option>
-                  <option value="Tai nghe">Tai nghe</option>
-                  <option value="Khác">Khác</option>
+                  {{#each ../categories}}
+                  <option value="category">{{category_name}}</option>
+                {{/each}}
                 </select>
               </div>
               <div class="row">

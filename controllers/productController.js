@@ -30,8 +30,11 @@ exports.listByName = async (req, res) => {
   res.render('products/products', { products, categories });
 }
 
-exports.add = (req, res, next) => {
-  res.render('products/add-product');
+exports.add = async (req, res, next) => {
+  const categories = await productService.listcategory();
+
+  res.render('products/add-product',{categories});
+  
 }
 
 exports.store = async (req, res) => {
@@ -57,8 +60,10 @@ exports.edit = async (req, res) => {
   const currentCategory = currentProduct.category_id;
   const imgProduct = await models.images.findOne({ where: { product_id: req.params.id }, raw: true });
   const categoryProduct = await models.categories.findOne({ where: { category_id: currentCategory }, raw: true });
+  const categories = await productService.listcategory();
 
-  res.render('products/edit-product', { currentProduct, imgProduct });
+
+  res.render('products/edit-product', { currentProduct,categories, imgProduct, });
 }
 
 exports.update = async (req, res, next) => {
