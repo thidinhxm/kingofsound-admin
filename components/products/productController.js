@@ -1,6 +1,6 @@
-const productService = require("../services/productService")
-const products = require("../models/products");
-const { models } = require("../models");
+const productService = require("./productService")
+// const products = require("../../models/products");
+const { models } = require("../../models");
 const randomString = require("randomstring");
 const dbProduct = models.products;
 
@@ -13,12 +13,12 @@ exports.list = async(req, res)  =>
     if(search_name)
     {
         const products = await productService.listByName(search_name,page);
-        res.render('products/products',{products:products.rows,categories,search_name,Pages:products.count/itemPerPage});
+        res.render('../components/products/productViews/products',{products:products.rows,categories,search_name,Pages:products.count/itemPerPage});
     }   
     else
     {
         const products = await productService.list(!isNaN(req.query.page)&&req.query.page>0?req.query.page-1:0);
-        res.render('products/products',{products:products.rows,categories,Pages:products.count/itemPerPage});
+        res.render('../components/products/productViews/products',{products:products.rows,categories,Pages:products.count/itemPerPage});
     }    
 }
 
@@ -27,13 +27,13 @@ exports.listByName = async (req, res) => {
   const search_name = req.query.search_name;
   const products = await productService.listByName(search_name, !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0);
   const categories = await productService.listcategory();
-  res.render('products/products', { products, categories });
+  res.render('../components/products/productViews/products', { products, categories });
 }
 
 exports.add = async (req, res) => {
   const categories = await productService.listcategory();
 
-  res.render('products/add-product',{categories});
+  res.render('../components/products/productViews/add-product',{categories});
   
 }
 
@@ -70,7 +70,7 @@ exports.edit = async (req, res) => {
   const categories = await productService.listcategory();
 
 
-  res.render('products/edit-product', { currentProduct,categories, imgProduct, });
+  res.render('../components/products/productViews/edit-product', { currentProduct,categories, imgProduct, });
 }
 
 exports.update = async (req, res, next) => {

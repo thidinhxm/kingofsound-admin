@@ -3,19 +3,12 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index');
+  res.render('../components/home/homeViews/index');
 });
 
 
 router.get('/login', (req, res, next) => {
-  res.render('login');
+  res.render('../components/homeViews/login');
 });
-
-
-
-router.get('/order', (req, res, next) => {
-  res.render('order');
-});
-
 
 module.exports = router;

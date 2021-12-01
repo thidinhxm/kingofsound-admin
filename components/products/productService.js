@@ -1,5 +1,4 @@
-const {models} = require("../models");
-const { options } = require("../routes");
+const {models} = require("../../models");
 const { Op } = require("sequelize");
 exports.listcategory = () =>
 {

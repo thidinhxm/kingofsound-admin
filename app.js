@@ -7,11 +7,11 @@ const exphbs = require('express-handlebars')
 const paginateHelper = require('express-handlebars-paginate')
 const methodOverride = require('method-override');
 
-const indexRouter = require('./routes/index');
-const productsRouter = require('./routes/products')
-const revenueRouter = require('./routes/revenue')
-const accountsRouter = require('./routes/accounts')
-
+const indexRouter = require('./components/home/indexRouter');
+const productRouter = require('./components/products/productRouter')
+const revenueRouter = require('./components/revenues/revenueRouter')
+const accountRouter = require('./components/accounts/accountRouter')
+const orderRouter = require('./components/orders/orderRouter')
 
 const app = express();
 
@@ -44,10 +44,10 @@ app.use(methodOverride('_method'));
 
 
 app.use('/', indexRouter)
-app.use('/products', productsRouter)
+app.use('/products', productRouter)
 app.use('/revenue', revenueRouter)
-app.use('/accounts', accountsRouter)
-
+app.use('/accounts', accountRouter)
+app.use('/order', orderRouter)
 
 
 // catch 404 and forward to error handler
