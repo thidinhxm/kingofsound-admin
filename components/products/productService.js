@@ -1,16 +1,14 @@
 const {models} = require("../../models");
 const { Op } = require("sequelize");
-exports.listcategory = () =>
-{
+exports.listcategory = () => {
     return models.categories.findAll({raw:true});
 }
 
-exports.listProducts = () =>
-{
+exports.listProducts = () => {
     return models.products.findAll({raw:true});
 }
-exports.list = (page = 0, itemPerPage = 8) =>
-{
+
+exports.list = (page = 0, itemPerPage = 8) => {
     return models.products.findAndCountAll({
         include : [{
             model : models.images,
@@ -30,9 +28,7 @@ exports.list = (page = 0, itemPerPage = 8) =>
     });
 }
 
-exports.listByName = (search_name,page = 0, itemPerPage = 8) =>
-{
-    
+exports.listByName = (search_name,page = 0, itemPerPage = 8) => {
     return models.products.findAndCountAll({
         include : [{
             model : models.images,
@@ -50,10 +46,9 @@ exports.listByName = (search_name,page = 0, itemPerPage = 8) =>
                 [Op.substring]:search_name 
             },
             isActive:true
-        }
-        ,
-        raw : true
-        ,offset:page*itemPerPage,limit:itemPerPage
+        },
+        raw : true,
+        offset:page*itemPerPage,limit:itemPerPage
     });
 }
 

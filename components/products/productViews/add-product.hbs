@@ -1,73 +1,69 @@
-{{> header }}
+ {{> header }}
 <div class="container tm-mt-big tm-mb-big">
-  <div class="row">
-    <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
-      <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-        <div class="row">
-          <div class="col-12">
-            <h2 class="tm-block-title d-inline-block">Thêm sản phẩm mới</h2>
-          </div>
-        </div>
-        <div class="row tm-edit-product-row">
-          <div class="col-xl-6 col-lg-6 col-md-12">
-            <form method="POST" action="/products/store" class="tm-edit-product-form">
-              <div class="form-group mb-3">
-                <label for="name">Tên sản phẩm
-                </label>
-                <input id="name" name="name" type="text" class="form-control validate" required />
-              </div>
-              <div class="form-group mb-3">
-                <label for="descriptions">Mô tả chi tiết</label>
-                <input id="descriptions" name="descriptions" type="descriptions" class="form-control validate"
-                  required />
-              </div>
-              <div class="form-group mb-3">
-                <label for="category">Phân loại </label>
-                <select class="custom-select tm-select-accounts" id="category" name="category">
+	<div class="row">
+		<div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+			<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+				<div class="row">
+					<div class="col-12">
+						<h2 class="tm-block-title d-inline-block">Thêm sản phẩm mới</h2>
+					</div>
+				</div>
+				<div class="row tm-edit-product-row">
+					<div class="col-xl-6 col-lg-6 col-md-12">
+						<form method="POST" action="/products/store" class="tm-edit-product-form">
+							<div class="form-group mb-3">
+								<label for="name">Tên sản phẩm
+								</label>
+								<input id="name" name="name" type="text" class="form-control validate" required />
+							</div>
+							<div class="form-group mb-3">
+								<label for="descriptions">Mô tả chi tiết</label>
+								<input id="descriptions" name="descriptions" type="descriptions" class="form-control validate"
+									required />
+							</div>
+							<div class="form-group mb-3">
+								<label for="category">Phân loại </label>
+								<select class="custom-select tm-select-accounts" id="category" name="category">
 
-                  <option selected>Chọn loại sản phẩm </option>
-                {{#each categories}}
-                  <option value="category">{{category_name}}</option>
-                {{/each}}
-                </select>
-              </div>
+									<option selected>Chọn loại sản phẩm </option>
+								{{#each categories}}
+									<option value="category">{{category_name}}</option>
+								{{/each}}
+								</select>
+							</div>
 
-              <div class="row">
-                <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="model_year">Năm sản xuất
-                  </label>
-                  <input id="model_year" name="model_year" type="text" class="form-control validate"
-                    data-large-mode="true" />
-                </div>
-                <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="price">Giá tiền
-                  </label>
-                  <input id="price" name="price" type="text" class="form-control validate" required />
-                </div>
-              </div>
+							<div class="row">
+								<div class="form-group mb-3 col-xs-12 col-sm-6">
+									<label for="model_year">Năm sản xuất
+									</label>
+									<input id="model_year" name="model_year" type="text" class="form-control validate"
+										data-large-mode="true" />
+								</div>
+								<div class="form-group mb-3 col-xs-12 col-sm-6">
+									<label for="price">Giá tiền
+									</label>
+									<input id="price" name="price" type="text" class="form-control validate" required />
+								</div>
+							</div>
 
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-            <div class="tm-product-img-dummy mx-auto">
-              <i class="fas fa-cloud-upload-alt tm-upload-icon"></i>Nhập link ảnh
-            </div>
-            <div class="custom-file mt-3 mb-3">
+					</div>
+					<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+						<div class="tm-product-img-dummy mx-auto">
+							<i class="fas fa-cloud-upload-alt tm-upload-icon"></i>Nhập link ảnh
+						</div>
+						<div class="custom-file mt-3 mb-3">
 
-              <input id="image_link" name="image_link" type="text" class="form-control validate" data-large-mode="true"
-                placeholder="Nhập link ảnh sản phẩm tại đây" required />
-            </div>
-          </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm sản phẩm</button>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+							<input id="image_link" name="image_link" type="text" class="form-control validate" data-large-mode="true"
+								placeholder="Nhập link ảnh sản phẩm tại đây" required />
+						</div>
+					</div>
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm sản phẩm</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
-
-<script>
-
-</script>

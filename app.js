@@ -7,21 +7,21 @@ const exphbs = require('express-handlebars')
 const paginateHelper = require('express-handlebars-paginate')
 const methodOverride = require('method-override');
 
-const indexRouter = require('./components/home/indexRouter');
+const indexRouter = require('./components/home/homeRouter');
 const productRouter = require('./components/products/productRouter')
 const revenueRouter = require('./components/revenues/revenueRouter')
 const accountRouter = require('./components/accounts/accountRouter')
 const orderRouter = require('./components/orders/orderRouter')
+const authRouter = require('./components/auth/authRouter')
 
 const app = express();
 
 
 // view engine setup
+app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', exphbs({
 	extname: 'hbs',
 	defaultLayout: 'layout',
-	layoutsDir: path.join(__dirname, '/views/layouts'),
-	partialsDir: path.join(__dirname, '/views/partials'),
 	helpers: {
 		'pages': function(n,search_name,block) {
 			var accum = '';
@@ -48,7 +48,7 @@ app.use('/products', productRouter)
 app.use('/revenue', revenueRouter)
 app.use('/accounts', accountRouter)
 app.use('/order', orderRouter)
-
+app.use('/', authRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

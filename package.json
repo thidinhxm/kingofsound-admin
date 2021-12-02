@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -18,8 +19,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "randomstring": "^1.2.1",
-    "sequelize": "^6.11.0",
-    "sequelize-auto": "^0.8.5"
+    "sequelize": "^6.11.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

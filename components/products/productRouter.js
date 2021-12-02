@@ -3,9 +3,6 @@ const router = express.Router();
 
 const productController = require("./productController")
 
-
-    
-    
 router.get('/add-product/',productController.add);
 router.post('/store', productController.store);
 

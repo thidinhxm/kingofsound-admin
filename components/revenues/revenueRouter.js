@@ -1,15 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const revenueController = require('./revenueController');
 
-router.get('/day', (req, res, next) => {
-  res.render('../components/revenues/revenueViews/revenue_day');
-});
+router.get('/day', revenueController.getRevenueDay);
 
-router.get('/month', (req, res, next) => {
-    res.render('../components/revenues/revenueViews/revenue_month');
-});
+router.get('/month', revenueController.getRevenueMonth);
 
-router.get('/year', (req, res, next) => {
-    res.render('../components/revenues/revenueViews/revenue_year');
-});
+router.get('/year', revenueController.getRevenueYear);
 module.exports = router;

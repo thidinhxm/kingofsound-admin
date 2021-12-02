@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('reactions', {
+  return sequelize.define('reviews', {
     user_id: {
       type: DataTypes.CHAR(20),
       allowNull: false,
@@ -18,10 +18,22 @@ module.exports = function(sequelize, DataTypes) {
         model: 'products',
         key: 'product_id'
       }
+    },
+    rating: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    review: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    createat: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'reactions',
+    tableName: 'reviews',
     timestamps: false,
     indexes: [
       {
@@ -34,7 +46,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "fk_productreaction",
+        name: "fk_reviews_products_idx",
         using: "BTREE",
         fields: [
           { name: "product_id" },
