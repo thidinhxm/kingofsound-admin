@@ -2,7 +2,8 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('orders', {
     order_id: {
-      type: DataTypes.CHAR(20),
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
@@ -15,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     user_id: {
-      type: DataTypes.CHAR(20),
+      type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'users',
@@ -40,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "fk_Order_of",
+        name: "fk_orders_user_id",
         using: "BTREE",
         fields: [
           { name: "user_id" },

@@ -43,13 +43,12 @@ exports.add = async (req, res) => {
 
 exports.store = async (req, res) => {
 	const newProduct = await models.products.create({
-		product_id: randomString.generate(7),
-		category_id: 'speaker0',
+		category_id: 5,
 		product_name: req.body.name,
 		price: req.body.price,
 		descriptions: req.body.descriptions,
 		model_year: req.body.model_year,
-		isActive: 1,
+		is_active: 1,
 	});
 	
 	const imgProduct = await models.images.create({
@@ -96,7 +95,7 @@ exports.update = async (req, res, next) => {
 
 exports.delete = async (req, res) => {
 	await models.products.update({
-        isActive: false
+        is_active: false
     },{
         where: {
             product_id: req.params.id,

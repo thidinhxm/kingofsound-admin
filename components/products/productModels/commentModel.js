@@ -2,12 +2,13 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('comments', {
     comment_id: {
-      type: DataTypes.STRING(20),
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
     user_id: {
-      type: DataTypes.CHAR(20),
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'users',
@@ -15,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     product_id: {
-      type: DataTypes.CHAR(20),
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'products',
@@ -26,15 +27,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    parent_comment_id: {
-      type: DataTypes.STRING(20),
+    parent_comment: {
+      type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'comments',
         key: 'comment_id'
       }
     },
-    createat: {
+    created_at: {
       type: DataTypes.DATEONLY,
       allowNull: true
     }
@@ -52,24 +53,24 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "fk_product_comment",
-        using: "BTREE",
-        fields: [
-          { name: "product_id" },
-        ]
-      },
-      {
-        name: "fk_author_comment",
+        name: "fk_comments_user_id",
         using: "BTREE",
         fields: [
           { name: "user_id" },
         ]
       },
       {
-        name: "fk_comments_comments1",
+        name: "fk_comments_product_id",
         using: "BTREE",
         fields: [
-          { name: "parent_comment_id" },
+          { name: "product_id" },
+        ]
+      },
+      {
+        name: "fk_comments_parent_comment",
+        using: "BTREE",
+        fields: [
+          { name: "parent_comment" },
         ]
       },
     ]

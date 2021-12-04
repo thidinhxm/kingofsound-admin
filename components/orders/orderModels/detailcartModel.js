@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('detailcarts', {
     user_id: {
-      type: DataTypes.CHAR(20),
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     product_id: {
-      type: DataTypes.CHAR(20),
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
@@ -38,7 +38,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "fk_Product_in_Cart",
+        name: "fk_detailcarts_product_id",
         using: "BTREE",
         fields: [
           { name: "product_id" },

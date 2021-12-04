@@ -2,7 +2,8 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('categories', {
     category_id: {
-      type: DataTypes.CHAR(20),
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
@@ -12,10 +13,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     descriptions: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: false
     },
     parent_category: {
-      type: DataTypes.CHAR(20),
+      type: DataTypes.INTEGER,
       allowNull: true,
       references: {
         model: 'categories',
@@ -36,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "fk_parent_category",
+        name: "fk_categories_parent_category",
         using: "BTREE",
         fields: [
           { name: "parent_category" },

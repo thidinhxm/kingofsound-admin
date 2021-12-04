@@ -29,10 +29,8 @@ function initModels(sequelize) {
   orders.belongsToMany(products, { as: 'product_id_products_detailorders', through: detailorders, foreignKey: "order_id", otherKey: "product_id" });
   products.belongsToMany(orders, { as: 'order_id_orders', through: detailorders, foreignKey: "product_id", otherKey: "order_id" });
   products.belongsToMany(users, { as: 'user_id_users', through: detailcarts, foreignKey: "product_id", otherKey: "user_id" });
-  products.belongsToMany(users, { as: 'user_id_users_reviews', through: reviews, foreignKey: "product_id", otherKey: "user_id" });
   roles.belongsToMany(users, { as: 'user_id_users_userroles', through: userroles, foreignKey: "role_id", otherKey: "user_id" });
   users.belongsToMany(products, { as: 'product_id_products', through: detailcarts, foreignKey: "user_id", otherKey: "product_id" });
-  users.belongsToMany(products, { as: 'product_id_products_reviews', through: reviews, foreignKey: "user_id", otherKey: "product_id" });
   users.belongsToMany(roles, { as: 'role_id_roles', through: userroles, foreignKey: "user_id", otherKey: "role_id" });
   products.belongsTo(brands, { as: "brand", foreignKey: "brand_id"});
   brands.hasMany(products, { as: "products", foreignKey: "brand_id"});
@@ -40,8 +38,8 @@ function initModels(sequelize) {
   categories.hasMany(categories, { as: "categories", foreignKey: "parent_category"});
   products.belongsTo(categories, { as: "category", foreignKey: "category_id"});
   categories.hasMany(products, { as: "products", foreignKey: "category_id"});
-  comments.belongsTo(comments, { as: "parent_comment", foreignKey: "parent_comment_id"});
-  comments.hasMany(comments, { as: "comments", foreignKey: "parent_comment_id"});
+  comments.belongsTo(comments, { as: "parent_comment_comment", foreignKey: "parent_comment"});
+  comments.hasMany(comments, { as: "comments", foreignKey: "parent_comment"});
   detailorders.belongsTo(orders, { as: "order", foreignKey: "order_id"});
   orders.hasMany(detailorders, { as: "detailorders", foreignKey: "order_id"});
   comments.belongsTo(products, { as: "product", foreignKey: "product_id"});

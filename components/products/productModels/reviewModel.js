@@ -1,19 +1,23 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('reviews', {
-    user_id: {
-      type: DataTypes.CHAR(20),
+    review_id: {
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: 'users',
         key: 'user_id'
       }
     },
     product_id: {
-      type: DataTypes.CHAR(20),
+      type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
       references: {
         model: 'products',
         key: 'product_id'
@@ -27,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    createat: {
+    created_at: {
       type: DataTypes.DATEONLY,
       allowNull: true
     }
@@ -41,12 +45,18 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "user_id" },
-          { name: "product_id" },
+          { name: "review_id" },
         ]
       },
       {
-        name: "fk_reviews_products_idx",
+        name: "fk_reviews_user_id",
+        using: "BTREE",
+        fields: [
+          { name: "user_id" },
+        ]
+      },
+      {
+        name: "fk_reviews_product_id",
         using: "BTREE",
         fields: [
           { name: "product_id" },
