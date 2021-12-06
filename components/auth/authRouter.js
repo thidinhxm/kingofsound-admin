@@ -20,4 +20,5 @@ router.post('/login', passport.authenticate('local', {
     }
 });
 
+router.get('/logout', authController.logout);
 module.exports = router;
