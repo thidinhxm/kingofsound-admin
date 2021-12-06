@@ -6,14 +6,14 @@ const logger = require('morgan');
 const exphbs = require('express-handlebars')
 const paginateHelper = require('express-handlebars-paginate')
 const methodOverride = require('method-override');
-
-const indexRouter = require('./components/home/homeRouter');
+const session = require('express-session');
+const dashboardRouter = require('./components/dashboard/dashboardRouter');
 const productRouter = require('./components/products/productRouter')
 const revenueRouter = require('./components/revenues/revenueRouter')
 const accountRouter = require('./components/accounts/accountRouter')
 const orderRouter = require('./components/orders/orderRouter')
 const authRouter = require('./components/auth/authRouter')
-
+const passport = require('./components/auth/passport')
 const app = express();
 
 
@@ -30,7 +30,7 @@ app.engine('hbs', exphbs({
 			return accum;
 		}
 	}
-}))
+}));
 app.set('view engine', 'hbs');
 
 
@@ -43,12 +43,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
 
-app.use('/', indexRouter)
-app.use('/products', productRouter)
-app.use('/revenue', revenueRouter)
-app.use('/accounts', accountRouter)
-app.use('/order', orderRouter)
-app.use('/', authRouter)
+app.use(session({
+	secret: process.env.SESSION_SECRET,
+	resave: true,
+	saveUninitialized: false,
+	cookie: {
+		maxAge: 1000 * 60 * 60 * 24 * 7
+		}
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+	res.locals.user = req.user;
+	next();
+});
+	
+
+app.use('/', authRouter);
+app.use('/dashboard', dashboardRouter);
+app.use('/products', productRouter);
+app.use('/revenue', revenueRouter);
+app.use('/accounts', accountRouter);
+app.use('/order', orderRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
