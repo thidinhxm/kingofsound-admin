@@ -782,3 +782,27 @@ h1.tm-site-title.mb-0{
   color: orange;
   margin-bottom: 20px;
 }
+
+.about div
+{
+  margin-bottom: 5px;
+  font-size: 18px;
+  color: white;
+}
+.about label 
+{
+  font-weight: 700;
+}
+.btn-edit {
+  color: #fff;
+  background-color: #0981a5;
+  border: 2px solid #64618d;
+  font-size: 90%;
+  font-weight: 600;
+}
+.btn-edit:active,
+.btn-edit:hover {
+  color: #f5a623;
+  background-color: transparent;
+  border: 2px solid #f5a623;
+}

@@ -1,91 +1,73 @@
-      {{> header }}
-      <div class="container mt-5">
-        <div class="row tm-content-row">
-          <div class="col-12 tm-block-col">
-            
-          </div>
+{{> header }}
+<div class="container mt-5">
+  <div class="row tm-content-row">
+    <div class="col-12 tm-block-col">
+
+    </div>
+  </div>
+  <!-- row -->
+  <div class="row tm-content-row">
+    <div class="tm-block-col tm-col-avatar">
+      <div class="tm-bg-primary-dark tm-block tm-block-avatar">
+        <h2 class="tm-block-title">Đổi ảnh đại diện</h2>
+        <div class="tm-avatar-container">
+          <img src="/img/avatar.png" alt="Avatar" class="tm-avatar img-fluid mb-4" />
+          <a href="#" class="tm-avatar-delete-link">
+            <i class="far fa-trash-alt tm-product-delete-icon"></i>
+          </a>
         </div>
-        <!-- row -->
-        <div class="row tm-content-row">
-          <div class="tm-block-col tm-col-avatar">
-            <div class="tm-bg-primary-dark tm-block tm-block-avatar">
-              <h2 class="tm-block-title">Đổi ảnh đại diện</h2>
-              <div class="tm-avatar-container">
-                <img
-                  src="/img/avatar.png"
-                  alt="Avatar"
-                  class="tm-avatar img-fluid mb-4"
-                />
-                <a href="#" class="tm-avatar-delete-link">
-                  <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                </a>
-              </div>
-              <button class="btn btn-primary btn-block text-uppercase">
-                Tải ảnh đại diện
-              </button>
-            </div>
-          </div>
-          <div class="tm-block-col tm-col-account-settings">
-            <div class="tm-bg-primary-dark tm-block tm-block-settings">
-              <h2 class="tm-block-title">Cài đặt tài khoản</h2>
-              <form action="" class="tm-signup-form row">
-                <div class="form-group col-lg-6">
-                  <label for="name">Tên tài khoản </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    class="form-control validate"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="email">Địa chỉ Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    class="form-control validate"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="password">Mật khẩu</label>
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="form-control validate"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="password2">Nhập lại mật khẩu</label>
-                  <input
-                    id="password2"
-                    name="password2"
-                    type="password"
-                    class="form-control validate"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="phone">Điện thoại</label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    class="form-control validate"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label class="tm-hide-sm">&nbsp;</label>
-                  <button
-                    type="submit"
-                    class="btn btn-primary btn-block text-uppercase"
-                  >
-                    Cập nhật thông tin cá nhân
-                  </button>
-                </div>
-               
-              </form>
-            </div>
-          </div>
-        </div>
+        <button class="btn btn-primary btn-block text-uppercase">
+          Tải ảnh đại diện
+        </button>
       </div>
+    </div>
+    <div class="tm-block-col tm-col-account-settings">
+      <div class="tm-bg-primary-dark tm-block tm-block-settings">
+        <h2 class="tm-block-title">Thông tin tài khoản</h2>
+        <div class="about">
+          <div class="row">
+            <div class="col-md-4">
+              <label>Họ Tên : </label>
+            </div>
+            <div class="col-md-8">
+              <p>{{user.firstname}} {{user.lastname}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <label>Email : </label>
+            </div>
+            <div class="col-md-8">
+              <p>{{user.email}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <label>Số điện thoại : </label>
+            </div>
+            <div class="col-md-8">
+              <p>{{user.phone}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <label>Địa Chỉ : </label>
+            </div>
+            <div class="col-md-8">
+              <p>{{user.address}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3"></div>
+            <button class="btn btn-edit btn-block text-uppercase col-md-6">
+           Thay đổi thông tin
+          </button>
+           <div class="col-3"></div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
