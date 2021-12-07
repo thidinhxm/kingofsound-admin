@@ -28,9 +28,11 @@ app.engine('hbs', exphbs({
 			for(var i = 1; i < n+1; ++i)
 				accum += block.fn({index:i,search_name:search_name});
 			return accum;
-		}
+		},
+		
+		isNotSuperAdmin: function(id) { return id != 1 },
 	}
-}))
+}));
 app.set('view engine', 'hbs');
 
 

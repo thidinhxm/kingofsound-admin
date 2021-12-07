@@ -27,7 +27,7 @@
 
 									<option selected>Chọn loại sản phẩm </option>
 								{{#each categories}}
-									<option value="category">{{category_name}}</option>
+									<option value="{{category_name}}">{{category_name}}</option>
 								{{/each}}
 								</select>
 							</div>
@@ -57,6 +57,7 @@
 								placeholder="Nhập link ảnh sản phẩm tại đây" required />
 						</div>
 					</div>
+					
 					<div class="col-12">
 						<button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm sản phẩm</button>
 					</div>

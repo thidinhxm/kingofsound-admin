@@ -1,3 +1,4 @@
 exports.index = (req, res, next) => {
-	res.render('../components/home/homeViews/index');
+	const active = { dashboard: true }
+	res.render('../components/home/homeViews/index',{active});
 }
