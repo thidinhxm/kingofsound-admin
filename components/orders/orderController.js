@@ -1,4 +1,6 @@
 
 exports.getOders = (req, res, next) => {
-    res.render('../components/orders/orderViews/order');
+	const active = { order: true }
+
+    res.render('../components/orders/orderViews/order',{active});
 }

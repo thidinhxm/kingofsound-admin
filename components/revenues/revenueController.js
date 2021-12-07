@@ -1,13 +1,17 @@
 
 
 exports.getRevenueDay = (req, res, next) => {
-    res.render('../components/revenues/revenueViews/revenue_day');
+    const active = { revenue: true }
+
+    res.render('../components/revenues/revenueViews/revenue_day',{active});
 }
 
 exports.getRevenueMonth = (req, res, next) => {
-    res.render('../components/revenues/revenueViews/revenue_month');
+    const active = { revenue: true }
+    res.render('../components/revenues/revenueViews/revenue_month',{active});
 }
 
 exports.getRevenueYear = (req, res, next) => {
-    res.render('../components/revenues/revenueViews/revenue_year');
+    const active = { revenue: true }
+    res.render('../components/revenues/revenueViews/revenue_year',{active});
 }
