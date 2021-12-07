@@ -1,81 +1,95 @@
 <nav class="navbar navbar-expand-xl">
-          <div class="container h-100">
-              <a class="navbar-brand" href="/">
-                  <h1 class="tm-site-title mb-0">King of Sound</h1>
-              </a>
-              <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <i class="fas fa-bars tm-nav-icon"></i>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mx-auto h-100">
-                      <li class="nav-item">
-                          <a class="{{#if active.dashboard}}active{{/if}} dashboard nav-link " href="/dashboard">
-                              <i class="fas fa-tachometer-alt"></i>
-                              Bảng điều khiển
-                              <span class="sr-only">(current)</span>
-                          </a>
-                      </li>
-                      <li class="nav-item dropdown">
+    <div class="container h-100">
+        <a class="navbar-brand" href="/">
+            <h1 class="tm-site-title mb-0">King of Sound</h1>
+        </a>
+        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars tm-nav-icon"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto h-100">
+                <li class="nav-item">
+                    <a class="{{#if active.dashboard}}active{{/if}} dashboard nav-link " href="/dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Bảng điều khiển
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a 
+                        class="{{#if active.revenue}} active{{/if}} nav-link  dropdown-toggle" 
+                        href="#" 
+                        id="navbarDropdown" 
+                        role="button" 
+                        data-toggle="dropdown"
+                        aria-haspopup="true" 
+                        aria-expanded="false"
+                    >
+                        <i class="far fa-file-alt"></i>
+                        <span>Thống kê doanh thu</i></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/revenue/day">Theo ngày</a>
+                        <a class="dropdown-item" href="/revenue/month">Theo tháng</a>
+                        <a class="dropdown-item" href="/revenue/year">Theo năm</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="{{#if active.product}} active{{/if}} nav-link" href="/products">
+                        <i class="fas fa-shopping-cart"></i>
+                        Sản phẩm
+                    </a>
+                </li>
 
-                        <a class=" {{#if active.revenue}} active{{/if}} nav-link  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-file-alt"></i>
-                            <span>
-                                Thống kê doanh thu <i class="fas fa-angle-down"></i>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/revenue/day">Theo ngày</a>
-                            <a class="dropdown-item" href="/revenue/month">Theo tháng</a>
-                            <a class="dropdown-item" href="/revenue/year">Theo năm</a>
-                        </div>
-                    </li>
-                      <li class="nav-item">
-                          <a class="{{#if active.product}} active{{/if}} nav-link" href="/products">
-                              <i class="fas fa-shopping-cart"></i>
-                              Sản phẩm
-                          </a>
-                      </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="{{#if active.user}} active{{/if}} nav-link dropdown-toggle"
+                        href="#"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        <i class="fas fa-tasks"></i>
+                        <span>Tài khoản</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/accounts/admins">Tài khoản admin</a>
+                        <a class="dropdown-item" href="/accounts/users">Tài khoản khách hàng</a>
+                    </div>
+                </li>
+                <li class=" {{#if active.order}} active{{/if}} nav-item dropdown">
+                    <a class="nav-link" href="/order">
+                        <i class="fas fa-truck-pickup"></i>
+                        Đơn hàng
+                    </a>
+                </li>
 
-                      <li class="nav-item dropdown">
-                          <a
-                            class="{{#if active.user}} active{{/if}} nav-link dropdown-toggle"
-                            href="#"
-                            id="navbarDropdown"
-                            role="button"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            <i class="fas fa-user"></i>
-                            <span> Tài khoản <i class="fas fa-angle-down"></i> </span>
-                          </a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/accounts/admins">Tài khoản của tôi</a>
-                            <a class="dropdown-item" href="/accounts/users">Danh sách tài khoản</a>
-                          </div>
-                        </li>
-                        <li class=" {{#if active.order}} active{{/if}} nav-item dropdown">
-                          <a class="nav-link" href="/order">
-                              <i class="fas fa-truck-pickup"></i>
-                              Đơn hàng
-                          </a>
-                          <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="#">Profile</a>
-                              <a class="dropdown-item" href="#">Billing</a>
-                              <a class="dropdown-item" href="#">Customize</a>
-                          </div> -->
-                      </li>
-                  </ul>
-                  <ul class="navbar-nav">
-                      <li class="text-center p-20 upgrade-btn">
-                          <a href="/logout"
-                              class="btn d-grid btn-danger text-white"">
-                              Đăng xuất</a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-
-    </nav>
+                 <li class="nav-item dropdown">
+                    <a
+                        class="{{#if active.admin}} active{{/if}} nav-link dropdown-toggle"
+                        href="#"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        <i class="fas fa-user"></i>
+                        {{#if user}}
+                        <span>
+                            {{user.lastname}}
+                        </span>
+                        {{/if}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/admin/profile">Thông tin cá nhân</a>
+                        <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

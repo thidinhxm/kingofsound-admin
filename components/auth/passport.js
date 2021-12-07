@@ -1,7 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
-const accountService = require('../accounts/accountService');
+const adminService = require('../admins/adminService');
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -9,7 +9,7 @@ passport.use(new LocalStrategy({
     passReqToCallback: true
 }, async (req, email, password, done) => {
     try {
-        const user = await accountService.getAdminByEmail(email);
+        const user = await adminService.getAdminByEmail(email);
         if (!user) {
             return done(null, false, req.flash('error', 'Email không tồn tại'));
         }

@@ -1,73 +1,170 @@
 {{> header }}
 <div class="container mt-5">
-  <div class="row tm-content-row">
-    <div class="col-12 tm-block-col">
-
-    </div>
-  </div>
-  <!-- row -->
-  <div class="row tm-content-row">
-    <div class="tm-block-col tm-col-avatar">
-      <div class="tm-bg-primary-dark tm-block tm-block-avatar">
-        <h2 class="tm-block-title">Đổi ảnh đại diện</h2>
-        <div class="tm-avatar-container">
-          <img src="/img/avatar.png" alt="Avatar" class="tm-avatar img-fluid mb-4" />
-          <a href="#" class="tm-avatar-delete-link">
-            <i class="far fa-trash-alt tm-product-delete-icon"></i>
-          </a>
-        </div>
-        <button class="btn btn-primary btn-block text-uppercase">
-          Tải ảnh đại diện
-        </button>
+  <div class="container">
+    <div class="container">
+      <div div="row" style="margin: 20px auto;">
+        <form action="/products" method="get">
+          <div class="wrap">
+            {{!-- <div class="search">
+              <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
+                name="search_name" value="{{search_name}}">
+              <button type="submit" class="searchButton">
+                <i class="fa fa-search"></i>
+              </button>
+            </div> --}}
+        </form>
       </div>
     </div>
-    <div class="tm-block-col tm-col-account-settings">
-      <div class="tm-bg-primary-dark tm-block tm-block-settings">
-        <h2 class="tm-block-title">Thông tin tài khoản</h2>
-        <div class="about">
-          <div class="row">
-            <div class="col-md-4">
-              <label>Họ Tên : </label>
-            </div>
-            <div class="col-md-8">
-              <p>{{user.firstname}} {{user.lastname}}</p>
-            </div>
+  </div>
+  <div class="row tm-content-row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+      <div class="tm-bg-primary-dark tm-block tm-block-products">
+        <div class="row">
+          <div class="col-md-6">
+            <a href="/accounts/admins/add-admin" class="btn btn-primary btn-block text-uppercase mb-3">Thêm Admin</a>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <label>Email : </label>
-            </div>
-            <div class="col-md-8">
-              <p>{{user.email}}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <label>Số điện thoại : </label>
-            </div>
-            <div class="col-md-8">
-              <p>{{user.phone}}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <label>Địa Chỉ : </label>
-            </div>
-            <div class="col-md-8">
-              <p>{{user.address}}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-3"></div>
-            <button class="btn btn-edit btn-block text-uppercase col-md-6">
-           Thay đổi thông tin
-          </button>
-           <div class="col-3"></div>
+          <div class="col-md-6">
+            <button class="btn btn-primary btn-block text-uppercase">
+              Xoá Admin
+            </button>
           </div>
         </div>
+        <div class="tm-product-table-container">
+          <table class="table table-hover tm-table-small tm-product-table">
+            <thead>
+              {{!-- {{#if Pages}} --}}
+              <tr>
+                {{!-- <th scope="col">&nbsp;</th> --}}
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">Họ và tên</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col">Email</th>
+                <th scope="col">Vai trò</th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col"></th>
+
+              </tr>
+              {{!-- {{/if}} --}}
+            </thead>
+            <tbody>
+              {{#if adminAccounts}}
+              {{#each adminAccounts}}
+              <tr>
+                {{!-- <th scope="row"><input type="checkbox" /></th> --}}
+                <td><img src="{{'images.image_link'}}" alt=""></td>
+                <td class="tm-product-name">{{user_id}}</td>
+                <td>{{firstname}} {{lastname}}</td>
+                <td>{{address}}</td>
+                <td>{{phone}}</td>
+                <td>{{email}}</td>
+                <td>{{"role_id_roles.role_name"}}</td>
+
+                <td>
+                  <a href="/products/{{user_id}}/edit" class=" tm-product-delete-link">
+                    <i class="far fa-edit tm-product-delete-icon"></i>
+                  </a>
+                </td>
 
 
+
+                <td>
+                  {{#if (isNotSuperAdmin user_id)}}
+                  <a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+                    data-target="#delete-product-modal" data-id="{{user_id}}">
+                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                  </a>
+                  {{/if}}
+                </td>
+
+              </tr>
+              {{/each}}
+              {{else}}
+              <h1 class="Notification">Không có quản trị viên nào phù hợp!</h1>
+              {{/if}}
+            </tbody>
+          </table>
+        </div>
+        {{!-- {{#if Pages}}
+        <nav aria-label="Page navigation example">
+          <ul class="pagination" style="display: flex; justify-content: center;">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            {{#if search_name}}
+            {{#pages Pages search_name}}
+            <li class="page-item"><a class="page-link" href="?search_name={{search_name}}&page={{index}}">{{index}}</a>
+            </li>
+            {{/pages}}
+            {{else}}
+            {{#pages Pages search_name}}
+            <li class="page-item"><a class="page-link" href="?page={{index}}">{{index}}</a></li>
+            {{/pages}}
+            {{/if}}
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        {{/if}} --}}
+        <!-- table container -->
+      </div>
+    </div>
+
+  </div>
+</div>
+{{!-- Confirm delete modal --}}
+<div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xoá sản phẩm</h5>
+        <button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xoá sản phẩm này ?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Xoá bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
       </div>
     </div>
   </div>
 </div>
+
+
+{{!-- Delete hidden for, --}}
+<form method="post" name="delete-product-form" action="'/products/{{product_id}}/delete'">
+</form>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var productID
+    var deleteForm = document.forms['delete-product-form'];
+    $('#delete-product-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      productID = button.data('id')
+
+    });
+
+    var btnDeleteProduct = document.getElementById('btn-delete-product');
+
+    btnDeleteProduct.onclick = function () {
+      deleteForm.action = '/products/' + productID + '/delete';
+      deleteForm.submit();
+    }
+
+  });
+</script>
+
+</body>
