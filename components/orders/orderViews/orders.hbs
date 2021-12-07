@@ -26,19 +26,22 @@
                                         <td><b>{{'user.address'}}</b></td>
                                         <td><b>{{order_total_price}}</b></td>
                                         <td>
-                                            {{#if (compareStatus "Đang chờ xử lý" order_status)}}
+                                            {{#if (compareStatus "pending" order_status)}}
                                                 <div class="tm-status-circle pending"></div>
+                                                Đang chờ xử lý
                                             {{/if}}
-                                            {{#if (compareStatus "Đang giao" order_status)}}
+                                            {{#if (compareStatus "moving" order_status)}}
                                                 <div class="tm-status-circle moving"></div>
+                                                Đang vận chuyển
                                             {{/if}}
-                                            {{#if (compareStatus "Đã giao" order_status)}}
+                                            {{#if (compareStatus "done" order_status)}}
                                                 <div class="tm-status-circle done"></div>
+                                                Đã giao hàng
                                             {{/if}}
-                                            {{#if (compareStatus "Đã hủy" order_status)}}
+                                            {{#if (compareStatus "cancelled" order_status)}}
                                                 <div class="tm-status-circle cancelled"></div>
+                                                Đã hủy
                                             {{/if}}
-                                            {{order_status}}
                                         </td>
                                     </tr>
                                     {{/each}}
