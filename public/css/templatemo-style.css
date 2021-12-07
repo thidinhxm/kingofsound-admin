@@ -221,6 +221,11 @@ thead {
   border-radius: 50%;
   margin-top: -3px;
 }
+.done {
+  background-color: #14e7ee;
+  box-shadow: 0 0 8px #14e7ee, inset 0 0 8px #14e7ee;
+}
+
 .moving {
   background-color: #9be64d;
   box-shadow: 0 0 8px #9be64d, inset 0 0 8px #9be64d;

@@ -10,13 +10,14 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 const dashboardRouter = require('./components/dashboard/dashboardRouter');
-const productRouter = require('./components/products/productRouter')
-const revenueRouter = require('./components/revenues/revenueRouter')
-const accountRouter = require('./components/accounts/accountRouter')
-const orderRouter = require('./components/orders/orderRouter')
-const authRouter = require('./components/auth/authRouter')
-const adminRouter = require('./components/admins/adminRouter')
-const passport = require('./components/auth/passport')
+const productRouter = require('./components/products/productRouter');
+const revenueRouter = require('./components/revenues/revenueRouter');
+const accountRouter = require('./components/accounts/accountRouter');
+const orderRouter = require('./components/orders/orderRouter');
+const authRouter = require('./components/auth/authRouter');
+const adminRouter = require('./components/admins/adminRouter');
+const passport = require('./components/auth/passport');
+const orderHelper = require('./components/orders/orderHelper');
 const app = express();
 
 
@@ -34,6 +35,7 @@ app.engine('hbs', exphbs({
 		},
 		
 		isNotSuperAdmin: function(id) { return id != 1 },
+		compareStatus: orderHelper.compareStatus,
 	}
 }));
 app.set('view engine', 'hbs');
@@ -72,7 +74,7 @@ app.use('/dashboard', dashboardRouter);
 app.use('/products', productRouter);
 app.use('/revenue', revenueRouter);
 app.use('/accounts', accountRouter);
-app.use('/order', orderRouter);
+app.use('/orders', orderRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
