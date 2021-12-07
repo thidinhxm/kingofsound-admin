@@ -11,6 +11,9 @@
 					<div class="row mt-2">
 						<div class="col-12">
 							<form action="/login" method="POST" class="tm-login-form">
+								{{#if message}}
+								<div class="alert alert-danger">{{message}}</div>
+								{{/if}}
 								<div class="form-group">
 									<label for="email">Email</label>
 									<input name="email" type="email" class="form-control validate" id="email" value="" required />

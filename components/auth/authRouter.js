@@ -3,22 +3,14 @@ const router = express.Router();
 const passport = require('./passport');
 const authController = require('./authController');
 
-router.get('/login', authController.login);
 router.get('/', authController.login);
+router.get('/login', authController.login);
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/dashboard',
     failureRedirect: '/',
     failureFlash: true
-}), (req, res, next) => {
-    console.log('passport auth success');
-    if (req.user) {
-        res.redirect('/dashboard');
-    }
-    else {
-        res.redirect('/');
-    }
-});
+}));
 
 router.get('/logout', authController.logout);
 module.exports = router;

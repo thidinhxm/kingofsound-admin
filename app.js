@@ -7,6 +7,8 @@ const exphbs = require('express-handlebars')
 const paginateHelper = require('express-handlebars-paginate')
 const methodOverride = require('method-override');
 const session = require('express-session');
+const flash = require('connect-flash');
+
 const dashboardRouter = require('./components/dashboard/dashboardRouter');
 const productRouter = require('./components/products/productRouter')
 const revenueRouter = require('./components/revenues/revenueRouter')
@@ -56,6 +58,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use((req, res, next) => {
 	res.locals.user = req.user;

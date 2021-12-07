@@ -1,5 +1,4 @@
-const {models} = require("../../models");
-const accountService = require("./accountService")
+const accountService = require("./accountService");
 
 exports.getAdminAccounts = async(req, res, next) => {
 	const adminAccounts = await accountService.listAdminAccount();
@@ -25,27 +24,35 @@ exports.addAdmin =  (req, res,next) => {
 
 }
 
-exports.store = async (req, res) => {
-
-
-	// const selectedCategory = await models.categories.findOne({where: {category_name: req.body.category}, raw: true})
-	passwordHashed = req.body.password;
-
-
-	const newAdmin = await models.users.create({
+exports.createAdminAcount = async (req, res, next) => {
+	try {
+		const newAdmin = await accountService.createUser({
 		
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
-		email: req.body.email,
-		phone: req.body.phone,
-		address: req.body.address,
-		password: req.body.password,
-		is_blocked: false,
-	});
-	
-	const admin = await models.userroles.create({
-		role_id: 2,
-		user_id: newAdmin.user_id,
-	});
-	res.redirect('/accounts/admins')
+			firstname: req.body.firstname,
+			lastname: req.body.lastname,
+			email: req.body.email,
+			phone: req.body.phone,
+			address: req.body.address,
+			password: req.body.password,
+			is_blocked: false,
+		});
+		
+		await accountService.createAdminRole({
+			user_id: newAdmin.user_id,
+			role_id: 2
+		})
+		res.redirect('/accounts/admins')
+	}
+	catch (error) {
+		next(error);
+	}
+}
+
+exports.isLogin = (req, res, next) => {
+	if (req.user) {
+		next();
+	}
+	else {
+		res.redirect('/');
+	}
 }

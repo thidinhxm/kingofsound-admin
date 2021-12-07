@@ -55,7 +55,7 @@ exports.listByName = (search_name,page = 0, itemPerPage = 8) => {
             is_active:true
         },
         raw : true,
-        offset:page*itemPerPage,limit:itemPerPage
+        offset: page*itemPerPage, limit:itemPerPage
     });
 }
 

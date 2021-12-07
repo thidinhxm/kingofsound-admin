@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const revenueController = require('./revenueController');
+const accountController = require('../accounts/accountController');
 
-router.get('/day', revenueController.getRevenueDay);
+router.get('/day', accountController.isLogin, revenueController.getRevenueDay);
 
-router.get('/month', revenueController.getRevenueMonth);
+router.get('/month', accountController.isLogin, revenueController.getRevenueMonth);
 
-router.get('/year', revenueController.getRevenueYear);
+router.get('/year', accountController.isLogin, revenueController.getRevenueYear);
 module.exports = router;
