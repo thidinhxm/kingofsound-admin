@@ -1,7 +1,13 @@
+const cloudinary = require('cloudinary').v2;
 const productService = require("./productService")
 const { models } = require("../../models");
-const randomString = require("randomstring");
 const dbProduct = models.products;
+
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const itemPerPage = 8;
 exports.list = async(req, res)  => {   
