@@ -17,13 +17,13 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a 
-                        class="{{#if active.revenue}} active{{/if}} nav-link  dropdown-toggle" 
-                        href="#" 
-                        id="navbarDropdown" 
-                        role="button" 
+                    <a
+                        class="{{#if active.revenue}} active{{/if}} nav-link  dropdown-toggle"
+                        href="#"
+                        id="navbarDropdown"
+                        role="button"
                         data-toggle="dropdown"
-                        aria-haspopup="true" 
+                        aria-haspopup="true"
                         aria-expanded="false"
                     >
                         <i class="far fa-file-alt"></i>
@@ -82,12 +82,13 @@
                         <span>
                             {{user.lastname}}
                         </span>
-                        {{/if}}
+
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/admin/profile">Thông tin cá nhân</a>
                         <a class="dropdown-item" href="/logout">Đăng xuất</a>
                     </div>
+                    {{/if}}
                 </li>
             </ul>
         </div>

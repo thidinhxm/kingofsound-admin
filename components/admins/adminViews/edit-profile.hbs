@@ -1,0 +1,120 @@
+  {{> header }}
+      <div class="container mt-5">
+        <div class="row tm-content-row">
+          <div class="col-12 tm-block-col">
+
+          </div>
+        </div>
+        <!-- row -->
+        <div class="row tm-content-row">
+          <div class="tm-block-col tm-col-avatar">
+            <div class="tm-bg-primary-dark tm-block tm-block-avatar">
+              <h2 class="tm-block-title">Loại tài khoản</h2>
+              <div class="tm-avatar-container">
+                <img
+                  src="/img/avatar.png"
+                  alt="Avatar"
+                  class="tm-avatar img-fluid mb-4"
+                />
+                <a href="#" class="tm-avatar-delete-link">
+                  <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                </a>
+              </div>
+              {{!-- <button class="btn btn-primary btn-block text-uppercase">
+                Tải ảnh đại diện
+              </button> --}}
+            </div>
+          </div>
+          <div class="tm-block-col tm-col-account-settings">
+            {{#with currentAdmin}}
+            <div class="tm-bg-primary-dark tm-block tm-block-settings">
+              <h2 class="tm-block-title">Chỉnh sửa thông tin cá nhân</h2>
+              <form action="/admin/profile/{{user_id}}/update-profile" class="tm-signup-form row" method="post">
+                <div class="form-group col-lg-6">
+                  <label for="firstname">Họ </label>
+                  <input
+                    id="firstname"
+                    name="firstname"
+                    type="text"
+                    class="form-control validate"
+                    required
+                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
+                    oninput="this.setCustomValidity('')"
+                    value="{{firstname}}"
+                  />
+                </div>
+
+                <div class="form-group col-lg-6">
+                  <label for="lastname">Tên </label>
+                  <input
+                    id="lastname"
+                    name="lastname"
+                    type="text"
+                    class="form-control validate"
+                    required
+                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
+                    oninput="this.setCustomValidity('')"
+                    value="{{lastname}}"
+
+                  />
+                </div>
+
+                <div class="form-group col-lg-12">
+                  <label for="email">Địa chỉ Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    class="form-control validate"
+                    required
+                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
+                    oninput="this.setCustomValidity('')"
+                    value={{email}}
+                  />
+                </div>
+
+                <div class="form-group col-lg-6">
+                  <label for="phone">Điện thoại</label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    class="form-control validate"
+                    required
+                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
+                    oninput="this.setCustomValidity('')"
+                    value={{phone}}
+
+                  />
+                </div>
+                 <div class="form-group col-lg-6">
+                  <label for="address">Địa chỉ</label>
+                  <input
+                    id="address"
+                    name="address"
+                    type="text"
+                    class="form-control validate"
+                    required
+                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
+                    oninput="this.setCustomValidity('')"
+                    value="{{address}}"
+
+                  />
+                </div>
+                {{/with}}
+                <div class="form-group col-lg-6">
+                  <label class="tm-hide-sm">&nbsp;</label>
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-block text-uppercase"
+
+                  >
+                   Cập nhật
+                  </button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>

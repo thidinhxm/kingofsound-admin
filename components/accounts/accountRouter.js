@@ -10,6 +10,8 @@ router.post('/admins/store', adminController.isLogin, accountController.createAd
 router.get('/admins', adminController.isLogin, accountController.getAdminAccounts);
 
 
+router.get('/users/:id/profile', adminController.isLogin, accountController.userDetail);
+
 router.get('/users', adminController.isLogin, accountController.getUserAccounts);
 
 module.exports = router;

@@ -1,4 +1,4 @@
- {{> header }}
+{{> header }}
 <div class="container tm-mt-big tm-mb-big">
 	<div class="row">
 		<div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 mx-auto">
@@ -8,8 +8,8 @@
 						<h2 class="tm-block-title d-inline-block">Thêm sản phẩm mới</h2>
 					</div>
 				</div>
-				
-				<form method="POST" action="/products/store" class="tm-edit-product-form">
+
+				<form method="POST" action="/products/store" class="tm-edit-product-form" enctype="multipart/form-data">
 					<div class="row tm-edit-product-row">
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
@@ -24,9 +24,9 @@
 								<select class="custom-select tm-select-accounts" id="category" name="category">
 
 									<option selected>Chọn loại sản phẩm </option>
-								{{#each categories}}
+									{{#each categories}}
 									<option value="{{category_name}}">{{category_name}}</option>
-								{{/each}}
+									{{/each}}
 								</select>
 							</div>
 						</div>
@@ -44,14 +44,15 @@
 						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
 								<label for="descriptions">Mô tả chi tiết</label>
-								<input id="descriptions" name="descriptions" type="descriptions" class="form-control validate"
-									required />
+								<input id="descriptions" name="descriptions" type="descriptions"
+									class="form-control validate" required />
 							</div>
 						</div>
-							
-						<div class="col-xl-3 col-lg-6 col-md-12 mx-auto mb-4">
+
+						{{!-- <div class="col-xl-3 col-lg-6 col-md-12 mx-auto mb-4">
 							<div class="tm-product-img-dummy mx-auto">
 								<i class="fas fa-cloud-upload-alt tm-upload-icon"></i> Ảnh 1
+
 							</div>
 						</div>
 						<div class="col-xl-3 col-lg-6 col-md-12 mx-auto mb-4">
@@ -68,15 +69,27 @@
 							<div class="tm-product-img-dummy mx-auto">
 								<i class="fas fa-cloud-upload-alt tm-upload-icon"></i> Ảnh 4
 							</div>
+						</div> --}}
+
+						<div class="col-xl-6 col-lg-6 col-md-12">
+							<div class="form-group mb-3">
+								<label for="product_image">Ảnh sản phẩm
+								</label>
+								<input type="file" name="product_image" value="Chọn ảnh sản phẩm"
+									class="form-control validate" required multiple />
+							</div>
 						</div>
-				
-						<div class="col-12">
-							<button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm sản phẩm</button>
-						</div>
+
 					</div>
-				</form>
+
+
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm sản phẩm</button>
+					</div>
 			</div>
+			</form>
 		</div>
 	</div>
+</div>
 
 </div>

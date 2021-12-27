@@ -8,6 +8,9 @@ const paginateHelper = require('express-handlebars-paginate')
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+const bodyparser = require('body-parser');
+const multer  = require('multer');
+const upload = multer({dest: 'uploads/'})
 
 const dashboardRouter = require('./components/dashboard/dashboardRouter');
 const productRouter = require('./components/products/productRouter');
@@ -33,9 +36,11 @@ app.engine('hbs', exphbs({
 				accum += block.fn({index:i,search_name:search_name});
 			return accum;
 		},
-		
+
 		isNotSuperAdmin: function(id) { return id != 1 },
 		compareStatus: orderHelper.compareStatus,
+		isBlockedAccount: function(is_blocked) { return is_blocked},
+
 	}
 }));
 app.set('view engine', 'hbs');
@@ -67,7 +72,7 @@ app.use((req, res, next) => {
 	res.locals.user = req.user;
 	next();
 });
-	
+
 
 app.use('/', authRouter);
 app.use('/dashboard', dashboardRouter);
@@ -92,4 +97,7 @@ app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
 	res.render('error');
 });
+
+app.use(bodyparser.urlencoded({ extended: true }));
 module.exports = app;
+

@@ -1,4 +1,8 @@
-exports.index = (req, res, next) => {
+const orderService = require('../orders/orderService');
+
+exports.index = async (req, res, next) => {
 	const active = {dashboard: true};
-	res.render('../components/dashboard/dashboardViews/index', {active});
+	const listTop10 = await orderService.getTop10();
+
+	res.render('../components/dashboard/dashboardViews/index', {listTop10,active});
 }

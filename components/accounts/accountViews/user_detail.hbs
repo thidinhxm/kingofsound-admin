@@ -1,0 +1,85 @@
+{{> header }}
+<div class="container mt-5">
+    <div class="row tm-content-row">
+        <div class="col-12 tm-block-col">
+
+        </div>
+    </div>
+    <!-- row -->
+    <div class="row tm-content-row">
+        <div class="tm-block-col tm-col-avatar">
+            <div class="tm-bg-primary-dark tm-block tm-block-avatar">
+                <h2 class="tm-block-title">Loại tài khoản</h2>
+                <div class="tm-avatar-container">
+                    <img src="/img/user_avatar.png" alt="Avatar" class="tm-avatar img-fluid mb-4" />
+                    <a href="#" class="tm-avatar-delete-link">
+                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                    </a>
+                </div>
+                {{!-- <button class="btn btn-primary btn-block text-uppercase">
+                    Tải ảnh đại diện
+                </button> --}}
+            </div>
+        </div>
+        <div class="tm-block-col tm-col-account-settings">
+            <div class="tm-bg-primary-dark tm-block tm-block-settings">
+                <h2 class="tm-block-title">Thông tin tài khoản</h2>
+
+                <div class="about">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Họ Tên : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{currentUser.firstname}} {{currentUser.lastname}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Email : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{currentUser.email}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Số điện thoại : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{currentUser.phone}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Địa Chỉ : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{currentUser.address}}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <label>Tổng chi tiêu: </label>
+                        </div>
+
+                        <div class="col-md-8">
+                            <p>{{totalAmount}}</p>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col">
+                            <a href="/admin/profile/{{currentUser.user_id}}/edit-profile"
+                                class="btn btn-primary btn-block text-uppercase mb-3">Chỉnh sửa thông tin</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

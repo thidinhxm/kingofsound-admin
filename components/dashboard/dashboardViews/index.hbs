@@ -24,7 +24,7 @@
                         <h2 class="tm-block-title">Tỉ lệ giao nhận hàng</h2>
                         <div id="pieChartContainer">
                             <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
@@ -112,69 +112,27 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">STT </th>
-                                    <th scope="col">Tên sản phẩm</th>
-                                    <th>Thông tin thêm</th>
+                                    <th scope="col">ID sản phẩm</th>
+                                    <th scope="col-9">Tên sản phẩm</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {{#each listTop10}}
                                 <tr>
-                                    <th scope="row"><b>1</b></th>
-                                    <td><b>Tai nghe 1</b></td>
-                                    <td><button class="btn-info btn-group-toggle"><i class="fas fa-info-circle"></i></button></td>
+                                    <td scope="row"><b>{{product_id}}</b></td>
+                                    <td><b>{{product_name}}</b></td>
+                                    <td><a class="tm-product-delete-link" href="/products/{{product_id}}/edit">
+                                    <i class="fas fa-info-circle tm-product-delete-icon"></i></a></td>
                                 </tr>
-                                <tr>
-                                    <th scope="row"><b>2</b></th>
-                                    <td><b>Tai nghe 2</b></td>
-                                    <td><button class="btn-info btn-group-toggle"><i class="fas fa-info-circle"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><b>3</b></th>
-                                    <td><b>Tai nghe 3</b></td>
-                                    <td><button class="btn-info btn-group-toggle"><i class="fas fa-info-circle"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><b>4</b></th>
-                                    <td><b>Tai nghe 4</b></td>
-                                    <td><button class="btn-info btn-group-toggle"><i class="fas fa-info-circle"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><b>5</b></th>
-                                    <td><b>Tai nghe 5</b></td>
-                                    <td><button class="btn-info btn-group-toggle"><i class="fas fa-info-circle"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><b>6</b></th>
-                                    <td><b>Tai nghe 6</b></td>
-                                    <td><button class="btn-info btn-group-toggle"><i class="fas fa-info-circle"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><b>7</b></th>
-                                    <td><b>Tai nghe 7</b></td>
-                                    <td><button class="btn-info btn-group-toggle"><i class="fas fa-info-circle"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><b>8</b></th>
-                                    <td><b>Tai nghe 8</b></td>
-                                    <td><button class="btn-info btn-group-toggle"><i class="fas fa-info-circle"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><b>9</b></th>
-                                    <td><b>Tai nghe 9</b></td>
-                                    <td><button class="btn-info btn-group-toggle"><i class="fas fa-info-circle"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><b>10</b></th>
-                                    <td><b>Tai nghe 10</b></td>
-                                    <td><button class="btn-info btn-group-toggle"><i class="fas fa-info-circle"></i></button></td>
-                                </tr>
+                                {{/each}}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-    
+
     <script>
         Chart.defaults.global.defaultFontColor = 'white';
         let ctxLine,
@@ -196,7 +154,7 @@
 
             $(window).resize(function () {
                 updateLineChart();
-                updateBarChart();                
+                updateBarChart();
             });
         })
     </script>

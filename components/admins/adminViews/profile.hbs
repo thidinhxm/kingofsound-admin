@@ -58,11 +58,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-3"></div>
-                            <button class="btn btn-edit btn-block text-uppercase col-md-6">
-                                Thay đổi thông tin
-                            </button>
-                        <div class="col-3"></div>
+                            <div class="col">
+                                 <a href="/admin/profile/{{user.user_id}}/edit-profile" class="btn btn-primary btn-block text-uppercase mb-3">Chỉnh sửa thông tin</a>
+                            </div>
+
+                            <div class="col">
+                                 <a href="/admin/profile/{{user.user_id}}/change-password" class="btn btn-danger btn-block text-uppercase mb-3">Thay đổi mật khẩu</a>
+                            </div>
                         </div>
                     </div>
                 </div>

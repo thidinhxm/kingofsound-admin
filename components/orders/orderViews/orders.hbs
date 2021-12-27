@@ -1,10 +1,10 @@
             {{> header }}
-            <div class="container mt-5">
-               
-                    <div class="col-12 ">
+            <div class="container-fluid mt-5 order-container">
+
+                    <div class="col-9 ">
                         <div class="tm-bg-primary-dark ">
-                           
-                            <table class="table">
+
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">Mã đơn</th>
@@ -26,15 +26,15 @@
                                         <td><b>{{'user.address'}}</b></td>
                                         <td><b>{{order_total_price}}</b></td>
                                         <td>
-                                            {{#if (compareStatus "pending" order_status)}}
+                                            {{#if (compareStatus 'Đang chờ xử lý' order_status)}}
                                                 <div class="tm-status-circle pending"></div>
-                                                Đang chờ xử lý
+                                                Chờ xử lý
                                             {{/if}}
-                                            {{#if (compareStatus "moving" order_status)}}
+                                            {{#if (compareStatus 'Đang giao' order_status)}}
                                                 <div class="tm-status-circle moving"></div>
                                                 Đang vận chuyển
                                             {{/if}}
-                                            {{#if (compareStatus "done" order_status)}}
+                                            {{#if (compareStatus 'Đã giao' order_status)}}
                                                 <div class="tm-status-circle done"></div>
                                                 Đã giao hàng
                                             {{/if}}
@@ -50,5 +50,3 @@
                         </div>
                     </div>
                 </div>
-            {{> footer }}
-</body>
