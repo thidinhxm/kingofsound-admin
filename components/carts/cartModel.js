@@ -1,31 +1,28 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('categories', {
-    category_id: {
+  return sequelize.define('carts', {
+    cart_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    category_name: {
-      type: DataTypes.STRING(50),
-      allowNull: false
-    },
-    descriptions: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    parent_category: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'categories',
-        key: 'category_id'
+        model: 'users',
+        key: 'user_id'
       }
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
-    tableName: 'categories',
+    tableName: 'carts',
     timestamps: false,
     indexes: [
       {
@@ -33,14 +30,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "category_id" },
+          { name: "cart_id" },
         ]
       },
       {
-        name: "fk_categories_parent_category",
+        name: "fk_carts_user_id",
         using: "BTREE",
         fields: [
-          { name: "parent_category" },
+          { name: "user_id" },
         ]
       },
     ]
