@@ -13,7 +13,7 @@ var _roles = require("../components/accounts/accountModels/roleModel");
 var _unauthusers = require("../components/carts/unauthuserModel");
 var _userroles = require("../components/accounts/accountModels/userroleModel");
 var _users = require("../components/accounts/accountModels/userModel");
-var _voucher = require("../components/carts/voucherModel");
+var _vouchers = require("../components/carts/voucherModel");
 
 function initModels(sequelize) {
   var brands = _brands(sequelize, DataTypes);
