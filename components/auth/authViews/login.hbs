@@ -1,39 +1,39 @@
 
-	<div class="container tm-mt-big tm-mb-big">
-		<div class="row">
-			<div class="col-12 mx-auto tm-login-col">
-				<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-					<div class="row">
-						<div class="col-12 text-center">
-							<h2 class="tm-block-title mb-4"> Hãy đăng nhập vào Admin Website</h2>
-						</div>
+<div class="container tm-mt-big tm-mb-big">
+	<div class="row">
+		<div class="col-12 mx-auto tm-login-col">
+			<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+				<div class="row">
+					<div class="col-12 text-center">
+						<h2 class="tm-block-title mb-4"> Hãy đăng nhập vào Admin Website</h2>
 					</div>
-					<div class="row mt-2">
-						<div class="col-12">
-							<form action="/login" method="POST" class="tm-login-form">
-								{{#if message}}
-								<div class="alert alert-danger">{{message}}</div>
-								{{/if}}
-								<div class="form-group">
-									<label for="email">Email</label>
-									<input name="email" type="email" class="form-control validate" id="email" value="" required />
-								</div>
-								<div class="form-group mt-3">
-									<label for="password">Mật khẩu</label>
-									<input name="password" type="password" class="form-control validate" id="password" value="" required />
-								</div>
-								<div class="form-group mt-4">
-									<button type="submit" class="btn btn-primary btn-block text-uppercase">
-										Đăng nhập
-									</button>
-								</div>
-								<button class="mt-5 btn btn-primary btn-block text-uppercase">
-									Quên mật khẩu?
+				</div>
+				<div class="row mt-2">
+					<div class="col-12">
+						<form action="/login" method="POST" class="tm-login-form">
+							{{#if message}}
+							<div class="alert alert-danger">{{message}}</div>
+							{{/if}}
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input name="email" type="email" class="form-control validate" id="email" value="" required />
+							</div>
+							<div class="form-group mt-3">
+								<label for="password">Mật khẩu</label>
+								<input name="password" type="password" class="form-control validate" id="password" value="" required />
+							</div>
+							<div class="form-group mt-4">
+								<button type="submit" class="btn btn-primary btn-block text-uppercase">
+									Đăng nhập
 								</button>
-							</form>
-						</div>
+							</div>
+							<button class="mt-5 btn btn-primary btn-block text-uppercase">
+								Quên mật khẩu?
+							</button>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>

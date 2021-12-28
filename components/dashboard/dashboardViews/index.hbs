@@ -1,160 +1,161 @@
-        {{> header }}
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <p class="text-white mt-5 mb-5">Xin chào <b>{{user.firstname}} {{user.lastname}}</b></p>
+
+{{> header }}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p class="text-white mt-5 mb-5">Xin chào <b>{{user.firstname}} {{user.lastname}}</b></p>
+        </div>
+    </div>
+    <!-- row -->
+    <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block">
+                <h2 class="tm-block-title">Khả năng tiếp cận </h2>
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block">
+                <h2 class="tm-block-title">Mức độ tăng trưởng</h2>
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-taller">
+                <h2 class="tm-block-title">Tỉ lệ giao nhận hàng</h2>
+                <div id="pieChartContainer">
+                    <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
                 </div>
             </div>
-            <!-- row -->
-            <div class="row tm-content-row">
-                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block">
-                        <h2 class="tm-block-title">Khả năng tiếp cận </h2>
-                        <canvas id="lineChart"></canvas>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block">
-                        <h2 class="tm-block-title">Mức độ tăng trưởng</h2>
-                        <canvas id="barChart"></canvas>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block tm-block-taller">
-                        <h2 class="tm-block-title">Tỉ lệ giao nhận hàng</h2>
-                        <div id="pieChartContainer">
-                            <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
+                <h2 class="tm-block-title">Thông báo mới</h2>
+                <div class="tm-notification-items">
+                    <div class="media tm-notification-item">
+                        <div class="tm-gray-circle"><img src="/img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="media-body">
+                            <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
+                                    class="tm-notification-link">cập nhật sản phẩm </a></p>
+                            <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
-                        <h2 class="tm-block-title">Thông báo mới</h2>
-                        <div class="tm-notification-items">
-                            <div class="media tm-notification-item">
-                                <div class="tm-gray-circle"><img src="/img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                                <div class="media-body">
-                                    <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
-                                            class="tm-notification-link">cập nhật sản phẩm </a></p>
-                                    <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
-                                </div>
-                            </div>
-                            <div class="media tm-notification-item">
-                                <div class="tm-gray-circle"><img src="/img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                                <div class="media-body">
-                                    <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
-                                        class="tm-notification-link">cập nhật sản phẩm </a></p>
-                                <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
-                                </div>
-                            </div>
-                            <div class="media tm-notification-item">
-                                <div class="tm-gray-circle"><img src="/img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                                <div class="media-body">
-                                    <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
-                                        class="tm-notification-link">cập nhật sản phẩm </a></p>
-                                <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
-                                </div>
-                            </div>
-                            <div class="media tm-notification-item">
-                                <div class="tm-gray-circle"><img src="/img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                                <div class="media-body">
-                                    <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
-                                        class="tm-notification-link">cập nhật sản phẩm </a></p>
-                                <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
-                                </div>
-                            </div>
-                            <div class="media tm-notification-item">
-                                <div class="tm-gray-circle"><img src="/img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                                <div class="media-body">
-                                    <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
-                                        class="tm-notification-link">cập nhật sản phẩm </a></p>
-                                <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
-                                </div>
-                            </div>
-                            <div class="media tm-notification-item">
-                                <div class="tm-gray-circle"><img src="/img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                                <div class="media-body">
-                                    <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
-                                        class="tm-notification-link">cập nhật sản phẩm </a></p>
-                                <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
-                                </div>
-                            </div>
-                            <div class="media tm-notification-item">
-                                <div class="tm-gray-circle"><img src="/img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                                <div class="media-body">
-                                    <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
-                                        class="tm-notification-link">cập nhật sản phẩm </a></p>
-                                <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
-                                </div>
-                            </div>
-                            <div class="media tm-notification-item">
-                                <div class="tm-gray-circle"><img src="/img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                                <div class="media-body">
-                                    <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
-                                        class="tm-notification-link">cập nhật sản phẩm </a></p>
-                                <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
-                                </div>
-                            </div>
-                            <div class="media tm-notification-item">
-                                <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
-                                <div class="media-body">
-                                    <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
-                                        class="tm-notification-link">cập nhật sản phẩm </a></p>
-                                <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
-                                </div>
-                            </div>
+                    <div class="media tm-notification-item">
+                        <div class="tm-gray-circle"><img src="/img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="media-body">
+                            <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
+                                class="tm-notification-link">cập nhật sản phẩm </a></p>
+                        <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-                        <h2 class="tm-block-title">Top 10 sản phẩm bán chạy nhất</h2>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ID sản phẩm</th>
-                                    <th scope="col-9">Tên sản phẩm</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each listTop10}}
-                                <tr>
-                                    <td scope="row"><b>{{product_id}}</b></td>
-                                    <td><b>{{product_name}}</b></td>
-                                    <td><a class="tm-product-delete-link" href="/products/{{product_id}}/edit">
-                                    <i class="fas fa-info-circle tm-product-delete-icon"></i></a></td>
-                                </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
+                    <div class="media tm-notification-item">
+                        <div class="tm-gray-circle"><img src="/img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="media-body">
+                            <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
+                                class="tm-notification-link">cập nhật sản phẩm </a></p>
+                        <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
+                        </div>
+                    </div>
+                    <div class="media tm-notification-item">
+                        <div class="tm-gray-circle"><img src="/img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="media-body">
+                            <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
+                                class="tm-notification-link">cập nhật sản phẩm </a></p>
+                        <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
+                        </div>
+                    </div>
+                    <div class="media tm-notification-item">
+                        <div class="tm-gray-circle"><img src="/img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="media-body">
+                            <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
+                                class="tm-notification-link">cập nhật sản phẩm </a></p>
+                        <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
+                        </div>
+                    </div>
+                    <div class="media tm-notification-item">
+                        <div class="tm-gray-circle"><img src="/img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="media-body">
+                            <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
+                                class="tm-notification-link">cập nhật sản phẩm </a></p>
+                        <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
+                        </div>
+                    </div>
+                    <div class="media tm-notification-item">
+                        <div class="tm-gray-circle"><img src="/img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="media-body">
+                            <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
+                                class="tm-notification-link">cập nhật sản phẩm </a></p>
+                        <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
+                        </div>
+                    </div>
+                    <div class="media tm-notification-item">
+                        <div class="tm-gray-circle"><img src="/img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="media-body">
+                            <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
+                                class="tm-notification-link">cập nhật sản phẩm </a></p>
+                        <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
+                        </div>
+                    </div>
+                    <div class="media tm-notification-item">
+                        <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="media-body">
+                            <p class="mb-2"><b>Jessica</b> và <b>6 người khác</b> đã gửi cho bạn <a href="#"
+                                class="tm-notification-link">cập nhật sản phẩm </a></p>
+                        <span class="tm-small tm-text-color-secondary">6 giờ trước.</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-12 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                <h2 class="tm-block-title">Top 10 sản phẩm bán chạy nhất</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID sản phẩm</th>
+                            <th scope="col-9">Tên sản phẩm</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each listTop10}}
+                        <tr>
+                            <td scope="row"><b>{{product_id}}</b></td>
+                            <td><b>{{product_name}}</b></td>
+                            <td><a class="tm-product-delete-link" href="/products/{{product_id}}/edit">
+                            <i class="fas fa-info-circle tm-product-delete-icon"></i></a></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        Chart.defaults.global.defaultFontColor = 'white';
-        let ctxLine,
-            ctxBar,
-            ctxPie,
-            optionsLine,
-            optionsBar,
-            optionsPie,
-            configLine,
-            configBar,
-            configPie,
-            lineChart;
-        barChart, pieChart;
-        // DOM is ready
-        $(function () {
-            drawLineChart(); // Line Chart
-            drawBarChart(); // Bar Chart
-            drawPieChart(); // Pie Chart
+<script>
+    Chart.defaults.global.defaultFontColor = 'white';
+    let ctxLine,
+        ctxBar,
+        ctxPie,
+        optionsLine,
+        optionsBar,
+        optionsPie,
+        configLine,
+        configBar,
+        configPie,
+        lineChart;
+    barChart, pieChart;
+    // DOM is ready
+    $(function () {
+        drawLineChart(); // Line Chart
+        drawBarChart(); // Bar Chart
+        drawPieChart(); // Pie Chart
 
-            $(window).resize(function () {
-                updateLineChart();
-                updateBarChart();
-            });
-        })
-    </script>
+        $(window).resize(function () {
+            updateLineChart();
+            updateBarChart();
+        });
+    })
+</script>
