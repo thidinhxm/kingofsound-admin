@@ -1,17 +1,19 @@
+const revenueService = require('./revenueService')
 
-
-exports.getRevenueDay = (req, res, next) => {
+exports.getRevenueDay = async (req, res, next) => {
     const active = { revenue: true }
-
-    res.render('../components/revenues/revenueViews/revenue_day',{active});
+    const dailyRevenue = await revenueService.dailyRevenue()
+    res.render('../components/revenues/revenueViews/revenue_day',{dailyRevenue,active});
 }
 
-exports.getRevenueMonth = (req, res, next) => {
+exports.getRevenueMonth = async (req, res, next) => {
     const active = { revenue: true }
-    res.render('../components/revenues/revenueViews/revenue_month',{active});
+    const monthlyRevenue = await revenueService.monthlyRevenue()
+    res.render('../components/revenues/revenueViews/revenue_month',{active,monthlyRevenue});
 }
 
-exports.getRevenueYear = (req, res, next) => {
+exports.getRevenueYear = async (req, res, next) => {
     const active = { revenue: true }
-    res.render('../components/revenues/revenueViews/revenue_year',{active});
+    const yearlyRevenue = await revenueService.yearlyRevenue()
+    res.render('../components/revenues/revenueViews/revenue_year',{active,yearlyRevenue});
 }

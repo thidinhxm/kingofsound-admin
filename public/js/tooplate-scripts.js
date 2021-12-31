@@ -1,6 +1,57 @@
 const width_threshold = 480;
+const orderService = require('../../components/orders/orderService')
+const { models } = require('../../models');
 
-function drawLineChart() {
+
+ function drawPieChart() {
+
+  if ($("#pieChart").length) {
+    var chartHeight = 300;
+
+    $("#pieChartContainer").css("height", chartHeight + "px");
+
+    ctxPie = document.getElementById("pieChart").getContext("2d");
+
+    optionsPie = {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 10,
+          right: 10,
+          top: 10,
+          bottom: 10
+        }
+      },
+      legend: {
+        position: "top"
+      }
+    };
+
+    configPie = {
+      type: "pie",
+      data: {
+        datasets: [
+          {
+            data: [70, 20, 10],
+            backgroundColor: ["#F7604D", "#4ED6B8", "#A8D582"],
+            label: "Storage"
+          }
+        ],
+        labels: [
+          "Giao hàng thành công ",
+          "Đang giao hàng",
+          "Đẫ bị huỷ",
+        ]
+      },
+      options: optionsPie
+    };
+
+    pieChart = new Chart(ctxPie, configPie);
+  }
+}
+
+ function drawLineChart() {
   if ($("#lineChart").length) {
     ctxLine = document.getElementById("lineChart").getContext("2d");
     optionsLine = {
@@ -49,7 +100,7 @@ function drawLineChart() {
             cubicInterpolationMode: "monotone",
             pointRadius: 0
           },
-          
+
         ]
       },
       options: optionsLine
@@ -123,52 +174,7 @@ function drawBarChart() {
   }
 }
 
-function drawPieChart() {
-  if ($("#pieChart").length) {
-    var chartHeight = 300;
 
-    $("#pieChartContainer").css("height", chartHeight + "px");
-
-    ctxPie = document.getElementById("pieChart").getContext("2d");
-
-    optionsPie = {
-      responsive: true,
-      maintainAspectRatio: false,
-      layout: {
-        padding: {
-          left: 10,
-          right: 10,
-          top: 10,
-          bottom: 10
-        }
-      },
-      legend: {
-        position: "top"
-      }
-    };
-
-    configPie = {
-      type: "pie",
-      data: {
-        datasets: [
-          {
-            data: [70, 20, 10],
-            backgroundColor: ["#F7604D", "#4ED6B8", "#A8D582"],
-            label: "Storage"
-          }
-        ],
-        labels: [
-          "Giao hàng thành công ",
-          "Đang giao hàng",
-          "Đẫ bị huỷ",
-        ]
-      },
-      options: optionsPie
-    };
-
-    pieChart = new Chart(ctxPie, configPie);
-  }
-}
 
 function updateLineChart() {
   if (lineChart) {

@@ -1,9 +1,9 @@
                 {{> header }}
                 <div class="container mt-5">
-               
+
                     <div class="col-12 ">
                         <div class="tm-bg-primary-dark ">
-                           
+
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -13,53 +13,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#each dailyRevenue}}
                                     <tr>
-                                        <th scope="row"><b>Ngày</b></th>
-                                        <td><b>2000$</b></td>
-                                        <td>Khách donate 200$</td>
+                                        <th scope="row"><b>{{order_date}}</b></th>
+                                        <td><b>{{totalRevenue}} vnđ</b></td>
+                                        <td></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row"><b>Ngày</b></th>
-                                        <td><b>2000$</b></td>
-                                        <td>Khách donate 200$</td>
-                                    </tr><tr>
-                                        <th scope="row"><b>Ngày</b></th>
-                                        <td><b>2000$</b></td>
-                                        <td>Khách donate 200$</td>
-                                    </tr><tr>
-                                        <th scope="row"><b>Ngày</b></th>
-                                        <td><b>2000$</b></td>
-                                        <td>Khách donate 200$</td>
-                                    </tr><tr>
-                                        <th scope="row"><b>Ngày</b></th>
-                                        <td><b>2000$</b></td>
-                                        <td>Khách donate 200$</td>
-                                    </tr><tr>
-                                        <th scope="row"><b>Ngày</b></th>
-                                        <td><b>2000$</b></td>
-                                        <td>Khách donate 200$</td>
-                                    </tr><tr>
-                                        <th scope="row"><b>Ngày</b></th>
-                                        <td><b>2000$</b></td>
-                                        <td>Khách donate 200$</td>
-                                    </tr><tr>
-                                        <th scope="row"><b>Ngày</b></th>
-                                        <td><b>2000$</b></td>
-                                        <td>Khách donate 200$</td>
-                                    </tr><tr>
-                                        <th scope="row"><b>Ngày</b></th>
-                                        <td><b>2000$</b></td>
-                                        <td>Khách donate 200$</td>
-                                    </tr><tr>
-                                        <th scope="row"><b>Ngày</b></th>
-                                        <td><b>2000$</b></td>
-                                        <td>Khách donate 200$</td>
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            <div class="container mt-5">          
+            <div class="container mt-5">
                 <ul class="pagination pagination-sm justify-content-center">
                     <li class="page-item"><a class="page-link" href="#">Trước</a></li>
                     <li class="page-item"><a class="page-link" href="#">1</a></li>

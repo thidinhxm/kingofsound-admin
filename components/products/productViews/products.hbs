@@ -3,7 +3,7 @@
   <div class="container">
     <div class="container">
       <div div="row" style="margin: 20px auto;">
-        <form action="/products" method="get">
+        <form action="/accounts" method="get">
           <div class="wrap">
             <div class="search">
               <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
@@ -20,13 +20,10 @@
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
       <div class="tm-bg-primary-dark tm-block tm-block-products">
         <div class="row">
-          <div class="col-md-6">
-            <a href="/products/add-product" class="btn btn-primary btn-block text-uppercase mb-3">Thêm sản phẩm</a>
-          </div>
-          <div class="col-md-6">
-            <button class="btn btn-primary btn-block text-uppercase">
-              Xoá sản phẩm
-            </button>
+          <div class="col">
+            <a href="/products/add-product" class="btn btn-primary btn-block text-uppercase mb-3">
+            <i class="fas fa-plus" style="margin-right: 10px;"> </i>
+             Thêm sản phẩm</a>
           </div>
         </div>
         <div class="tm-product-table-container">
@@ -34,7 +31,6 @@
             <thead>
               {{#if Pages}}
               <tr>
-                <th scope="col">&nbsp;</th>
                 <th scope="col"></th>
                 <th scope="col">Tên sản phẩm</th>
                 <th scope="col">Loại</th>
@@ -50,7 +46,6 @@
               {{#if products}}
               {{#each products}}
               <tr>
-                <th scope="row"><input type="checkbox" /></th>
                 <td><img src="{{'images.image_link'}}" alt=""></td>
                 <td class="tm-product-name">{{product_name}}</td>
                 <td>{{'category.category_name'}}</td>
@@ -78,7 +73,7 @@
         </div>
         {{#if Pages}}
         <nav aria-label="Page navigation example">
-          <ul class="pagination" style="display: flex; justify-content: center;">
+          <ul class="pagination pagination-sm" style="display: flex; justify-content: center;">
             <li class="page-item">
               <a class="page-link" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
@@ -110,14 +105,10 @@
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
       <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
         <div class="row">
-          <div class="col-md-6">
-            <a href="/products/add-product" class="btn btn-primary btn-block text-uppercase mb-3">Thêm loại sản
-              phẩm</a>
-          </div>
-          <div class="col-md-6">
-            <button class="btn btn-primary btn-block text-uppercase">
-              Xoá loại sản phẩm
-            </button>
+          <div class="col">
+            <a href="/products/add-category" class="btn btn-primary btn-block text-uppercase mb-3">
+             <i class="fas fa-plus" style="margin-right: 10px ;"></i>
+             Thêm loại sản phẩm phẩm</a>
           </div>
         </div>
 
@@ -126,16 +117,17 @@
             <tbody>
               <thead>
                 <tr>
-                  <th scope="col">&nbsp;</th>
+                  {{!-- <th scope="col">&nbsp;</th> --}}
+                  <th scope="col"></th>
                   <th scope="col">Mã loại sản phẩm</th>
                   <th scope="col">Loại sản phẩm</th>
-                  <th scope="col">&nbsp;</th>
+                  <th scope="col"></th>
 
                 </tr>
               </thead>
               {{#each categories }}
               <tr>
-                <th scope="row"><input type="checkbox" /></th>
+                <td></td>
                 <td class="tm-product-name">{{category_id}}</td>
                 <td class="tm-product-name">{{category_name}}</td>
                 <td class="text-center">
