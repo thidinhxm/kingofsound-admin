@@ -13,14 +13,14 @@ exports.getOrders = (req, res) => {
     });
 }
 
-exports.getTop10 =  () => {
-    const listTotalOder =  models.detailorders.findAll({
+exports.getTop10 = () => {
+    const listTotalOder = models.detailorders.findAll({
         attributes: [
             'product_id',
-            [sequelize.fn('sum',sequelize.col('detailorders.quantity')), 'total_quantity'],
+            [sequelize.fn('sum', sequelize.col('detailorders.quantity')), 'total_quantity'],
             'product.product_name'
         ],
-         include: [{
+        include: [{
             model: models.products,
             as: 'product',
             attributes: ['product_name'],
@@ -32,5 +32,61 @@ exports.getTop10 =  () => {
 
     })
     return listTotalOder;
-
 }
+
+exports.dailyRevenue =  () => {
+    const dailyRevenue =  models.orders.findAll({
+        attributes: [
+            'order_date',
+            [sequelize.fn('sum', sequelize.col('order_total_price')),'totalRevenue'],
+        ],
+        group: ['order_date'],
+        order: sequelize.literal('order_date ASC'),
+        raw: true,
+    })
+    console.log(dailyRevenue)
+    return dailyRevenue
+}
+
+exports.monthlyRevenue =   () => {
+    const monthlyRevenue =   models.orders.findAll({
+        attributes: [
+            'order_date',
+
+            [sequelize.fn('sum', sequelize.col('order_total_price')),'totalRevenue'],
+        ],
+        group: [sequelize.literal('MONTH(order_date)', 'month')],
+        order: sequelize.literal('order_date ASC'),
+        raw: true,
+    })
+    console.log(monthlyRevenue)
+    return monthlyRevenue
+}
+
+exports.yearlyRevenue =   () => {
+    const yearlyRevenue =   models.orders.findAll({
+        attributes: [
+            'order_date',
+            [sequelize.fn('sum', sequelize.col('order_total_price')),'totalRevenue'],
+        ],
+        group: [sequelize.literal('YEAR(order_date)', 'month')],
+        order: sequelize.literal('order_date ASC'),
+        raw: true,
+    })
+    console.log(yearlyRevenue)
+    return yearlyRevenue
+}
+
+exports.getTotalDelivery =  () => {
+    const statisticDelivery =  models.orders.findAll({
+        attributes: [
+            'order_status',
+            [sequelize.fn('count', sequelize.col('order_status')),'total'],
+        ],
+        group: 'order_status',
+        raw: true,
+    })
+    console.log(statisticDelivery)
+    return statisticDelivery;
+}
+// getTotalDelivery()

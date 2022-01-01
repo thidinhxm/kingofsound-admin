@@ -74,8 +74,12 @@
 
                     <div class="row">
                         <div class="col">
-                            <a href="/admin/profile/{{currentUser.user_id}}/edit-profile"
+                            <a href="/accounts/{{currentUser.user_id}}/account-edit"
                                 class="btn btn-primary btn-block text-uppercase mb-3">Chỉnh sửa thông tin</a>
+                        </div>
+                         <div class="col">
+                            <a href="/accounts/users/{{currentUser.user_id}}/lock"
+                                class="btn btn-danger btn-block text-uppercase mb-3">Khoá tài khoản</a>
                         </div>
                     </div>
 
