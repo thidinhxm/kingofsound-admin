@@ -89,58 +89,27 @@ exports.store = async (req, res, next) => {
 	try {
 		// const selectedCategory = await models.categories.findOne({where: {category_name: req.body.category}, raw: true})
 
-		// const newProduct = await models.products.create({
-		// 	category_id: selectedCategory.category_id,
-		// 	product_name: req.body.name,
-		// 	price: req.body.price,
-		// 	descriptions: req.body.descriptions,
-		// 	model_year: req.body.model_year,
-		// 	is_active: 1,
-		// });
+	const selectedCategory = await models.categories.findOne({where: {category_name: req.body.category}, raw: true})
 
-		// const imgProduct = await models.images.create({
-		// 	product_id: newProduct.product_id,
-		// 	image_stt: 1,
-		// 	image_link: req.body.image_link
-		// });
+	const newProduct = await models.products.create({
+		category_id: selectedCategory.category_id,
+		product_name: req.body.name,
+		price: req.body.price,
+		descriptions: req.body.descriptions,
+		model_year: req.body.model_year,
+		is_active: 1,
+	});
 
-		// res.redirect('/products');
-		// res.json(newProduct);
-		// res.json(req.body);
-		// console.log(req.file);
+	const imgProduct = await models.images.create({
+		product_id: newProduct.product_id,
+		image_stt: 1,
+		image_link: req.body.image_link
+	});
 
+	res.redirect('/products');
 
-
-
-
-		// const linkImage = async function generatePublicUrl() {
-		// 	try {
-		// 		const fileId = imageID+'';
-		// 		await drive.permissions.create({
-		// 			fileId: fileId,
-		// 			requestBody: {
-		// 				role: 'reader',
-		// 				type: 'anyone',
-		// 			},
-		// 		});
-
-		// 		/*
-		// 		webViewLink: View the file in browser
-		// 		webContentLink: Direct download link
-		// 		*/
-		// 		const result = await drive.files.get({
-		// 			fileId: fileId,
-		// 			fields: 'webViewLink, webContentLink',
-		// 		});
-		// 		console.log(result.data);
-		// 	} catch (error) {
-		// 		console.log(error.message);
-		// 	}
-
-
-		// }`
-		const listLinkImages = await productService.getListLinkImage();
-		res.json(listLinkImages)
+	// const listLinkImages = await productService.getListLinkImage();
+	// res.json(listLinkImages)
 
 
 		// linkImage();
@@ -208,3 +177,19 @@ exports.delete = async (req, res) => {
 	}
 };
 
+exports.addCategory = (req, res, next) =>{
+	res.render('../components/products/productViews/add-category')
+}
+exports.storeCategory = async (req, res) =>{
+	const newCategory = {
+		category_name: req.body.category_name,
+		descriptions: req.body.descriptions,
+		parent_category: req.body.parent_category,
+	}
+	try {
+		await models.categories.create(newCategory)
+	}
+	catch (err) {console.log(err)}
+	(res.redirect('/products'));
+
+}

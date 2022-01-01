@@ -4,15 +4,15 @@
   <div class="container">
     <div class="container">
       <div div="row" style="margin: 20px auto;">
-        <form action="/accounts" method="get">
+        <form action="/products" method="get">
           <div class="wrap">
-            <div class="search">
+            {{!-- <div class="search">
               <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
                 name="search_name" value="{{search_name}}">
               <button type="submit" class="searchButton">
                 <i class="fa fa-search"></i>
               </button>
-            </div>
+            </div> --}}
         </form>
       </div>
     </div>
@@ -21,60 +21,75 @@
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
       <div class="tm-bg-primary-dark tm-block tm-block-products">
         <div class="row">
-          <div class="col">
-            <a href="/products/add-product" class="btn btn-primary btn-block text-uppercase mb-3">
-            <i class="fas fa-plus" style="margin-right: 10px;"> </i>
-             Thêm sản phẩm</a>
+          <div class="col-md-6">
+            <a href="/accounts/admins/add-admin" class="btn btn-primary btn-block text-uppercase mb-3">Thêm Admin</a>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-primary btn-block text-uppercase">
+              Xoá Admin
+            </button>
           </div>
         </div>
         <div class="tm-product-table-container">
           <table class="table table-hover tm-table-small tm-product-table">
             <thead>
-              {{#if Pages}}
+              {{!-- {{#if Pages}} --}}
               <tr>
+                {{!-- <th scope="col">&nbsp;</th> --}}
                 <th scope="col"></th>
-                <th scope="col">Tên sản phẩm</th>
-                <th scope="col">Loại</th>
-                <th scope="col">Kho</th>
-                <th scope="col">Giá</th>
+                <th scope="col">ID</th>
+                <th scope="col">Họ và tên</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col">Email</th>
+                <th scope="col">Vai trò</th>
                 <th scope="col">&nbsp;</th>
                 <th scope="col"></th>
 
               </tr>
-              {{/if}}
+              {{!-- {{/if}} --}}
             </thead>
             <tbody>
-              {{#if products}}
-              {{#each products}}
+              {{#if adminAccounts}}
+              {{#each adminAccounts}}
               <tr>
+                {{!-- <th scope="row"><input type="checkbox" /></th> --}}
                 <td><img src="{{'images.image_link'}}" alt=""></td>
-                <td class="tm-product-name">{{product_name}}</td>
-                <td>{{'category.category_name'}}</td>
-                <td>{{quantity}}</td>
-                <td>{{price}}</td>
+                <td class="tm-product-name">{{user_id}}</td>
+                <td>{{firstname}} {{lastname}}</td>
+                <td>{{address}}</td>
+                <td>{{phone}}</td>
+                <td>{{email}}</td>
+                <td>{{"role_id_roles.role_name"}}</td>
+
                 <td>
-                  <a href="/products/{{product_id}}/edit" class=" tm-product-delete-link">
+                  <a href="/accounts/{{user_id}}/account-edit" class=" tm-product-delete-link">
                     <i class="far fa-edit tm-product-delete-icon"></i>
                   </a>
                 </td>
 
+
+
                 <td>
+                  {{#if (isNotSuperAdmin user_id)}}
                   <a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
-                    data-target="#delete-product-modal" data-id="{{product_id}}">
+                    data-target="#delete-product-modal" data-id="{{user_id}}">
                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
                   </a>
+                  {{/if}}
                 </td>
+
               </tr>
               {{/each}}
               {{else}}
-              <h1 class="Notification">Không có sản phẩm nào phù hợp!</h1>
+              <h1 class="Notification">Không có quản trị viên nào phù hợp!</h1>
               {{/if}}
             </tbody>
           </table>
         </div>
-        {{#if Pages}}
+        {{!-- {{#if Pages}}
         <nav aria-label="Page navigation example">
-          <ul class="pagination pagination-sm" style="display: flex; justify-content: center;">
+          <ul class="pagination" style="display: flex; justify-content: center;">
             <li class="page-item">
               <a class="page-link" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
@@ -99,51 +114,11 @@
             </li>
           </ul>
         </nav>
-        {{/if}}
+        {{/if}} --}}
         <!-- table container -->
       </div>
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-      <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
-        <div class="row">
-          <div class="col">
-            <a href="/products/add-category" class="btn btn-primary btn-block text-uppercase mb-3">
-             <i class="fas fa-plus" style="margin-right: 10px ;"></i>
-             Thêm loại sản phẩm phẩm</a>
-          </div>
-        </div>
 
-        <div class="tm-categories-table-container">
-          <table class="table tm-table-small tm-product-table">
-            <tbody>
-              <thead>
-                <tr>
-                  {{!-- <th scope="col">&nbsp;</th> --}}
-                  <th scope="col"></th>
-                  <th scope="col">Mã loại sản phẩm</th>
-                  <th scope="col">Loại sản phẩm</th>
-                  <th scope="col"></th>
-
-                </tr>
-              </thead>
-              {{#each categories }}
-              <tr>
-                <td></td>
-                <td class="tm-product-name">{{category_id}}</td>
-                <td class="tm-product-name">{{category_name}}</td>
-                <td class="text-center">
-                  <a href="#" class="tm-product-delete-link">
-                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                  </a>
-                </td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-        <!-- table container -->
-      </div>
-    </div>
   </div>
 </div>
 {{!-- Confirm delete modal --}}
@@ -173,14 +148,6 @@
 </form>
 
 
-{{!--
-<script>
-	$(function () {
-		$(".tm-product-name").on("click", function () {
-			window.location.href = "edit-product.html";
-		});
-	});
-</script> --}}
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
 		var productID
@@ -199,7 +166,4 @@
 		}
 
 	});
-
 </script>
-
-</body>

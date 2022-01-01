@@ -1,69 +1,28 @@
 
-{{> header }}
-<div class="container mt-5">
-    <div class="col-12 ">
-        <div class="tm-bg-primary-dark ">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Tháng </th>
-                        <th scope="col">Doanh thu</th>
-                        <th scope="col">Ghi chú</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr> <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr> <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr> <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr> <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr> <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr> <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr> <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr> <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr> <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr> <tr>
-                        <th scope="row"><b>Tháng</b></th>
-                        <td><b>2000$</b></td>
-                        <td>Khách donate 200$</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+            {{> header }}
+            <div class="container mt-5">
+
+                    <div class="col-12 ">
+                        <div class="tm-bg-primary-dark ">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Tháng </th>
+                                        <th scope="col">Doanh thu</th>
+                                        <th scope="col">Ghi chú</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each monthlyRevenue}}
+                                    <tr>
+                                        <th scope="row"><b>{{month}}/{{year}}</b></th>
+                                        <td><b>{{totalRevenue}} vnđ</b></td>
+                                        <td></td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
