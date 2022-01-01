@@ -1,11 +1,7 @@
 const cloudinary = require('cloudinary').v2;
-const productService = require("./productService")
+const productService = require("./productService");
+const categoryService = require("../categories/categoryService");
 const { models } = require("../../models");
-const dbProduct = models.products;
-
-
-
-
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -13,12 +9,12 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const itemPerPage = 8;
 exports.list = async (req, res,next) => {
 	try {
+		const itemPerPage = 8;
 		let page = !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0;
 		const search_name = req.query.search_name;
-		let categories = await productService.listcategory();
+		let categories = await categoryService.listcategory();
 		let active = { product: true,}
 		
 		if (search_name) {
@@ -63,7 +59,7 @@ exports.listByName = async (req, res,next) => {
 	try {
 		const search_name = req.query.search_name;
 		const products = await productService.listByName(search_name, !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0);
-		const categories = await productService.listcategory();
+		const categories = await categoryService.listcategory();
 		const active = { product: true }
 
 		res.render('../components/products/productViews/products', { products, categories, active });
@@ -75,7 +71,7 @@ exports.listByName = async (req, res,next) => {
 
 exports.add = async (req, res,next) => {
 	try {
-		const categories = await productService.listcategory();
+		const categories = await categoryService.listcategory();
 		const active = { product: true }
 
 		res.render('../components/products/productViews/add-product', { categories, active });
@@ -86,21 +82,9 @@ exports.add = async (req, res,next) => {
 
 }
 
-const { google } = require('googleapis');
-const path = require('path');
-
-
-
-
-
-
-// exports.store = async (req, res) => {
 exports.store = async (req, res, next) => {
 
-
 	try {
-		// const selectedCategory = await models.categories.findOne({where: {category_name: req.body.category}, raw: true})
-
 	const selectedCategory = await models.categories.findOne({where: {category_name: req.body.category}, raw: true})
 
 	const newProduct = await models.products.create({
@@ -119,12 +103,6 @@ exports.store = async (req, res, next) => {
 	});
 
 	res.redirect('/products');
-
-	// const listLinkImages = await productService.getListLinkImage();
-	// res.json(listLinkImages)
-
-
-		// linkImage();
 	}
 	catch (err) {
 		next(err);
@@ -137,12 +115,11 @@ exports.edit = async (req, res,next) => {
 		const currentCategory = currentProduct.category_id;
 		const imgProduct = await models.images.findOne({ where: { product_id: req.params.id }, raw: true });
 		const curentCategoryProduct = await models.categories.findOne({ where: { category_id: currentCategory }, raw: true });
-		const categories = await productService.listcategory();
+		const categories = await categoryService.listcategory();
 		const active = { product: true }
 
 
 		res.render('../components/products/productViews/edit-product', { currentProduct, categories, curentCategoryProduct, imgProduct, active });
-		// res.json(curentCategoryProduct)
 	}
 	catch (err) {
 		next(err);
@@ -162,14 +139,11 @@ exports.update = async (req, res, next) => {
 
 		await models.products.update(productUpdate, { where: { product_id: req.params.id } })
 			(res.redirect('/products'))
-		// res.json(categoryUpade)
 	}
 	catch (err) {
 		next(err);
 	}
 }
-
-
 
 exports.delete = async (req, res,next) => {
 	try {
@@ -180,8 +154,6 @@ exports.delete = async (req, res,next) => {
 				product_id: req.params.id,
 			}
 		})
-			// const currentProduct = await models.products.findOne({ where: { product_id: req.params.id }, raw: true })
-
 			(res.redirect('/products'));
 	}
 	catch (err) {

@@ -27,7 +27,7 @@ button:focus {
 }
 .navbar-brand {
   display: flex;
-  align-items: center;
+  align-items: left;
 }
 .tm-site-icon {
   color: #656565;
@@ -588,6 +588,15 @@ input[type="checkbox"]:focus {
   .navbar-collapse {
     height: 100%;
   }
+  h1.tm-site-title.mb-0 {
+    margin-left: -30px;
+    margin-right: -50px;
+  }
+
+  li.nav-item.dropdown.user {
+    margin-right: -150px;
+    margin-left: 100px;
+  }
 }
 @media (min-width: 992px) {
   .navbar-expand-lg .navbar-nav .nav-link {
@@ -684,6 +693,7 @@ input[type="checkbox"]:focus {
   .custom-select {
     background-position: 96%;
   }
+
 }
 @media (max-width: 574px) {
   .navbar-collapse {

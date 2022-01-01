@@ -5,17 +5,6 @@ const path = require("path");
 const { google } = require("googleapis");
 const fs = require("fs");
 
-exports.listcategory = () => {
-  return models.categories.findAll({
-    where: {
-      category_id: {
-        [Op.notIn]: [1, 2],
-      },
-    },
-    raw: true,
-  });
-};
-
 exports.listProducts = () => {
   return models.products.findAll({ raw: true });
 };

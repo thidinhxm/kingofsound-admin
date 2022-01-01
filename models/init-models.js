@@ -1,7 +1,7 @@
 var DataTypes = require("sequelize").DataTypes;
-var _brands = require("../components/products/productModels/brandModel");
+var _brands = require("../components/brands/brandModel");
 var _carts = require("../components/carts/cartModel");
-var _categories = require("../components/products/productModels/categoryModel");
+var _categories = require("../components/categories/categoryModel");
 var _comments = require("../components/products/productModels/commentModel");
 var _detailcarts = require("../components/carts/detailcartModel");
 var _detailorders = require("../components/orders/orderModels/detailorderModel");
@@ -13,7 +13,7 @@ var _roles = require("../components/accounts/accountModels/roleModel");
 var _unauthusers = require("../components/carts/unauthuserModel");
 var _userroles = require("../components/accounts/accountModels/userroleModel");
 var _users = require("../components/accounts/accountModels/userModel");
-var _vouchers = require("../components/carts/voucherModel");
+var _vouchers = require("../components/vouchers/voucherModel");
 
 function initModels(sequelize) {
   var brands = _brands(sequelize, DataTypes);

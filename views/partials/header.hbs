@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-xl">
+    
     <div class="container h-100">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="#">
             <h1 class="tm-site-title mb-0">King of Sound</h1>
         </a>
         <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -20,7 +21,7 @@
                     <a
                         class="{{#if active.revenue}} active{{/if}} nav-link  dropdown-toggle"
                         href="#"
-                        id="navbarDropdown"
+                        id="navbarDropdown1"
                         role="button"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -29,24 +30,37 @@
                         <i class="far fa-file-alt"></i>
                         <span>Thống kê doanh thu</i></span>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                         <a class="dropdown-item" href="/revenue/day">Theo ngày</a>
                         <a class="dropdown-item" href="/revenue/month">Theo tháng</a>
                         <a class="dropdown-item" href="/revenue/year">Theo năm</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="{{#if active.product}} active{{/if}} nav-link" href="/products">
+                <li class="nav-item dropdown">
+                    <a
+                        class="{{#if active.product}} active{{/if}} nav-link dropdown-toggle"
+                        href="#"
+                        id="navbarDropdown2"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
                         <i class="fas fa-shopping-cart"></i>
-                        Sản phẩm
+                        <span>Về sản phẩm</span>
                     </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <a class="dropdown-item" href="/products">Sản phẩm</a>
+                        <a class="dropdown-item" href="/categories">Loại sản phẩm</a>
+                        <a class="dropdown-item" href="/brands">Nhà sản xuất</a>
+                    </div>
                 </li>
 
                 <li class="nav-item dropdown">
                     <a
                         class="{{#if active.user}} active{{/if}} nav-link dropdown-toggle"
                         href="#"
-                        id="navbarDropdown"
+                        id="navbarDropdown3"
                         role="button"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -55,23 +69,35 @@
                         <i class="fas fa-tasks"></i>
                         <span>Tài khoản</span>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
                         <a class="dropdown-item" href="/accounts/admins">Tài khoản admin</a>
                         <a class="dropdown-item" href="/accounts/users">Tài khoản khách hàng</a>
                     </div>
                 </li>
-                <li class=" {{#if active.order}} active{{/if}} nav-item dropdown">
-                    <a class="nav-link" href="/orders">
+                <li class="nav-item dropdown">
+                    <a
+                        class="{{#if active.order}} active{{/if}} nav-link dropdown-toggle"
+                        href="#"
+                        id="navbarDropdown4"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
                         <i class="fas fa-truck-pickup"></i>
-                        Đơn hàng
+                        Về đơn hàng
                     </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                        <a class="dropdown-item" href="/orders">Đơn hàng</a>
+                        <a class="dropdown-item" href="/vouchers">Voucher</a>
+                    </div>
                 </li>
 
-                 <li class="nav-item dropdown">
+                 <li class="nav-item dropdown user">
                     <a
                         class="{{#if active.admin}} active{{/if}} nav-link dropdown-toggle"
                         href="#"
-                        id="navbarDropdown"
+                        id="navbarDropdown4"
                         role="button"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -84,7 +110,7 @@
                         </span>
 
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
                         <a class="dropdown-item" href="/admin/profile">Thông tin cá nhân</a>
                         <a class="dropdown-item" href="/logout">Đăng xuất</a>
                     </div>
