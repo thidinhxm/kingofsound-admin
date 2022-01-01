@@ -1,52 +1,56 @@
-            {{> header }}
-            <div class="container-fluid mt-5 order-container">
 
-                    <div class="col-9 ">
-                        <div class="tm-bg-primary-dark ">
-
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Mã đơn</th>
-                                        <th scope="col">Ngày đặt hàng</th>
-                                        <th scope="col">Tên khách hàng</th>
-                                        <th scope="col">Số điện thoại</th>
-                                        <th scope="col">Nơi nhận</th>
-                                        <th scope="col">Thành tiền</th>
-                                        <th scope="col">Trang trạng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each orders}}
-                                    <tr>
-                                        <th scope="row"><b>{{order_id}}</b></th>
-                                        <th scope="row"><b>{{order_date}}</b></th>
-                                        <td><b>{{'user.firstname'}} {{'user.lastname'}}</b></td>
-                                        <td><b>{{'user.phone'}}</b></td>
-                                        <td><b>{{'user.address'}}</b></td>
-                                        <td><b>{{order_total_price}}</b></td>
-                                        <td>
-                                            {{#if (compareStatus 'Đang chờ xử lý' order_status)}}
-                                                <div class="tm-status-circle pending"></div>
-                                                Chờ xử lý
-                                            {{/if}}
-                                            {{#if (compareStatus 'Đang giao' order_status)}}
-                                                <div class="tm-status-circle moving"></div>
-                                                Đang vận chuyển
-                                            {{/if}}
-                                            {{#if (compareStatus 'Đã giao' order_status)}}
-                                                <div class="tm-status-circle done"></div>
-                                                Đã giao hàng
-                                            {{/if}}
-                                            {{#if (compareStatus "cancelled" order_status)}}
-                                                <div class="tm-status-circle cancelled"></div>
-                                                Đã hủy
-                                            {{/if}}
-                                        </td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+{{> header }}
+<div class="container-fluid mt-5 order-container row">
+    <div class="col-9">
+        <div class="tm-bg-primary-dark ">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Mã đơn</th>
+                        <th scope="col">Tên khách hàng</th>
+                        <th scope="col">Số điện thoại</th>
+                        <th scope="col">Thành tiền</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each orders}}
+                    <tr>
+                        <th scope="row"><b>{{order_id}}</b></th>
+                        <td><b>{{'user.firstname'}} {{'user.lastname'}}</b></td>
+                        <td><b>{{'user.phone'}}</b></td>
+                        <td><b>{{formatPrice total_price}}</b></td>
+                        <td>
+                            {{#if (compareStatus 'Đang chờ xử lý' order_status)}}
+                                <div class="tm-status-circle pending"></div>
+                                Đang chờ xử lý
+                            {{/if}}
+                            {{#if (compareStatus 'Đang giao' order_status)}}
+                                <div class="tm-status-circle moving"></div>
+                                Đang vận chuyển
+                            {{/if}}
+                            {{#if (compareStatus 'Đã giao' order_status)}}
+                                <div class="tm-status-circle done"></div>
+                                Đã giao hàng
+                            {{/if}}
+                            {{#if (compareStatus "Đã hủy" order_status)}}
+                                <div class="tm-status-circle cancelled"></div>
+                                Đã hủy
+                            {{/if}}
+                        </td>
+                        <td>
+                            <a href="orders/{{order_id}}" class="tm-product-delete-link">
+                                <i class="far fa-edit tm-product-delete-icon"></i>
+                            </a>
+                            <a href="orders/{{order_id}}" class="tm-product-delete-link">
+                                <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

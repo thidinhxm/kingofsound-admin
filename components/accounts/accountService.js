@@ -45,7 +45,7 @@ exports.totalCredit = (userId) => {
     return models.orders.findAll({
         attributes: [
             'user_id',
-            [sequelize.fn('sum', sequelize.col('order_total_price')), 'total_amount'],
+            [sequelize.fn('sum', sequelize.col('total_price')), 'total_amount'],
         ],
         where: [
             { user_id: userId },
@@ -56,14 +56,19 @@ exports.totalCredit = (userId) => {
     })
 }
 exports.userRole = async (id) => {
-    const roleUserID = 3
-    const userRole = await models.userroles.findOne({
-        where: {
-            user_id: id,
-        },
-        raw: true
-    })
-    return userRole.role_id == roleUserID ? 'users' : 'admins'
+    try {
+        const roleUserID = 3
+        const userRole = await models.userroles.findOne({
+            where: {
+                user_id: id,
+            },
+            raw: true
+        })
+        return userRole.role_id == roleUserID ? 'users' : 'admins'
+    }
+    catch (err) {
+        console.log(err)
+    }
 
 }
 exports.listUserPage = (page = 0, itemPerPage = 8) => {

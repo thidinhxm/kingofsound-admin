@@ -40,6 +40,8 @@ app.engine('hbs', exphbs({
 		isNotSuperAdmin: function(id) { return id != 1 },
 		compareStatus: orderHelper.compareStatus,
 		isBlockedAccount: function(is_blocked) { return is_blocked},
+		formatPrice: orderHelper.formatPrice,
+		formatDateTime: orderHelper.formatDateTime,
 
 	}
 }));

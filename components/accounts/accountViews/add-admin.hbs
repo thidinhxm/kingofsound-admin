@@ -1,142 +1,143 @@
-      {{> header }}
-      <div class="container mt-5">
-        <div class="row tm-content-row">
-          <div class="col-12 tm-block-col">
-            
-          </div>
-        </div>
-        <!-- row -->
-        <div class="row tm-content-row">
-          <div class="tm-block-col tm-col-avatar">
-            <div class="tm-bg-primary-dark tm-block tm-block-avatar">
-              <h2 class="tm-block-title">Loại tài khoản</h2>
-              <div class="tm-avatar-container">
-                <img
-                  src="/img/avatar.png"
-                  alt="Avatar"
-                  class="tm-avatar img-fluid mb-4"
-                />
-                <a href="#" class="tm-avatar-delete-link">
-                  <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                </a>
-              </div>
-              {{!-- <button class="btn btn-primary btn-block text-uppercase">
-                Tải ảnh đại diện
-              </button> --}}
-            </div>
-          </div>
-          <div class="tm-block-col tm-col-account-settings">
-            <div class="tm-bg-primary-dark tm-block tm-block-settings">
-              <h2 class="tm-block-title">Cài đặt tài khoản</h2>
-              <form action="/accounts/admins/store" class="tm-signup-form row" method="post">
-                <div class="form-group col-lg-6">
-                  <label for="firstname">Họ </label>
-                  <input
-                    id="firstname"
-                    name="firstname"
-                    type="text"
-                    class="form-control validate"
-                    required
-                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
-                    oninput="this.setCustomValidity('')"
-                  />
-                </div>
 
-                <div class="form-group col-lg-6">
-                  <label for="lastname">Tên </label>
-                  <input
-                    id="lastname"
-                    name="lastname"
-                    type="text"
-                    class="form-control validate"
-                    required
-                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
-                    oninput="this.setCustomValidity('')"
-                  />
-                </div>
-                
-                <div class="form-group col-lg-12">
-                  <label for="email">Địa chỉ Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    class="form-control validate"
-                    required
-                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
-                    oninput="this.setCustomValidity('')"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="password">Mật khẩu</label>
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="form-control validate"
-                    required
-                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
-                    oninput="this.setCustomValidity('')"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="confirm_password">Nhập lại mật khẩu</label>
-                  <input
-                    id="confirm_password"
-                    name="confirm_password"
-                    type="password"
-                    class="form-control validate"
-                    on=""
-                    required
-                    oninvalid="this.setCustomValidity(' ')"
-                    oninput="this.setCustomValidity('')"
-                  />
-                  <label id='message'></label>
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="phone">Điện thoại</label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    class="form-control validate"
-                    required
-                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
-                    oninput="this.setCustomValidity('')"
-                  />
-                </div>
-                 <div class="form-group col-lg-6">
-                  <label for="address">Địa chỉ</label>
-                  <input
-                    id="address"
-                    name="address"
-                    type="text"
-                    class="form-control validate"
-                    required
-                    oninvalid="this.setCustomValidity('Mục này không được để trống')"
-                    oninput="this.setCustomValidity('')"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label class="tm-hide-sm">&nbsp;</label>
-                  <button
-                    type="submit"
-                    class="btn btn-primary btn-block text-uppercase"
-                  >
-                   Tạo tài khoản quản trị viên
-                  </button>
-                </div>
-               
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    <script>
-      $(' #confirm_password').on('keyup', function () {
-          if ($('#password').val() == $('#confirm_password').val()) {
-            $('#message').html('').css('color', 'green');
-          } else 
-            $('#message').html('Mật khẩu không khớp').css('color', 'red');
-        });
-      </script>  
+{{> header }}
+<div class="container mt-5">
+	<div class="row tm-content-row">
+		<div class="col-12 tm-block-col">
+			
+		</div>
+	</div>
+	<!-- row -->
+	<div class="row tm-content-row">
+		<div class="tm-block-col tm-col-avatar">
+			<div class="tm-bg-primary-dark tm-block tm-block-avatar">
+				<h2 class="tm-block-title">Loại tài khoản</h2>
+				<div class="tm-avatar-container">
+					<img
+						src="/img/avatar.png"
+						alt="Avatar"
+						class="tm-avatar img-fluid mb-4"
+					/>
+					<a href="#" class="tm-avatar-delete-link">
+						<i class="far fa-trash-alt tm-product-delete-icon"></i>
+					</a>
+				</div>
+				{{!-- <button class="btn btn-primary btn-block text-uppercase">
+					Tải ảnh đại diện
+				</button> --}}
+			</div>
+		</div>
+		<div class="tm-block-col tm-col-account-settings">
+			<div class="tm-bg-primary-dark tm-block tm-block-settings">
+				<h2 class="tm-block-title">Cài đặt tài khoản</h2>
+				<form action="/accounts/admins/store" class="tm-signup-form row" method="post">
+					<div class="form-group col-lg-6">
+						<label for="firstname">Họ </label>
+						<input
+							id="firstname"
+							name="firstname"
+							type="text"
+							class="form-control validate"
+							required
+							oninvalid="this.setCustomValidity('Mục này không được để trống')"
+							oninput="this.setCustomValidity('')"
+						/>
+					</div>
+
+					<div class="form-group col-lg-6">
+						<label for="lastname">Tên </label>
+						<input
+							id="lastname"
+							name="lastname"
+							type="text"
+							class="form-control validate"
+							required
+							oninvalid="this.setCustomValidity('Mục này không được để trống')"
+							oninput="this.setCustomValidity('')"
+						/>
+					</div>
+					
+					<div class="form-group col-lg-12">
+						<label for="email">Địa chỉ Email</label>
+						<input
+							id="email"
+							name="email"
+							type="email"
+							class="form-control validate"
+							required
+							oninvalid="this.setCustomValidity('Mục này không được để trống')"
+							oninput="this.setCustomValidity('')"
+						/>
+					</div>
+					<div class="form-group col-lg-6">
+						<label for="password">Mật khẩu</label>
+						<input
+							id="password"
+							name="password"
+							type="password"
+							class="form-control validate"
+							required
+							oninvalid="this.setCustomValidity('Mục này không được để trống')"
+							oninput="this.setCustomValidity('')"
+						/>
+					</div>
+					<div class="form-group col-lg-6">
+						<label for="confirm_password">Nhập lại mật khẩu</label>
+						<input
+							id="confirm_password"
+							name="confirm_password"
+							type="password"
+							class="form-control validate"
+							on=""
+							required
+							oninvalid="this.setCustomValidity(' ')"
+							oninput="this.setCustomValidity('')"
+						/>
+						<label id='message'></label>
+					</div>
+					<div class="form-group col-lg-6">
+						<label for="phone">Điện thoại</label>
+						<input
+							id="phone"
+							name="phone"
+							type="tel"
+							class="form-control validate"
+							required
+							oninvalid="this.setCustomValidity('Mục này không được để trống')"
+							oninput="this.setCustomValidity('')"
+						/>
+					</div>
+						<div class="form-group col-lg-6">
+						<label for="address">Địa chỉ</label>
+						<input
+							id="address"
+							name="address"
+							type="text"
+							class="form-control validate"
+							required
+							oninvalid="this.setCustomValidity('Mục này không được để trống')"
+							oninput="this.setCustomValidity('')"
+						/>
+					</div>
+					<div class="form-group col-lg-6">
+						<label class="tm-hide-sm">&nbsp;</label>
+						<button
+							type="submit"
+							class="btn btn-primary btn-block text-uppercase"
+						>
+							Tạo tài khoản quản trị viên
+						</button>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(' #confirm_password').on('keyup', function () {
+		if ($('#password').val() == $('#confirm_password').val()) {
+			$('#message').html('').css('color', 'green');
+		} else 
+			$('#message').html('Mật khẩu không khớp').css('color', 'red');
+	});
+</script>  

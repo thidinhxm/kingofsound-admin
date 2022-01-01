@@ -1,40 +1,32 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('comments', {
-    comment_id: {
-      autoIncrement: true,
+  return sequelize.define('detailcarts', {
+    cart_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING(60),
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING(50),
-      allowNull: false
+      primaryKey: true,
+      references: {
+        model: 'carts',
+        key: 'cart_id'
+      }
     },
     product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
       references: {
         model: 'products',
         key: 'product_id'
       }
     },
-    content: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    created_at: {
-      type: DataTypes.DATE,
+    quantity: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+      defaultValue: 1
     }
   }, {
     sequelize,
-    tableName: 'comments',
+    tableName: 'detailcarts',
     timestamps: false,
     indexes: [
       {
@@ -42,11 +34,12 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "comment_id" },
+          { name: "cart_id" },
+          { name: "product_id" },
         ]
       },
       {
-        name: "fk_comments_product_id",
+        name: "fk_detailcarts_product_id",
         using: "BTREE",
         fields: [
           { name: "product_id" },
