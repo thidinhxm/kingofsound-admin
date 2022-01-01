@@ -14,29 +14,41 @@ cloudinary.config({
 });
 
 const itemPerPage = 8;
-exports.list = async (req, res) => {
+exports.list = async (req, res,next) => {
 	try {
-		const page = !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0;
+		let page = !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0;
 		const search_name = req.query.search_name;
 		let categories = await productService.listcategory();
-		const active = { product: true }
-
+		let active = { product: true,}
+		
 		if (search_name) {
 			const products = await productService.listByName(search_name, page);
+			const Pages = Math.floor(products.count / itemPerPage)+1;
+			let next =page < Pages - 1?page+2:Pages;
+			let previous =page>0?page:1;
 			res.render('../components/products/productViews/products', {
 				products: products.rows,
 				categories,
 				search_name,
-				Pages: products.count / itemPerPage,
+				Pages,
+				next,
+				previous,
+				indexpage:page,
 				active
 			});
 		}
 		else {
-			const products = await productService.list(!isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0);
+			const products = await productService.list(page);
+			const Pages = Math.floor(products.count / itemPerPage)+1;
+			let next =page < Pages - 1? page+2:Pages;
+			let previous =page>0?page:1;
 			res.render('../components/products/productViews/products', {
 				products: products.rows,
 				categories
-				, Pages: products.count / itemPerPage,
+				, Pages,
+				next,
+				previous,
+				indexpage:page,
 				active
 			});
 		}
@@ -47,7 +59,7 @@ exports.list = async (req, res) => {
 }
 
 
-exports.listByName = async (req, res) => {
+exports.listByName = async (req, res,next) => {
 	try {
 		const search_name = req.query.search_name;
 		const products = await productService.listByName(search_name, !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0);
@@ -61,7 +73,7 @@ exports.listByName = async (req, res) => {
 	}
 }
 
-exports.add = async (req, res) => {
+exports.add = async (req, res,next) => {
 	try {
 		const categories = await productService.listcategory();
 		const active = { product: true }
@@ -150,7 +162,7 @@ exports.store = async (req, res, next) => {
 	}
 }
 
-exports.edit = async (req, res) => {
+exports.edit = async (req, res,next) => {
 	try {
 		const currentProduct = await models.products.findOne({ where: { product_id: req.params.id }, raw: true })
 		const currentCategory = currentProduct.category_id;
@@ -190,7 +202,7 @@ exports.update = async (req, res, next) => {
 
 
 
-exports.delete = async (req, res) => {
+exports.delete = async (req, res,next) => {
 	try {
 		await models.products.update({
 			is_active: false

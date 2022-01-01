@@ -30,10 +30,14 @@ app.engine('hbs', exphbs({
 	extname: 'hbs',
 	defaultLayout: 'layout',
 	helpers: {
-		'pages': function(n,search_name,block) {
+		'pages': function(pages,page,search_name,block) {
 			var accum = '';
-			for(var i = 1; i < n+1; ++i)
-				accum += block.fn({index:i,search_name:search_name});
+			console.log(page);
+			for(var i = 1; i < pages+1; ++i)
+			if(i!=page+1)
+				accum += block.fn({index:i,search_name:search_name,active:""});
+			else
+				accum += block.fn({index:i,search_name:search_name,active:"active"});
 			return accum;
 		},
 
