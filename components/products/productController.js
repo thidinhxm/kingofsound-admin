@@ -19,7 +19,7 @@ exports.list = async (req, res,next) => {
 		
 		if (search_name) {
 			const products = await productService.listByName(search_name, page);
-			const Pages = Math.floor(products.count / itemPerPage)+1;
+			const Pages = Math.round(products.count / itemPerPage);
 			let next =page < Pages - 1?page+2:Pages;
 			let previous =page>0?page:1;
 			res.render('../components/products/productViews/products', {
@@ -35,7 +35,7 @@ exports.list = async (req, res,next) => {
 		}
 		else {
 			const products = await productService.list(page);
-			const Pages = Math.floor(products.count / itemPerPage)+1;
+			const Pages = Math.round(products.count / itemPerPage);
 			let next =page < Pages - 1? page+2:Pages;
 			let previous =page>0?page:1;
 			res.render('../components/products/productViews/products', {
