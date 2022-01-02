@@ -16,7 +16,7 @@ exports.list = async (req, res,next) => {
 		const search_name = req.query.search_name;
 		let categories = await categoryService.listcategory();
 		let active = { product: true,}
-		
+
 		if (search_name) {
 			const products = await productService.listByName(search_name, page);
 			const Pages = Math.floor(products.count / itemPerPage)+1;
@@ -40,8 +40,8 @@ exports.list = async (req, res,next) => {
 			let previous =page>0?page:1;
 			res.render('../components/products/productViews/products', {
 				products: products.rows,
-				categories
-				, Pages,
+				categories,
+				Pages,
 				next,
 				previous,
 				indexpage:page,
@@ -160,20 +160,3 @@ exports.delete = async (req, res,next) => {
 		next(err);
 	}
 };
-
-exports.addCategory = (req, res, next) =>{
-	res.render('../components/products/productViews/add-category')
-}
-exports.storeCategory = async (req, res) =>{
-	const newCategory = {
-		category_name: req.body.category_name,
-		descriptions: req.body.descriptions,
-		parent_category: req.body.parent_category,
-	}
-	try {
-		await models.categories.create(newCategory)
-	}
-	catch (err) {console.log(err)}
-	(res.redirect('/products'));
-
-}

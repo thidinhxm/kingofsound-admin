@@ -17,6 +17,6 @@ router.post('/:id/account-update',adminController.isLogin, accountController.upd
 
 router.get('/users/:id/profile', adminController.isLogin, accountController.userDetail);
 
-router.get('/users', adminController.isLogin, accountController.getUserAccounts);
+router.get('/users/', adminController.isLogin, accountController.getUserAccounts);
 
 module.exports = router;

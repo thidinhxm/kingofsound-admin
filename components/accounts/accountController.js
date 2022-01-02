@@ -88,31 +88,45 @@ const itemPerPage = 8;
 exports.getUserAccounts = async (req, res, next) => {
 
 	try {
-		const page = !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0;
+		// const page = !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0;
 		const search_name = req.query.search_name;
 		const active = { user: true }
+		const itemPerPage = 8;
+		let page = !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0;
 
 		// const userAccounts = await accountService.listUserAccount;
 		if (search_name) {
 			const users = await accountService.listByUsername(search_name, page);
+			const Pages = Math.floor(users.count / itemPerPage)+1;
+			let next =page < Pages - 1?page+2:Pages;
+			let previous =page>0?page:1;
 			res.render('../components/accounts/accountViews/user-accounts', {
 				userAccounts: users.rows,
-				Pages: users.count / itemPerPage,
-				// userAccounts,
+				Pages,
+				next,
+				previous,
 				search_name,
+				indexpage:page,
 				active
 			});
 		}
 		else {
 			const users = await accountService.listUserPage(!isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0);
+			const Pages = Math.floor(users.count / itemPerPage)+1;
+			let next =page < Pages - 1? page+2:Pages;
+			let previous =page>0?page:1;
 			res.render('../components/accounts/accountViews/user-accounts', {
 				userAccounts: users.rows,
-				Pages: users.count / itemPerPage,
+				Pages,
+				indexpage:page,
+				next,
+				previous,
 				active
 			});
 		}
 	}
 	catch (error) {
+		console.log(error);
 		next(error);
 	}
 }
