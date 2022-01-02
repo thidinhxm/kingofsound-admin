@@ -97,8 +97,8 @@ exports.getUserAccounts = async (req, res, next) => {
 		// const userAccounts = await accountService.listUserAccount;
 		if (search_name) {
 			const users = await accountService.listByUsername(search_name, page);
-			const Pages = Math.floor(users.count / itemPerPage)+1;
-			let next =page < Pages - 1?page+2:Pages;
+			const Pages = Math.round(users.count / itemPerPage);
+			let next =page < Pages - 1? page+2:Pages;
 			let previous =page>0?page:1;
 			res.render('../components/accounts/accountViews/user-accounts', {
 				userAccounts: users.rows,

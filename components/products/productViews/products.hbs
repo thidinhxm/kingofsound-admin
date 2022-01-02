@@ -4,7 +4,7 @@
   <div class="container">
     <div class="container">
       <div div="row" style="margin: 20px auto;">
-        <form action="/accounts" method="get">
+        <form action="/products" method="get">
           <div class="wrap">
             <div class="search">
               <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
@@ -51,7 +51,7 @@
                 <td class="tm-product-name">{{product_name}}</td>
                 <td>{{'category.category_name'}}</td>
                 <td>{{quantity}}</td>
-                <td>{{formatPrice price}}</td>
+                <td>{{price}}</td>
                 <td>
                   <a href="/products/{{product_id}}/edit" class=" tm-product-delete-link">
                     <i class="far fa-edit tm-product-delete-icon"></i>
@@ -116,7 +116,51 @@
 				<!-- table container -->
 			</div>
 		</div>
+		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+			<div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+				<div class="row">
+					<div class="col-md-6">
+						<a href="/products/add-product" class="btn btn-primary btn-block text-uppercase mb-3">Thêm loại sản
+							phẩm</a>
+					</div>
+					<div class="col-md-6">
+						<button class="btn btn-primary btn-block text-uppercase">
+							Xoá loại sản phẩm
+						</button>
+					</div>
+				</div>
 
+        <div class="tm-categories-table-container">
+          <table class="table tm-table-small tm-product-table">
+            <tbody>
+              <thead>
+                <tr>
+                  {{!-- <th scope="col">&nbsp;</th> --}}
+                  <th scope="col"></th>
+                  <th scope="col">Mã loại sản phẩm</th>
+                  <th scope="col">Loại sản phẩm</th>
+                  <th scope="col"></th>
+
+                </tr>
+              </thead>
+              {{#each categories }}
+              <tr>
+                <td></td>
+                <td class="tm-product-name">{{category_id}}</td>
+                <td class="tm-product-name">{{category_name}}</td>
+                <td class="text-center">
+                  <a href="#" class="tm-product-delete-link">
+                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                  </a>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+        <!-- table container -->
+      </div>
+    </div>
   </div>
 </div>
 {{!-- Confirm delete modal --}}
