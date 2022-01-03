@@ -26,6 +26,26 @@ exports.edit = async (req, res, next) => {
     }
 }
 
+exports.update = async (req, res, next) => {
+    try {
+        console.log(req.body)
+        const currentOrder = {
+            order_status: req.body.order_status,
+            payment_status: req.body.payment_status,
+
+        }
+        await models.orders.update(currentOrder,{
+            where:{
+                order_id: req.body.order_id,
+            }
+        })
+        console.log(currentOrder)
+       res.redirect('/orders')
+    }
+    catch (error) {
+        console.error(error)
+    }
+}
 
 
 // dailyRevenue()

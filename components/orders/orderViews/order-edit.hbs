@@ -10,7 +10,7 @@
         </div>
         {{!-- {{#if currentOrder }} --}}
 
-        <form method="POST" action="/categories/store-category" class="tm-edit-product-form">
+        <form method="POST" action="/orders/update" class="tm-edit-product-form">
           <div class="row tm-edit-product-row">
             <div class="col-xl-6 col-lg-6 col-md-12">
               <div class="form-group mb-3">
@@ -77,18 +77,18 @@
 
             <div class="col-xl-6 col-lg-6 col-md-12">
               <div class="form-group mb-3">
-                <label for="customer_address">Số lượng sản phẩm đã mua
+                <label for="amount">Số lượng sản phẩm đã mua
                 </label>
-                <input id="customer_address" name="customer_address" type="text" class="form-control validate"
+                <input id="amount" name="amount" type="text" class="form-control validate"
                   value="{{'detailorders.totalProduct'}}" readonly>
               </div>
             </div>
 
             <div class="col-xl-6 col-lg-6 col-md-12">
               <div class="form-group mb-3">
-                <label for="customer_address">Voucher được áp dụng
+                <label for="voucher">Voucher được áp dụng
                 </label>
-                <input id="customer_address" name="customer_address" type="text" class=" form-control  validate"
+                <input id="voucher" name="voucher" type="text" class=" form-control  validate"
                   value="{{voucher}}" readonly>
               </div>
             </div>
@@ -97,11 +97,11 @@
 
             <div class="col-xl-6 col-lg-6 col-md-12">
               <div class="form-group mb-3">
-                <label for="parent_category">Trạng thái đơn hàng </label>
-                <select class="custom-select tm-select-accounts" id="parent_category" name="parent_category">
+                <label for="order_status">Trạng thái đơn hàng </label>
+                <select class="custom-select tm-select-accounts" id="order_status" name="order_status">
 
                   <option selected="{{order_status}}"> {{order_status}}</option>
-                  <option value="Đang chờ xử lí">Đang chờ xử lí</option>
+                  <option value="Đang chờ xử lý">Đang chờ xử lý</option>
                   <option value="Đang giao">Đang giao</option>
                   <option value="Đã giao">Đã giao</option>
                 </select>
@@ -110,8 +110,8 @@
 
             <div class="col-xl-6 col-lg-6 col-md-12">
               <div class="form-group mb-3">
-                <label for="parent_category">Trạng thái thanh toán </label>
-                <select class="custom-select tm-select-accounts" id="parent_category" name="parent_category">
+                <label for="payment_status">Trạng thái thanh toán </label>
+                <select class="custom-select tm-select-accounts" id="payment_status" name="payment_status">
 
                   <option selected="{{payment_status}}"> {{payment_status}}</option>
                   <option value="Chưa thanh toán">Chưa thanh toán</option>
