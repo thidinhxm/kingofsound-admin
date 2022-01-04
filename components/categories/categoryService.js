@@ -1,6 +1,10 @@
 const {models} = require('../../models');
 const {Op} = require('sequelize');
 
+exports.createCategory = (category) => {
+	return models.sub_categories.create(category);
+}
+
 exports.listcategory = () => {
     return models.categories.findAll({
 		where: {

@@ -1,9 +1,9 @@
 const brandService = require("./brandService");
-const { models } = require("../../models");
 const active = {product: true}
-exports.listbrand = async function (req, res, next) {
-	let brands = await brandService.listbrand();
-	res.render('../components/brands/brandViews/brands',{ active,brands})
+
+exports.listBrands = async function (req, res, next) {
+	let brands = await brandService.listBrands();
+	res.render('../components/brands/brandViews/brands', { active, brands})
 
 }
 
