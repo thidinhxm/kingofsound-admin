@@ -1,6 +1,11 @@
 const {models} = require('../../models');
-const {Op} = require('sequelize');
 
-exports.listbrand = () => {
-    return models.brands.findAll({raw: true,});
-};
+exports.listBrands = () => {
+    return models.brands.findAll({
+        attributes: ['brand_name', 'brand_id'],
+        order: [
+            ['brand_name', 'ASC']
+        ],
+        raw: true
+    });
+}

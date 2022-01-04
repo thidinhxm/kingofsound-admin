@@ -14,8 +14,7 @@ exports.delete =  (req, res, next) => {
 exports.addCategory = (req, res, next) =>{
 	res.render('../components/categories/categoryViews/add-category')
 }
-exports.storeCategory = async (req, res,next) =>{
-	console.log(req.body)
+exports.storeCategory = async (req, res) =>{
 	const newCategory = {
 		category_name: req.body.category_name,
 		descriptions: req.body.descriptions,

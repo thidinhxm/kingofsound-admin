@@ -8,9 +8,6 @@ const paginateHelper = require('express-handlebars-paginate')
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
-const bodyparser = require('body-parser');
-const multer  = require('multer');
-const upload = multer({dest: 'uploads/'})
 
 const dashboardRouter = require('./components/dashboard/dashboardRouter');
 const productRouter = require('./components/products/productRouter');
@@ -115,6 +112,5 @@ app.use(function(err, req, res, next) {
 	res.render('error');
 });
 
-app.use(bodyparser.urlencoded({ extended: true }));
 module.exports = app;
 
