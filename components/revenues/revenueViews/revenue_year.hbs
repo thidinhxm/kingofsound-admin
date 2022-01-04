@@ -3,7 +3,6 @@
 
                     <div class="col-12 ">
                         <div class="tm-bg-primary-dark ">
-
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -16,7 +15,7 @@
                                     {{#each yearlyRevenue}}
                                     <tr>
                                         <th scope="row"><b>{{year}}</b></th>
-                                        <td><b>{{totalRevenue}} vnđ</b></td>
+                                        <td><b>{{formatPrice totalRevenue}} vnđ</b></td>
                                         <td></td>
                                     </tr>
                                     {{/each}}

@@ -9,19 +9,20 @@
 					</div>
 				</div>
 
-				<form method="POST" action="/categories/store" class="tm-edit-product-form" enctype="multipart/form-data">
+				<form method="POST" action="/categories/store-category" class="tm-edit-product-form">
 					<div class="row tm-edit-product-row">
 						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
 								<label for="category_name">Tên loại sản phẩm
 								</label>
-								<input id="category_name" name="category_name" type="text" class="form-control validate" placeholder="Ví dụ: Loa siêu thanh,.." required />
+								<input id="category_name" name="category_name" type="text" class="form-control validate"
+									placeholder="Ví dụ: Loa siêu thanh,.." required />
 							</div>
 						</div>
 
-            	<div class="col-xl-6 col-lg-6 col-md-12">
+						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
-								<label for="parent_category">Nhóm sản phẩm  </label>
+								<label for="parent_category">Nhóm sản phẩm </label>
 								<select class="custom-select tm-select-accounts" id="parent_category" name="parent_category">
 
 									<option selected='1'> Chọn nhóm sản phẩm </option>
@@ -33,21 +34,18 @@
 						</div>
 
 						<div class="form-group mb-12 col-xs-12 col-sm-12">
-								<label for="descriptions">Mô tả chi tiết</label>
-							<input id="descriptions" name="descriptions" type="text" class="form-control validate"  placeholder="Ví dụ: Công nghệ hiện đại, Bluetooth 5.0"	data-large-mode="true" />
+							<label for="descriptions">Mô tả chi tiết</label>
+							<input id="descriptions" name="descriptions" type="text" class="form-control validate"
+								placeholder="Ví dụ: Công nghệ hiện đại, Bluetooth 5.0" data-large-mode="true" />
 						</div>
 
-             <div class="mb-12 col-xs-12 col-sm-12">
-						<button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm loại sản phẩm</button>
-					</div>
-
-					</div>
-
-
+						<div class="mb-12 col-xs-12 col-sm-12">
+							<button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm loại sản phẩm</button>
+						</div>
+						</div>
+				</form>
 			</div>
-			</form>
 		</div>
 	</div>
-</div>
 
 </div>

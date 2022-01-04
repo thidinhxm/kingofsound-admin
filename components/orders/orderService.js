@@ -34,11 +34,11 @@ exports.getTop10 = () => {
     return listTotalOder;
 }
 
-exports.dailyRevenue =  () => {
-    const dailyRevenue =  models.orders.findAll({
+exports.dailyRevenue = () => {
+    const dailyRevenue = models.orders.findAll({
         attributes: [
             'order_date',
-            [sequelize.fn('sum', sequelize.col('order_total_price')),'totalRevenue'],
+            [sequelize.fn('sum', sequelize.col('order_total_price')), 'totalRevenue'],
         ],
         group: ['order_date'],
         order: sequelize.literal('order_date ASC'),
@@ -48,12 +48,12 @@ exports.dailyRevenue =  () => {
     return dailyRevenue
 }
 
-exports.monthlyRevenue =   () => {
-    const monthlyRevenue =   models.orders.findAll({
+exports.monthlyRevenue = () => {
+    const monthlyRevenue = models.orders.findAll({
         attributes: [
             'order_date',
 
-            [sequelize.fn('sum', sequelize.col('order_total_price')),'totalRevenue'],
+            [sequelize.fn('sum', sequelize.col('order_total_price')), 'totalRevenue'],
         ],
         group: [sequelize.literal('MONTH(order_date)', 'month')],
         order: sequelize.literal('order_date ASC'),
@@ -63,11 +63,11 @@ exports.monthlyRevenue =   () => {
     return monthlyRevenue
 }
 
-exports.yearlyRevenue =   () => {
-    const yearlyRevenue =   models.orders.findAll({
+exports.yearlyRevenue = () => {
+    const yearlyRevenue = models.orders.findAll({
         attributes: [
             'order_date',
-            [sequelize.fn('sum', sequelize.col('order_total_price')),'totalRevenue'],
+            [sequelize.fn('sum', sequelize.col('order_total_price')), 'totalRevenue'],
         ],
         group: [sequelize.literal('YEAR(order_date)', 'month')],
         order: sequelize.literal('order_date ASC'),
@@ -77,11 +77,11 @@ exports.yearlyRevenue =   () => {
     return yearlyRevenue
 }
 
-exports.getTotalDelivery =  () => {
-    const statisticDelivery =  models.orders.findAll({
+exports.getTotalDelivery = () => {
+    const statisticDelivery = models.orders.findAll({
         attributes: [
             'order_status',
-            [sequelize.fn('count', sequelize.col('order_status')),'total'],
+            [sequelize.fn('count', sequelize.col('order_status')), 'total'],
         ],
         group: 'order_status',
         raw: true,
@@ -90,3 +90,48 @@ exports.getTotalDelivery =  () => {
     return statisticDelivery;
 }
 // getTotalDelivery()
+
+exports.detailOrder = (id) => {
+    try {
+        const detailOrder = models.orders.findAll({
+            attribute: [
+                // 'order_id',
+            ],
+            where: {
+                order_id: id
+            },
+            include: [{
+                model: models.detailorders,
+                as: 'detailorders',
+                attributes: [
+                    [sequelize.fn('count', sequelize.col('orders.order_id')), 'totalProduct'],
+
+                ],
+                required: true,
+                include: [{
+                    model: models.products,
+                    as: 'product',
+                    attributes: ['product_name'],
+                    // required: true,
+                }]
+
+            },
+
+            {
+
+                model: models.users,
+                as: 'user',
+                attributes: ['firstname','lastname']
+            }
+            ],
+
+            group: 'orders.order_id',
+            raw: true
+        })
+        return detailOrder;
+        // console.log(detailOrder)
+    }
+    catch (e) { console.log(e) }
+
+}
+

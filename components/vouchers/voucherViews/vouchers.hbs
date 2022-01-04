@@ -1,0 +1,95 @@
+{{> header }}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-center row" style="margin-bottom: 20px;">
+
+        <div class="row">
+            <div class="col">
+                <a href="/vouchers/add-voucher" class="btn btn-primary btn-block text-uppercase mb-3">
+                    <i class="fas fa-plus" style="margin-right: 10px;"> </i>
+                    Thêm vouncher</a>
+            </div>
+        </div>
+    </div>
+    {{#each vouchers}}
+    <div class="d-flex justify-content-center row" style="margin-bottom: 20px; align-items: center;">
+        {{!-- <div class="col-md-6"> --}}
+            <a class="coupon p-3 bg-white col-6" href="/vouchers/{{voucher_id}}/edit">
+                <div class="row no-gutters">
+                    <div class="col-md-4 border-right">
+                        <div class="d-flex flex-column align-items-center"><img
+                                src="https://i.imgur.com/XwBlVpS.png"><span class="d-block">King of Sounds</span><span
+                                class="text-black-50">All products</span></div>
+                    </div>
+                    <div class="col-md-8">
+                        <div>
+
+                            <div class="d-flex flex-row justify-content-end off">
+                                <h1>{{discount}}%</h1><span>OFF</span>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between off px-3 p-2"><span>Promo
+                                    code:</span><span
+                                    class="border border-success px-3 rounded code">{{voucher_id}}</span>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between off px-3 p-2"><span>Expire at
+                                </span><span class="">{{formatDateTime end_date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="tm-product-delete-link" data-toggle="modal" data-target="#delete-product-modal"
+                data-id="{{voucher_id}}" style="margin-left: 30px;">
+                <i class="far fa-trash-alt tm-product-delete-icon"></i>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+
+    {{!-- Confirm delete modal --}}
+    <div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xoá voucher</h5>
+                    <button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn chắc chắn muốn xoá voucher này ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Xoá bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{!-- Delete hidden for, --}}
+    <form method="post" name="delete-product-form" action="">
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let voucherID
+            const deleteForm = document.forms['delete-product-form'];
+            $('#delete-product-modal').on('show.bs.modal', function (event) {
+                const button = $(event.relatedTarget) // Button that triggered the modal
+                voucherID = button.data('id')
+
+            });
+
+            const btnDeleteProduct = document.getElementById('btn-delete-product');
+
+            btnDeleteProduct.onclick = function () {
+                deleteForm.action = '/vouchers/' + voucherID + '/delete';
+                deleteForm.submit();
+            }
+
+        });
+
+    </script>

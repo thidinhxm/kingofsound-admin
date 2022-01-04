@@ -18,6 +18,12 @@ const authRouter = require('./components/auth/authRouter');
 const adminRouter = require('./components/admins/adminRouter');
 const passport = require('./components/auth/passport');
 const orderHelper = require('./components/orders/orderHelper');
+const voucherRouter = require('./components/vouchers/voucherRouter');
+const categoryRouter = require('./components/categories/categoryRouter');
+const brandRouter = require('./components/brands/brandRouter');
+
+
+
 const app = express();
 
 
@@ -80,10 +86,15 @@ app.use((req, res, next) => {
 app.use('/', authRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/products', productRouter);
+app.use('/categories', categoryRouter);
 app.use('/revenue', revenueRouter);
 app.use('/accounts', accountRouter);
 app.use('/orders', orderRouter);
 app.use('/admin', adminRouter);
+app.use('/vouchers', voucherRouter);
+app.use('/brands', brandRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

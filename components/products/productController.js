@@ -19,7 +19,7 @@ exports.list = async (req, res,next) => {
 		const search_name = req.query.search_name;
 		let categories = await categoryService.listcategory();
 		let active = { product: true,}
-		
+
 		if (search_name) {
 			const products = await productService.listByName(search_name, page);
 			const Pages = Math.round(products.count / itemPerPage);
@@ -227,5 +227,3 @@ exports.delete = async (req, res,next) => {
 		next(err);
 	}
 };
-
-

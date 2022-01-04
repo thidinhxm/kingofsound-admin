@@ -1,4 +1,15 @@
-const {models} = require('../../models');
+const categoryService = require("./categoryService");
+const { models } = require("../../models");
+const active = {product: true}
+
+exports.listcategory = async function (req, res, next) {
+	let categories = await categoryService.listcategory();
+	res.render('../components/categories/categoryViews/categories',{ active,categories})
+}
+
+exports.delete =  (req, res, next) => {
+  res.send('delete OK')
+}
 
 exports.addCategory = (req, res, next) =>{
 	res.render('../components/categories/categoryViews/add-category')
@@ -11,8 +22,10 @@ exports.storeCategory = async (req, res) =>{
 	}
 	try {
 		await models.categories.create(newCategory)
+		console.log(newCategory)
+		res.redirect('/categories');
+
 	}
-	catch (err) {console.log(err)}
-	(res.redirect('/products'));
+	catch (err) {console.log(req.body)}
 
 }
