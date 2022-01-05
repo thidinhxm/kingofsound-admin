@@ -843,3 +843,25 @@ h1.tm-site-title.mb-0{
   cursor: pointer
 }
 /* end voucher */
+#search-suggest{
+	position: absolute;
+	top: 190px;
+  left: 250px;
+	cursor: pointer;
+	background-color:white;
+	width:413px;
+	z-index: 10;
+}
+
+#search-suggest .text{
+	padding: 7px 10px;
+	border: solid 1px #ccc;
+
+}
+#search-suggest  a{
+	text-decoration: none;
+	color:black;
+}
+#search-suggest .text:hover{
+	background-color: #eee;
+}

@@ -7,12 +7,15 @@
         <form action="/products" method="get">
           <div class="wrap">
             <div class="search">
-              <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
-                name="search_name" value="{{search_name}}">
+              <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?"
+                name="search_name" value="{{search_name}}" autocomplete="off" onkeyup="suggest(this.value)">
               <button type="submit" class="searchButton">
                 <i class="fa fa-search"></i>
               </button>
             </div>
+			<div id = "search-suggest">
+				
+			</div>
         </form>
       </div>
     </div>
