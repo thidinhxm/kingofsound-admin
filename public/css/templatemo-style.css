@@ -846,10 +846,10 @@ h1.tm-site-title.mb-0{
 #search-suggest{
 	position: absolute;
 	top: 190px;
-  left: 250px;
+  left: 15%;
 	cursor: pointer;
 	background-color:white;
-	width:413px;
+	width:70%;
 	z-index: 10;
 }
 
