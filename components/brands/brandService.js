@@ -9,3 +9,13 @@ exports.listBrands = () => {
         raw: true
     });
 }
+
+exports.getBrand = async (id) => {
+    return models.brands.findOne({
+        attributes: ['brand_name', 'brand_id'],
+        where: {
+            brand_id: id
+        },
+        raw: true
+    });
+}

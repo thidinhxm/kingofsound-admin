@@ -2,7 +2,7 @@
 {{> header }}
 <div class="container tm-mt-big tm-mb-big">
 	<div class="row">
-		<div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+		<div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 mx-auto">
 			<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
 				<div class="row">
 					<div class="col-12">
@@ -10,69 +10,133 @@
 					</div>
 				</div>
 
-				<div class="row tm-edit-product-row">
-
-					<div class="col-xl-6 col-lg-6 col-md-12">
-						{{#with currentProduct }}
-						<form method="POST" class="tm-edit-product-form" action="/products/{{product_id}}/update">
+				<form method="POST" action="/products/{{product.product_id}}/update" 
+					enctype="multipart/form-data" class="tm-edit-product-form">
+					<div class="row tm-edit-product-row">
+						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
-								<label for="name">Tên sản phẩm
-								</label>
-								<input id="name" name="name" type="text" value="{{product_name}}" class="form-control validate" />
+								<label for="name_update">Tên sản phẩm</label>
+								<input id="name_update" name="name" type="text" value="{{product.product_name}}" class="form-control validate" required />
 							</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
-								<label for="descriptions">Mô tả</label>
-								<input id="descriptions" name="descriptions" type="text" value="{{descriptions}}"
-									class="form-control validate" />
+								<label for="price_update">Giá tiền (vnđ)</label>
+								<input id="price_update" name="price" type="text" value="{{product.price}}" class="form-control validate" required />
 							</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
-								<label for="category">Phân loại </label>
-								<select class="custom-select tm-select-accounts" id="category" name="category">
-									 {{#with ../curentCategoryProduct }}
-									<option selected>{{category_name}} </option>
-									{{/with}}
-									{{#each ../categories}}
-									<option value="{{category_name}}">{{category_name}}</option>
-								{{/each}}
+								<label for="productCategory">Phân loại </label>
+								<select class="custom-select tm-select-accounts" onchange="getSubCategories(this)" id="productCategory" name="category">
+									<option value={{product.categories.parent_category}} disabled selected hidden>{{product.categories.parent_category_name}}</option>
+									{{#each categories}}
+									<option value="{{category_id}}">{{category_name}}</option>
+									{{/each}}
 								</select>
 							</div>
-							<div class="row">
-								<div class="form-group mb-3 col-xs-12 col-sm-6">
-									<label for="model_year">Năm sản xuất
-									</label>
-									<input id="model_year" name="model_year" type="text" value="{{model_year}}"
-										class="form-control validate" data-large-mode="true" />
-								</div>
-								<div class="form-group mb-3 col-xs-12 col-sm-6">
-									<label for="price">Giá tiền
-									</label>
-									<input id="price" name="price" type="text" value="{{price}}" class="form-control validate" />
-								</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-12">
+							<div class="form-group mb-3">
+								<label for="productSubCategory">Phân loại con</label>
+								<select class="custom-select tm-select-accounts" id="productSubCategory" name="subCategory" required>
+									<option value="{{product.categories.category_id}}" disabled selected hidden>{{product.categories.category_name}}</option>
+								</select>
 							</div>
-							{{/with}}
-					</div>
-					<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-						{{#with imgProduct }}
-
-						<div class="tm-product-img-edit mx-auto">
-							<img src="{{image_link}}" alt="Product image" class="img-fluid d-block mx-auto">
-							<i class="fas fa-cloud-upload-alt tm-upload-icon"
-								onclick="document.getElementById('fileInput').click();"></i>
 						</div>
-						<div class="custom-file mt-3 mb-3">
-							<input id="fileInput" type="file" style="display:none;" />
-							<input type="button" class="btn btn-primary btn-block mx-auto" value="Tải lên ảnh sản phẩm"
-								onclick="document.getElementById('fileInput').click();" />
+						<div class="col-xl-6 col-lg-6 col-md-12">
+							<div class="form-group mb-3">
+								<label for="brand_update">Nhà sản xuất </label>
+								<select class="custom-select tm-select-accounts" id="brand_update" name="brand">
+									<option value="{{product.brand_id}}" disabled selected hidden>{{product.brand.brand_name}}</option>
+									{{#each brands}}
+									<option value="{{brand_id}}">{{brand_name}}</option>
+									{{/each}}
+								</select>
+							</div>
 						</div>
-						{{/with}}
+						<div class="col-xl-6 col-lg-6 col-md-12">
+							<div class="form-group mb-3">
+								<label for="model_year_update">Năm sản xuất</label>
+								<input id="model_year_update" name="model_year" value={{product.model_year}} type="text" class="form-control validate"
+									data-large-mode="true" />
+							</div>
+						</div>
+						
+						<div class="col-xl-12 col-lg-12 col-md-12">
+							<div class="form-group mb-3">
+								<label for="descriptions_update">Mô tả chi tiết</label>
+								<textarea name="descriptions" id="descriptions_update" rows="3" class="form-control validate" required>{{product.descriptions}}</textarea>
+							</div>
+						</div>
 
+						<div class="col-12">
+							<div class="form-group mt-3">
+								<label>Ảnh sản phẩm</label>
+							</div>
+						</div>
+
+						<div class="col-lg-3 col-md-6 col-ms-6 col-12 mx-auto mb-4">
+							<div class="tm-product-img-dummy mx-auto">
+								<label for="image1_update">
+									<img src="{{product.images.0.image_link}}" style="height=100%; width: 200px; margin-top: 6px;" alt="image" />
+								</label>
+								<input type="file" name="image1" id="image1_update" class="form-control validate" accept="image/*" style="display: none;"/>
+							</div>
+						</div>
+
+						<div class="col-lg-3 col-md-6 col-ms-6 col-12 mx-auto mb-4">
+							<div class="tm-product-img-dummy mx-auto">
+								<label for="image2_update">
+									<img src="{{product.images.1.image_link}}" style="height=100%; width: 200px; margin-top: 6px;" alt="image" />
+								</label>
+								<input type="file" name="image2" id="image2_update" class="form-control validate" accept="image/*" style="display: none;"/>
+							</div>
+						</div>
+
+						<div class="col-lg-3 col-md-6 col-ms-6 col-12 mx-auto mb-4">
+							<div class="tm-product-img-dummy mx-auto">
+								<label for="image3_update">
+									<img src="{{product.images.2.image_link}}" style="height=100%; width: 200px; margin-top: 6px;" alt="image" />
+								</label>
+								<input type="file" name="image3" id="image3_update" class="form-control validate" accept="image/*" style="display: none;"/>
+							</div>
+						</div>
+
+						<div class="col-lg-3 col-md-6 col-ms-6 col-12 mx-auto mb-4">
+							<div class="tm-product-img-dummy mx-auto">
+								<label for="image4_update">
+									<img src="{{product.images.3.image_link}}" style="height=100%; width: 200px; margin-top: 6px;" alt="image" />
+								</label>
+								<input type="file" name="image4" id="image4_update" class="form-control validate" accept="image/*" style="display: none;"/>
+							</div>
+						</div>
+						<div class="col-12">
+							<button type="submit" class="btn btn-primary btn-block text-uppercase">Cập nhật sản phẩm</button>
+						</div>
 					</div>
-					<div class="col-12">
-						<button type="submit" class="btn btn-primary btn-block text-uppercase">Cập nhật</button>
-					</div>
-					</form>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+	$('input[type=file]').change(function(e) {
+
+		for (let i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+			const file = e.originalEvent.srcElement.files[i];
+
+			const img = document.createElement("img");
+			$(img).css('width', '200px');
+			$(img).css('height', '100%');
+			$(img).css('margin-top', '6px');
+			const reader = new FileReader();
+			reader.onloadend = function() {
+				img.src = reader.result;
+			}
+			reader.readAsDataURL(file);
+			$(this).parent().find('label').html(img);
+		}
+	});
+</script>
