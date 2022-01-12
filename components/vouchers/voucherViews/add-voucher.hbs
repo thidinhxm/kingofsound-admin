@@ -9,7 +9,7 @@
 					</div>
 				</div>
 
-				<form method="POST" action="/vouchers/store-voucher" class="tm-edit-product-form">
+				<form method="POST" action="/vouchers/store-voucher" class="tm-edit-product-form form-add-voucher">
 					<div class="row tm-edit-product-row">
 						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
@@ -22,29 +22,61 @@
 
 						<div class="form-group mb-12 col-xs-12 col-sm-12">
 							<label for="discount">Mức giảm </label>
-							<input id="discount" name="discount" type="number" class="form-control validate"
-								placeholder="Ví dụ: 50" data-large-mode="true" />
+							<input id="discount" name="discount" type="number" class="form-control validate" placeholder="Ví dụ: 50"
+								data-large-mode="true" required />
 						</div>
 
-            	<div class="form-group mb-12 col-xs-12 col-sm-12">
+						<div class="form-group mb-12 col-xs-12 col-sm-12 ">
+							{{!-- <label for="start_date">Ngày bắt đầu</label>
+							<input id="start_date" name="start_date" class="form-control validate " placeholder="Ví dụ: 24/12/2021"
+								data-large-mode="true" />
+							<span class="input-group-append daypicker" data-provide="datepicker">
+								<span class="input-group-text bg-white">
+									<i class="fa fa-calendar"></i>
+								</span>
+							</span> --}}
 							<label for="start_date">Ngày bắt đầu</label>
-							<input id="start_date" name="start_date" type="text" class="form-control validate"
-								placeholder="Ví dụ: 24/12/2021" data-large-mode="true" />
+							<div class="input-group date" id="start_date">
+								<input type="text" class="form-control" name='start_date' required readonly />
+								<span class="input-group-append">
+									<span class="input-group-text bg-white">
+										<i class="fa fa-calendar"></i>
+									</span>
+								</span>
+							</div>
 						</div>
 
-            	<div class="form-group mb-12 col-xs-12 col-sm-12">
-							<label for="end_date">Ngày kết thúc</label>
-							<input id="end_date" name="end_date" type="text" class="form-control validate"
-								placeholder="Ví dụ: 24/12/2021" data-large-mode="true" />
+						<div class="form-group mb-12 col-xs-12 col-sm-12">
+							<label for="start_date">Ngày kết thúc</label>
+							<div class="input-group date" id="end_date">
+								<input type="text" class="form-control" name='end_date' onchange="checkDataForm()" required readonly />
+								<span class="input-group-append">
+									<span class="input-group-text bg-white">
+										<i class="fa fa-calendar"></i>
+									</span>
+								</span>
+							</div>
 						</div>
 
 						<div class="mb-12 col-xs-12 col-sm-12">
-							<button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm voucher</button>
+							<button type="submit" class="btn btn-primary btn-block text-uppercase" >Thêm
+								voucher</button>
 						</div>
-						</div>
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 
 </div>
+
+<script type="text/javascript">
+	$(function () {
+		$('#start_date').datepicker();
+	});
+	$(function () {
+		$('#end_date').datepicker();
+	});
+
+	
+</script>
