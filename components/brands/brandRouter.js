@@ -5,6 +5,6 @@ const brandController  = require('./brandController');
 
 router.post('/:id/delete', adminController.isLogin, brandController.delete);
 
-router.get('/', adminController.isLogin, brandController.listbrand);
+router.get('/', adminController.isLogin, brandController.listBrands);
 
 module.exports = router;

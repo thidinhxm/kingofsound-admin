@@ -23,5 +23,27 @@ exports.edit = async (req, res, next) =>{
 
 }
 
+exports.add =  (req, res, next) =>{
+res.render('../components/vouchers/voucherViews/add-voucher')
+}
+
+exports.store = async (req, res, next) =>{
+  try {
+    const {voucher_code, discount,start_date, end_date} = req.body
+    const newVoucher = {
+      voucher_id: voucher_code,
+      discount: discount,
+      start_date: start_date,
+      end_date: end_date,
+    }
+    await voucherService.createVoucher(newVoucher)
+    req.flash('message',"OK")
+    res.redirect('/vouchers')
+  }
+  catch(err){
+    req.flash('error',"Not OK")
+    console.log(err)}
+  }
+
 
 // vouncher()
