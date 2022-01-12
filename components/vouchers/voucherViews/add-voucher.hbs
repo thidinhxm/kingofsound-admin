@@ -1,0 +1,50 @@
+{{> header }}
+<div class="container tm-mt-big tm-mb-big">
+	<div class="row">
+		<div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 mx-auto">
+			<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+				<div class="row">
+					<div class="col-12">
+						<h2 class="tm-block-title d-inline-block">Thêm vouncher</h2>
+					</div>
+				</div>
+
+				<form method="POST" action="/vouchers/store-voucher" class="tm-edit-product-form">
+					<div class="row tm-edit-product-row">
+						<div class="col-xl-12 col-lg-12 col-md-12">
+							<div class="form-group mb-3">
+								<label for="voucher_code">Mã giảm giá
+								</label>
+								<input id="voucher_code" name="voucher_code" type="text" class="form-control validate"
+									placeholder="Ví dụ: Loa siêu thanh,.." required />
+							</div>
+						</div>
+
+						<div class="form-group mb-12 col-xs-12 col-sm-12">
+							<label for="discount">Mức giảm </label>
+							<input id="discount" name="discount" type="number" class="form-control validate"
+								placeholder="Ví dụ: 50" data-large-mode="true" />
+						</div>
+
+            	<div class="form-group mb-12 col-xs-12 col-sm-12">
+							<label for="start_date">Ngày bắt đầu</label>
+							<input id="start_date" name="start_date" type="text" class="form-control validate"
+								placeholder="Ví dụ: 24/12/2021" data-large-mode="true" />
+						</div>
+
+            	<div class="form-group mb-12 col-xs-12 col-sm-12">
+							<label for="end_date">Ngày kết thúc</label>
+							<input id="end_date" name="end_date" type="text" class="form-control validate"
+								placeholder="Ví dụ: 24/12/2021" data-large-mode="true" />
+						</div>
+
+						<div class="mb-12 col-xs-12 col-sm-12">
+							<button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm voucher</button>
+						</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
