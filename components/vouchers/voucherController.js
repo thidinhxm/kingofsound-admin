@@ -37,9 +37,12 @@ exports.store = async (req, res, next) =>{
       end_date: end_date,
     }
     await voucherService.createVoucher(newVoucher)
+    req.flash('message',"OK")
     res.redirect('/vouchers')
   }
-  catch(err){console.log(err)}
+  catch(err){
+    req.flash('error',"Not OK")
+    console.log(err)}
   }
 
 
