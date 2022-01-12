@@ -16,13 +16,13 @@
 								<label for="voucher_code">Mã giảm giá
 								</label>
 								<input id="voucher_code" name="voucher_code" type="text" class="form-control validate"
-									placeholder="Ví dụ: Loa siêu thanh,.." required />
+									placeholder="" required onkeydown="upperCaseF(this)"/>
 							</div>
 						</div>
 
 						<div class="form-group mb-12 col-xs-12 col-sm-12">
 							<label for="discount">Mức giảm </label>
-							<input id="discount" name="discount" type="number" class="form-control validate" placeholder="Ví dụ: 50"
+							<input id="discount" name="discount" type="number" class="form-control validate" placeholder=""
 								data-large-mode="true" required />
 						</div>
 
@@ -78,5 +78,9 @@
 		$('#end_date').datepicker();
 	});
 
-	
+	function upperCaseF(a){
+    setTimeout(function(){
+        a.value = a.value.toUpperCase();
+    }, 1);
+}
 </script>
