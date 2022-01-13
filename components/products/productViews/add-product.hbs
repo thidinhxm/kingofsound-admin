@@ -16,14 +16,14 @@
 							<div class="form-group mb-3">
 								<label for="name">Tên sản phẩm
 								</label>
-								<input id="name" name="name" type="text" class="form-control validate" required />
+								<input id="name" name="name" type="text" class="form-control validate" required maxlength="50"/>
 							</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="price">Giá tiền (vnđ)
 								</label>
-								<input id="price" name="price" type="text" class="form-control validate" required />
+								<input id="price" name="price" type="number" class="form-control validate" required min="0" />
 							</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12">
@@ -59,8 +59,8 @@
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="model_year">Năm sản xuất</label>
-								<input id="model_year" name="model_year" type="text" class="form-control validate"
-									data-large-mode="true" />
+								<input id="model_year" name="model_year" type="number" class="form-control validate"
+									data-large-mode="true" min="2000" max="2022" />
 							</div>
 						</div>
 						

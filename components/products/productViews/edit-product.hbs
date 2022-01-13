@@ -16,13 +16,13 @@
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="name_update">Tên sản phẩm</label>
-								<input id="name_update" name="name" type="text" value="{{product.product_name}}" class="form-control validate" required />
+								<input id="name_update" name="name" type="text" value="{{product.product_name}}" class="form-control validate" required maxlength="50" />
 							</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="price_update">Giá tiền (vnđ)</label>
-								<input id="price_update" name="price" type="text" value="{{product.price}}" class="form-control validate" required />
+								<input id="price_update" name="price" type="number" value="{{product.price}}" class="form-control validate" required min="0" />
 							</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12">
@@ -58,8 +58,8 @@
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="model_year_update">Năm sản xuất</label>
-								<input id="model_year_update" name="model_year" value={{product.model_year}} type="text" class="form-control validate"
-									data-large-mode="true" />
+								<input id="model_year_update" name="model_year" value={{product.model_year}} type="number" class="form-control validate"
+									data-large-mode="true"  min ="2000" max="2022"/>
 							</div>
 						</div>
 						
