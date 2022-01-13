@@ -9,15 +9,17 @@
 					</div>
 				</div>
 
-				<form method="POST" action="/vouchers/store-voucher" class="tm-edit-product-form form-add-voucher">
+				<form method="POST" action="/vouchers/store-voucher" class="tm-edit-product-form form-add-voucher" id = "add-voucher-form">
 					<div class="row tm-edit-product-row">
 						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
 								<label for="voucher_code">Mã giảm giá
 								</label>
 								<input id="voucher_code" name="voucher_code" type="text" class="form-control validate"
-									placeholder="Ví dụ: Loa siêu thanh,.." required />
+									placeholder="Ví dụ: NVT2412,.."  onkeydown="upperCaseF(this)" required/>
 							</div>
+							<div id="voucher-error" style="color:red;"></div>
+							<div id="voucher-success" style="color:green;"></div>
 						</div>
 
 						<div class="form-group mb-12 col-xs-12 col-sm-12">
@@ -27,14 +29,6 @@
 						</div>
 
 						<div class="form-group mb-12 col-xs-12 col-sm-12 ">
-							{{!-- <label for="start_date">Ngày bắt đầu</label>
-							<input id="start_date" name="start_date" class="form-control validate " placeholder="Ví dụ: 24/12/2021"
-								data-large-mode="true" />
-							<span class="input-group-append daypicker" data-provide="datepicker">
-								<span class="input-group-text bg-white">
-									<i class="fa fa-calendar"></i>
-								</span>
-							</span> --}}
 							<label for="start_date">Ngày bắt đầu</label>
 							<div class="input-group date" id="start_date">
 								<input type="text" class="form-control" name='start_date' required readonly />
@@ -49,7 +43,7 @@
 						<div class="form-group mb-12 col-xs-12 col-sm-12">
 							<label for="start_date">Ngày kết thúc</label>
 							<div class="input-group date" id="end_date">
-								<input type="text" class="form-control" name='end_date' onchange="checkDataForm()" required readonly />
+								<input type="text" class="form-control" name='end_date'  required readonly />
 								<span class="input-group-append">
 									<span class="input-group-text bg-white">
 										<i class="fa fa-calendar"></i>
@@ -59,7 +53,7 @@
 						</div>
 
 						<div class="mb-12 col-xs-12 col-sm-12">
-							<button type="submit" class="btn btn-primary btn-block text-uppercase" >Thêm
+							<button type="submit" class="btn btn-primary btn-block text-uppercase" id= "submit-check-voucher">Thêm
 								voucher</button>
 						</div>
 					</div>
@@ -78,5 +72,10 @@
 		$('#end_date').datepicker();
 	});
 
-	
+	function upperCaseF(a) {
+		setTimeout(function () {
+			a.value = a.value.toUpperCase();
+		}, 1);
+	}
+
 </script>
