@@ -89,3 +89,71 @@ exports.filterProduct = (parentCategory_id,subCategory_id,brand_id,page = 0, ite
 exports.addProduct = (product) => {
 	return models.products.create(product);
 }
+
+exports.getProductSuggest = (search_name) => {
+    return models.products.findAll({
+        attributes:['product_name','product_id'],
+        where:{
+            product_name:
+            {
+                [Op.substring]:search_name
+            }
+        },
+        raw:true,
+        limit:10
+    })
+}
+
+exports.getProductById = (product_id) => {
+	return models.products.findOne({
+		where: {
+			product_id,
+		},
+		raw: true,
+	});
+}
+
+exports.lockProduct = (product_id) => {
+	return models.products.update({
+		is_active: false,
+	}, {
+		where: {
+			product_id,
+		},
+	});
+}
+
+exports.getImagesProduct = (product_id) => {
+	return models.images.findAll({
+		where: {
+			product_id,
+		},
+		raw: true,
+	});
+}
+
+exports.createImageProduct = (imageProduct) => {
+	return models.images.create(imageProduct);
+}
+
+exports.updateImageProduct = (product_id, image_stt, image_link) => {
+	return models.images.update(
+		{
+			image_link,
+		},
+		{
+			where: {
+				product_id,
+				image_stt
+			},
+		}
+	);
+}
+
+exports.updateProduct = (product) => {
+	return models.products.update(product, {
+		where: {
+			product_id: product.product_id,
+		},
+	});
+}

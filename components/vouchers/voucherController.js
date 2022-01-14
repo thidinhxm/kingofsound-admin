@@ -37,7 +37,7 @@ exports.store = async (req, res, next) =>{
       end_date: end_date,
     }
     await voucherService.createVoucher(newVoucher)
-    req.flash('message',"OK")
+    req.flash('success', 'Thêm mã giảm giá thành công');
     res.redirect('/vouchers')
   }
   catch(err){
