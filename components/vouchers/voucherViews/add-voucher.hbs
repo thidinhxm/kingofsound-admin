@@ -9,15 +9,17 @@
 					</div>
 				</div>
 
-				<form method="POST" action="/vouchers/store-voucher" class="tm-edit-product-form form-add-voucher">
+				<form method="POST" action="/vouchers/store-voucher" class="tm-edit-product-form form-add-voucher"
+					id="add-voucher-form">
 					<div class="row tm-edit-product-row">
 						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
 								<label for="voucher_code">Mã giảm giá
 								</label>
-								<input id="voucher_code" name="voucher_code" type="text" class="form-control validate"
-									placeholder="" required onkeydown="upperCaseF(this)" maxlength="10"/>
+								<input id="voucher_code" name="voucher_code" type="text" class="form-control validate" placeholder=""
+									required onkeydown="upperCaseF(this)" maxlength="10" />
 							</div>
+
 						</div>
 
 						<div class="form-group mb-12 col-xs-12 col-sm-12">
@@ -27,17 +29,9 @@
 						</div>
 
 						<div class="form-group mb-12 col-xs-12 col-sm-12 ">
-							{{!-- <label for="start_date">Ngày bắt đầu</label>
-							<input id="start_date" name="start_date" class="form-control validate " placeholder="Ví dụ: 24/12/2021"
-								data-large-mode="true" />
-							<span class="input-group-append daypicker" data-provide="datepicker">
-								<span class="input-group-text bg-white">
-									<i class="fa fa-calendar"></i>
-								</span>
-							</span> --}}
 							<label for="start_date">Ngày bắt đầu</label>
 							<div class="input-group date" id="start_date">
-								<input type="text" class="form-control" name='start_date' required readonly />
+								<input type="text" class="form-control" name='start_date' id="start_day" required readonly />
 								<span class="input-group-append">
 									<span class="input-group-text bg-white">
 										<i class="fa fa-calendar"></i>
@@ -49,17 +43,19 @@
 						<div class="form-group mb-12 col-xs-12 col-sm-12">
 							<label for="start_date">Ngày kết thúc</label>
 							<div class="input-group date" id="end_date">
-								<input type="text" class="form-control" name='end_date' onchange="checkDataForm()" required readonly />
+								<input type="text" class="form-control" name='end_date' id="end_day" onchange="checkValidEndDay()"
+									required readonly />
 								<span class="input-group-append">
 									<span class="input-group-text bg-white">
 										<i class="fa fa-calendar"></i>
 									</span>
 								</span>
 							</div>
+							<label id="end-day-error" style="color:red;"></label>
 						</div>
 
 						<div class="mb-12 col-xs-12 col-sm-12">
-							<button type="submit" class="btn btn-primary btn-block text-uppercase" >Thêm
+							<button type="submit" class="btn btn-primary btn-block text-uppercase" id="submit-check-voucher">Thêm
 								voucher</button>
 						</div>
 					</div>
@@ -78,9 +74,25 @@
 		$('#end_date').datepicker();
 	});
 
-	function upperCaseF(a){
-    setTimeout(function(){
-        a.value = a.value.toUpperCase();
-    }, 1);
-}
+	function upperCaseF(a) {
+		setTimeout(function () {
+			a.value = a.value.toUpperCase();
+		}, 1);
+	}
+
+	function checkValidEndDay() {
+		const start_day = $("#start_day").datepicker("getDate")
+		const end_day = $("#end_day").datepicker("getDate")
+		if (start_day >= end_day) {
+			$("#end-day-error").text("Ngày kết thúc phải ở sau ngày bắt đầu ")
+			$('#submit-check-voucher').attr("disabled", "disabled")
+			console.log("Invalid Date")
+		}
+		else {
+				$('#submit-check-voucher').removeAttr("disabled")
+			$("#end-day-error").text("")
+			console.log("Valid Date")
+		}
+	}
+
 </script>

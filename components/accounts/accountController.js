@@ -1,11 +1,11 @@
 const accountService = require("./accountService");
 const { models } = require("../../models");
 
-exports.getAdminAccounts = async(req, res, next) => {
+exports.getAdminAccounts = async (req, res, next) => {
 	const adminAccounts = await accountService.listAdminAccount();
 	const active = { user: true }
 
-	res.render('../components/accounts/accountViews/admin-accounts', {adminAccounts, active});
+	res.render('../components/accounts/accountViews/admin-accounts', { adminAccounts, active });
 }
 
 
@@ -15,10 +15,10 @@ exports.listAdminAccount = async (req, res) => {
 	res.json(listAdmin);
 
 }
-exports.addAdmin =  (req, res,next) => {
+exports.addAdmin = (req, res, next) => {
 	const active = { user: true }
 
-	res.render("../components/accounts/accountViews/add-admin", {active});
+	res.render("../components/accounts/accountViews/add-admin", { active });
 
 }
 
@@ -44,29 +44,29 @@ exports.createAdminAcount = async (req, res, next) => {
 	}
 }
 
-exports.userDetail = async(req, res, next) =>{
+exports.userDetail = async (req, res, next) => {
 	try {
 		const userID = req.params.id
 		const currentUser = await models.users.findOne({ where: { user_id: userID }, raw: true })
 		console.log(currentUser)
 		const currentUserCredit = await accountService.totalCredit(userID);
 
-		let totalAmount=0;
-		if(currentUserCredit.length > 0) {
+		let totalAmount = 0;
+		if (currentUserCredit.length > 0) {
 			totalAmount = currentUserCredit[0].total_amount;
 		}
 
-		res.render('../components/accounts/accountViews/user-detail',{currentUser,totalAmount})
+		res.render('../components/accounts/accountViews/user-detail', { currentUser, totalAmount })
 	}
 	catch (error) {
 		next(error);
 	}
 }
 
-exports.edit = async(req, res, next) =>{
+exports.edit = async (req, res, next) => {
 	const currentUser = await models.users.findOne({ where: { user_id: req.params.id }, raw: true })
 
-	res.render('../components/accounts/accountViews/account-edit',{currentUser});
+	res.render('../components/accounts/accountViews/account-edit', { currentUser });
 	// res.json({currentAdmin})
 }
 
@@ -78,9 +78,9 @@ exports.update = async (req, res, next) => {
 		phone: req.body.phone,
 		address: req.body.address,
 	}
-	const userRole =  await accountService.userRole(req.params.id)
+	const userRole = await accountService.userRole(req.params.id)
 	await models.users.update(userUpdate, { where: { user_id: req.params.id } })
-	res.redirect('/accounts/'+ userRole)
+	res.redirect('/accounts/' + userRole)
 
 }
 
@@ -98,27 +98,27 @@ exports.getUserAccounts = async (req, res, next) => {
 		if (search_name) {
 			const users = await accountService.listByUsername(search_name, page);
 			const Pages = Math.round(users.count / itemPerPage);
-			let next =page < Pages - 1? page+2:Pages;
-			let previous =page>0?page:1;
+			let next = page < Pages - 1 ? page + 2 : Pages;
+			let previous = page > 0 ? page : 1;
 			res.render('../components/accounts/accountViews/user-accounts', {
 				userAccounts: users.rows,
 				Pages,
 				next,
 				previous,
 				search_name,
-				indexpage:page,
+				indexpage: page,
 				active
 			});
 		}
 		else {
 			const users = await accountService.listUserPage(!isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0);
-			const Pages = Math.floor(users.count / itemPerPage)+1;
-			let next =page < Pages - 1? page+2:Pages;
-			let previous =page>0?page:1;
+			const Pages = Math.floor(users.count / itemPerPage) + 1;
+			let next = page < Pages - 1 ? page + 2 : Pages;
+			let previous = page > 0 ? page : 1;
 			res.render('../components/accounts/accountViews/user-accounts', {
 				userAccounts: users.rows,
 				Pages,
-				indexpage:page,
+				indexpage: page,
 				next,
 				previous,
 				active
@@ -132,31 +132,31 @@ exports.getUserAccounts = async (req, res, next) => {
 }
 
 exports.unlock = async (req, res) => {
-	try{
-	await models.users.update(
-		{
-		is_blocked: false
-	}, {
-		where: {
-			user_id: req.params.id,
-		}
-	})
-	res.redirect('/accounts/users/');
-}
-		catch(err) {console.log(err)}
+	try {
+		await models.users.update(
+			{
+				is_blocked: false
+			}, {
+			where: {
+				user_id: req.params.id,
+			}
+		})
+		res.redirect('/accounts/users/');
+	}
+	catch (err) { console.log(err) }
 };
 
 exports.lock = async (req, res) => {
-	try{
-	await models.users.update(
-		{
-		is_blocked: true
-	}, {
-		where: {
-			user_id: req.params.id,
-		}
-	})
-	res.redirect('/accounts/users/');
-}
-		catch(err) {console.log(err)}
+	try {
+		await models.users.update(
+			{
+				is_blocked: true
+			}, {
+			where: {
+				user_id: req.params.id,
+			}
+		})
+		res.redirect('/accounts/users/');
+	}
+	catch (err) { console.log(err) }
 };

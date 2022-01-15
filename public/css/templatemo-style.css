@@ -748,6 +748,13 @@ h1.tm-site-title.mb-0{
 .modal-3 a.active, .modal-3 a:active {
   background-color: #37B247;
 }
+/* filter bar */
+.filter-button-container{
+  display: flex;
+    align-content: space-around;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
 
 /*Search bar*/
 
@@ -843,6 +850,7 @@ h1.tm-site-title.mb-0{
   cursor: pointer
 }
 /* end voucher */
+
 #search-suggest{
 	position: absolute;
 	top: 190px;

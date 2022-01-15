@@ -1,9 +1,9 @@
 {{> header }}
 <div class="container mt-5">
-  <div class="container">
-    <div class="container">
-      <div div="row" style="margin: 20px auto;">
-        <form action="/accounts/users" method="get">
+  <div class="row tm-content-row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+      <div div="row">
+        <form action="/accounts/users" method="get" style="margin: 20px auto;">
           <div class="wrap">
             <div class="search">
               <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
@@ -14,10 +14,7 @@
             </div>
         </form>
       </div>
-    </div>
-  </div>
-  <div class="row tm-content-row">
-    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+
       <div class="tm-bg-primary-dark tm-block tm-block-products">
         <div class="row">
         </div>
@@ -45,7 +42,7 @@
                   {{#if (isBlockedAccount is_blocked)}}
                   {{!-- <button><i class="fas fa-lock"></i>Locked</button> --}}
                   <a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
-                    data-target="#unlock-user-modal" data-id="{{user_id}}">
+                    data-target="#delete-product-modal" data-id="{{user_id}}">
                     <i class="fas fa-lock tm-product-delete-icon"></i>
                   </a>
                   {{/if}}
@@ -115,6 +112,53 @@
   </div>
 </div>
 {{!-- Confirm delete modal --}}
+{{!-- <div id="unlock-user-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xoá sản phẩm</h5>
+        <button type="button" class="close" data-dismiss="modal" data-id="id" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn mở khoá người dùng này ?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Mở khoá</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!-- Delete hidden for, --}}
+<form method="post" name="delete-product-form" action="">
+</form>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const userID
+    const deleteForm = document.forms['delete-product-form'];
+    $('#unlock-user-modal').on('show.bs.modal', function (event) {
+      const button = $(event.relatedTarget) // Button that triggered the modal
+      userID = button.data('id')
+
+    });
+
+    const btnDeleteProduct = document.getElementById('btn-delete-product');
+
+    btnDeleteProduct.onclick = function () {
+      deleteForm.action = '/accounts/' + userID + '/unlock';
+      deleteForm.submit();
+    }
+
+  });
+
+</script> --}}
+
 <div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -125,10 +169,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Bạn chắc chắn muốn xoá sản phẩm này ?</p>
+        <p>Bạn chắc chắn muốn mở khoá người dùng này ?</p>
       </div>
       <div class="modal-footer">
-        <button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Xoá bỏ</button>
+        <button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Mở khoá</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
       </div>
     </div>
@@ -136,19 +180,10 @@
 </div>
 
 
-{{!-- Delete hidden for, --}}
-<form method="post" name="delete-product-form" action="'/products/{{product_id}}/delete'">
+{{!-- Delete hidden form --}}
+<form method="post" name="delete-product-form" action="">
 </form>
 
-
-{{!--
-<script>
-  $(function () {
-    $(".tm-product-name").on("click", function () {
-      window.location.href = "edit-product.html";
-    });
-  });
-</script> --}}
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     var productID
@@ -162,7 +197,7 @@
     var btnDeleteProduct = document.getElementById('btn-delete-product');
 
     btnDeleteProduct.onclick = function () {
-      deleteForm.action = '/products/' + productID + '/delete';
+      deleteForm.action = '/accounts/users/' + productID + '/unlock';
       deleteForm.submit();
     }
 
