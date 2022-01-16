@@ -7,30 +7,12 @@
 		</div>
 	</div>
 	<!-- row -->
-	<div class="row tm-content-row">
-		<div class="tm-block-col tm-col-avatar">
-			<div class="tm-bg-primary-dark tm-block tm-block-avatar">
-				<h2 class="tm-block-title">Loại tài khoản</h2>
-				<div class="tm-avatar-container">
-					<img
-						src="/img/avatar.png"
-						alt="Avatar"
-						class="tm-avatar img-fluid mb-4"
-					/>
-					<a href="#" class="tm-avatar-delete-link">
-						<i class="far fa-trash-alt tm-product-delete-icon"></i>
-					</a>
-				</div>
-				{{!-- <button class="btn btn-primary btn-block text-uppercase">
-					Tải ảnh đại diện
-				</button> --}}
-			</div>
-		</div>
+	<div class="row tm-content-row justify-content-center">
 		<div class="tm-block-col tm-col-account-settings">
-			{{#with currentAdmin}}
+			{{#with user}}
 			<div class="tm-bg-primary-dark tm-block tm-block-settings">
 				<h2 class="tm-block-title">Chỉnh sửa thông tin cá nhân</h2>
-				<form action="/admin/profile/{{user_id}}/update-profile" class="tm-signup-form row" method="post">
+				<form action="/profile//update" class="tm-signup-form row" method="post">
 					<div class="form-group col-lg-6">
 						<label for="firstname">Họ </label>
 						<input
@@ -73,6 +55,7 @@
 							oninput="this.setCustomValidity('')"
 							value={{email}}
 							maxlength="50"
+							disabled
 						/>
 					</div>
 

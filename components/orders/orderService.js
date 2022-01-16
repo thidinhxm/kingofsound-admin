@@ -78,11 +78,9 @@ exports.detailOrder = (id) => {
                 model: models.products,
                 as: 'product',
                 attributes: ['product_name'],
-                // required: true,
             }]
 
         },{
-
             model: models.users,
             as: 'user',
             attributes: ['firstname','lastname']
@@ -92,3 +90,10 @@ exports.detailOrder = (id) => {
     })
 }
 
+exports.updateOrder = (id, order) => {
+    return models.orders.update(order, {
+        where: {
+            order_id: id
+        }
+    })
+}

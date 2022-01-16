@@ -17,11 +17,7 @@ exports.isLogin = (req, res, next) => {
 
 exports.editProfile = async (req, res, next) => {
 	try {
-		// const active = { admin: true }
-		const currentAdmin = await models.users.findOne({ where: { user_id: req.params.id }, raw: true })
-
-		res.render('../components/admins/adminViews/edit-profile', { currentAdmin });
-		// res.json({currentAdmin})
+		res.render('../components/admins/adminViews/edit-profile');
 	}
 	catch (err) {
 		next(err);
@@ -50,3 +46,5 @@ exports.updateProfile = async (req, res, next) => {
 exports.changePassword = (req, res, next) => {
 	res.render('../components/admins/adminViews/change-password')
 }
+
+

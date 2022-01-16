@@ -83,13 +83,13 @@ app.use((req, res, next) => {
 
 
 app.use('/', authRouter);
+app.use('/', adminRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/products', productRouter);
 app.use('/categories', categoryRouter);
 app.use('/revenue', revenueRouter);
 app.use('/accounts', accountRouter);
 app.use('/orders', orderRouter);
-app.use('/admin', adminRouter);
 app.use('/vouchers', voucherRouter);
 app.use('/brands', brandRouter);
 
