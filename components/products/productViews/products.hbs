@@ -1,84 +1,64 @@
+
 {{> header }}
 <div class="container mt-5">
-
 	<div class="row tm-content-row">
 		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
 			{{!------------------ Search area ---------------------}}
-			<div div="row" style="margin: 20px auto;">
-				<form action="/products" method="get">
-					<div class="wrap">
-						<div class="search">
-							<input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" name="search_name"
-								value="{{search_name}}" autocomplete="off" onkeyup="suggest(this.value)">
-							<button type="submit" class="searchButton">
-								<i class="fa fa-search"></i>
-							</button>
-							<div id="search-suggest"></div>
+			<div class="row justify-content-center" style="margin-bottom: 20px;">
+				<div class="col-3">
+					{{!-- <form action="/products" method="get"> --}}
+						<div class="wrap">
+							<div class="search">
+								<input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" name="search_name"
+									value="{{search_name}}" autocomplete="off" onkeyup="changePage(1)" id="search_name">
+								<button type="button" class="searchButton" onclick="changePage(1)">
+									<i class="fa fa-search"></i>
+								</button>
+								{{!-- <div id="search-suggest"></div> --}}
+							</div>
 						</div>
-					</div>
-				</form>
-			</div>
-
-
-			{{!------------------- Filter area ----------------------------}}
-			<div class="filter-container">
-				<form action="/products" method="get" id="filter-product-form" class="row">
-					<div class="col-xl-4 col-lg-4 col-md-4">
-						<div class="form-group mb-4 filter-item">
-							<label for="parentCategory">Phân loại </label>
-							<select class="custom-select tm-select-accounts" onchange="getSubCategories(this)" id="parentCategory"
-								name="filter_parentCategory">
-								<option disabled selected hidden>
-									{{#if filterCriteria.parentCategory}}
-									{{filterCriteria.parentCategory}}
-									{{else}}
-									-- Chọn --
-									{{/if}}
-								</option>
-								{{#each parentCategories}}
-								<option value="{{category_id}}">{{category_name}}</option>
-								{{/each}}
-							</select>
-						</div>
-					</div>
-
-					<div class="col-xl-4 col-lg-4 col-md-4">
-						<div class="form-group mb-3">
-							<label for="category">Phân loại con</label>
-							<select class="custom-select tm-select-accounts" id="productSubCategory" name="filter_subCategory">
-								<option value="" disabled selected hidden>
-									{{#if filterCriteria.subCategory}}
-									{{filterCriteria.subCategory}}
-									{{else}}
-									-- Chọn --
-									{{/if}}
-								</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="col-xl-3 col-lg-3 col-md-3">
-						<div class="form-group mb-3">
-							<label for="category">Nhà sản xuất </label>
-							<select class="custom-select tm-select-accounts" id="brand" name="filter_brand">
-								<option value="" disabled selected hidden>
-									{{#if filterCriteria.brand}}
-									{{filterCriteria.brand}}
-									{{else}}
-									-- Chọn --
-									{{/if}}
-								</option>
-								{{#each brands}}
-								<option value="{{brand_id}}">{{brand_name}}</option>
-								{{/each}}
-							</select>
-						</div>
-					</div>
-					<div class="col-xl-1 col-lg-1 col-md-1 filter-button-container">
-						<button type="submit" class="searchButton">
-							<i class="fa fa-filter"></i>
-					</div>
-				</form>
+					{{!-- </form> --}}
+				</div>
+				<div class="col-2">
+					<select class="filter-category" id="category"
+						name="category" onchange="changePage(1)">
+						<option selected value="">
+							Phân loại
+						</option>
+						{{#each parentCategories}}
+						<option value="{{category_id}}">{{category_name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="col-2">
+					<select class="filter-category" id="brand" name="brand" onchange="changePage(1)">
+						<option value="" selected>
+							Nhà sản xuất
+						</option>
+						{{#each brands}}
+						<option value="{{brand_id}}">{{brand_name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="col-2">
+					<select class="filter-category" id="sort" name="sort" onchange="changePage(1)">
+						<option value="" selected>Sắp xếp theo</option>
+						<option value="model_year">Hàng mới</option>
+						<option value="price_asc">Giá tăng dần</option>
+						<option value="price_desc">Giá giảm dần</option>
+						<option value="name_asc">Tên A-Z</option>
+						<option value="name_desc">Tên Z-A</option>
+					</select>
+				</div>
+				<div class="col-2">
+					<select class="filter-category" id="limit" name="limit" onchange="changePage(1)">
+						<option value="" selected>Hiển thị</option>
+						<option value="6">6</option>
+						<option value="9">9</option>
+						<option value="18">18</option>
+						<option value="36">36</option>
+					</select>
+				</div>
 			</div>
 
 			{{!-------------------- Product List area -------------------------}}
@@ -97,7 +77,6 @@
 						<div class="tm-product-table-container">
 							<table class="table table-hover tm-table-small tm-product-table">
 								<thead>
-									{{#if Pages}}
 									<tr>
 										<th scope="col"></th>
 										<th scope="col">Tên sản phẩm</th>
@@ -108,10 +87,9 @@
 										<th scope="col"></th>
 
 									</tr>
-									{{/if}}
 								</thead>
-								<tbody>
-									{{#if products}}
+								{{#if products}}
+								<tbody id="product-list">
 									{{#each products}}
 									<tr>
 										<td><img src="{{'images.image_link'}}" alt=""></td>
@@ -132,54 +110,37 @@
 										</td>
 									</tr>
 									{{/each}}
-									{{else}}
-									<h1 class="Notification">Không có sản phẩm nào phù hợp!</h1>
-									{{/if}}
 								</tbody>
+								<script type="text/x-handlebars-template" id="product-list-template">
+									\{{#each products}}
+									<tr>
+										<td><img src="\{{'images.image_link'}}" alt=""></td>
+										<td class="tm-product-name">\{{product_name}}</td>
+										<td>\{{'category.category_name'}}</td>
+										<td>\{{quantity}}</td>
+										<td>\{{price}}</td>
+										<td>
+											<a href="/products/\{{product_id}}/edit" class=" tm-product-delete-link">
+												<i class="far fa-edit tm-product-delete-icon"></i>
+											</a>
+										</td>
+										<td>
+											<a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+												data-target="#delete-product-modal" data-id="\{{product_id}}">
+												<i class="far fa-trash-alt tm-product-delete-icon"></i>
+											</a>
+										</td>
+									</tr>
+									\{{/each}}
+								</script>
+								{{else}}
+									<h1 class="Notification">Không có sản phẩm nào phù hợp!</h1>
+								{{/if}}
 							</table>
 						</div>
-						{{#if Pages}}
-						<nav aria-label="Page navigation example">
-							<ul class="pagination" style="display: flex; justify-content: center;">
-								{{#if search_name}}
-								<li class="page-item">
-									<a class="page-link" {{#if previous}} href="?search_name={{search_name}}&page={{previous}}" {{/if}}
-										aria-label="Previous">
-										<span aria-hidden="true">&laquo;</span>
-										<span class="sr-only">Previous</span>
-									</a>
-								</li>
-
-								{{#pages Pages indexpage search_name}}
-								<li class="page-item {{active}}"><a class="page-link"
-										href="?search_name={{search_name}}&page={{index}}">{{index}}</a>
-								</li>
-								{{/pages}}
-								<li class="page-item">
-									<a class="page-link" {{#if next}}href="?search_name={{search_name}}&page={{next}}" {{/if}}
-										aria-label="Next">
-										<span aria-hidden="true">&raquo;</span>
-										<span class="sr-only">Next</span>
-									</a>
-								</li>
-								{{else}}
-								<li class="page-item">
-									<a class="page-link" {{#if previous}}href="?page={{previous}}" {{/if}} aria-label="Previous">
-										<span aria-hidden="true">&laquo;</span>
-										<span class="sr-only">Previous</span>
-									</a>
-								</li>
-								{{#pages Pages indexpage search_name}}
-								<li class="page-item {{active}}"><a class="page-link" href="?page={{index}}">{{index}}</a></li>
-								{{/pages}}
-								<li class="page-item">
-									<a class="page-link" {{#if next}}href="?page={{next}}" {{/if}} aria-label="Next">
-										<span aria-hidden="true">&raquo;</span>
-										<span class="sr-only">Next</span>
-									</a>
-								</li>
-								{{/if}}
-							</ul>
+						{{#if pagination.pages}}
+						<nav aria-label="Page navigation example" id="pagination-product">
+							{{{paginateProductList pagination}}}
 						</nav>
 						{{/if}}
 						<!-- table container -->

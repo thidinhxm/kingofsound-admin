@@ -16,7 +16,7 @@
 							<div class="form-group mb-3">
 								<label for="name">Tên sản phẩm
 								</label>
-								<input id="name" name="name" type="text" class="form-control validate" required maxlength="50"/>
+								<input id="name" name="name" type="text" class="form-control validate" required maxlength="50" oninput="while(this.value[0] == ' ') {this.value = this.value.slice(1) };"/>
 							</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12">

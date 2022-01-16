@@ -1,11 +1,3 @@
-/*
-
-Product Admin CSS Template
-
-https://templatemo.com/tm-524-product-admin
-
-*/
-
 html {
   font-size: 16px;
   overflow-x: hidden;
@@ -772,7 +764,7 @@ h1.tm-site-title.mb-0{
   height: 36px;
   border-radius: 5px 0 0 5px;
   outline: none;
-  color: #9DBFAF;
+  color: #333;
 }
 
 .searchTerm:focus{
@@ -796,6 +788,16 @@ h1.tm-site-title.mb-0{
   width: 100%;
 }
 
+
+.filter-category {
+  width: 100%;
+  border: 3px solid #f5a623;
+  padding: 5px;
+  height: 36px;
+  border-radius: 5px;
+  outline: none;
+  color: #333;
+}
 
 /*Notification*/
 
@@ -872,4 +874,17 @@ h1.tm-site-title.mb-0{
 }
 #search-suggest .text:hover{
 	background-color: #eee;
+}
+#filter-product-form select
+{
+ background-color: white;
+ color: black;
+ height: auto;
+ padding: 8px;
+ margin-left: 5px;
+}
+
+.top-ten {
+  width: 40px;
+  height: 40px;
 }

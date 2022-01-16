@@ -4,7 +4,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const exphbs = require('express-handlebars')
-const paginateHelper = require('express-handlebars-paginate')
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -16,12 +15,12 @@ const accountRouter = require('./components/accounts/accountRouter');
 const orderRouter = require('./components/orders/orderRouter');
 const authRouter = require('./components/auth/authRouter');
 const adminRouter = require('./components/admins/adminRouter');
-const passport = require('./components/auth/passport');
-const orderHelper = require('./components/orders/orderHelper');
 const voucherRouter = require('./components/vouchers/voucherRouter');
 const categoryRouter = require('./components/categories/categoryRouter');
 const brandRouter = require('./components/brands/brandRouter');
-
+const passport = require('./components/auth/passport');
+const orderHelper = require('./components/orders/orderHelper');
+const productHelper = require('./components/products/productHelper');
 
 
 const app = express();
@@ -49,7 +48,7 @@ app.engine('hbs', exphbs({
 		isBlockedAccount: function(is_blocked) { return is_blocked},
 		formatPrice: orderHelper.formatPrice,
 		formatDateTime: orderHelper.formatDateTime,
-
+		paginateProductList: productHelper.paginateProductList,
 	}
 }));
 app.set('view engine', 'hbs');
