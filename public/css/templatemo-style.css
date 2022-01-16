@@ -873,3 +873,11 @@ h1.tm-site-title.mb-0{
 #search-suggest .text:hover{
 	background-color: #eee;
 }
+#filter-product-form select
+{
+ background-color: white;
+ color: black;
+ height: auto;
+ padding: 8px;
+ margin-left: 5px;
+}
