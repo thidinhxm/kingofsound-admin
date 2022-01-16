@@ -1,11 +1,10 @@
-const orderService = require('../orders/orderService');
-
+const productService = require('../products/productService');
 exports.index = async (req, res, next) => {
 	try {
 		const active = { dashboard: true };
-		const listTop10 = await orderService.getTop10();
-
-		res.render('../components/dashboard/dashboardViews/index', { listTop10, active });
+		const top10Products = await productService.getTop10Products();
+		console.log(top10Products);
+		res.render('../components/dashboard/dashboardViews/index', { top10Products, active });
 	}
 	catch (err) {
 		next(err);

@@ -114,15 +114,19 @@
                     <thead>
                         <tr>
                             <th scope="col">ID sản phẩm</th>
-                            <th scope="col-9">Tên sản phẩm</th>
+                            <th scope="col-2">Hình ảnh</th>
+                            <th scope="col-7">Tên sản phẩm</th>
+                            <th scope="col">Số lượng</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each listTop10}}
+                        {{#each top10Products}}
                         <tr>
-                            <td scope="row"><b>{{product_id}}</b></td>
+                            <td><b>{{product_id}}</b></td>
+							<td><img src="{{'images.image_link'}}" alt="" class="top-ten"></td>
                             <td><b>{{product_name}}</b></td>
+                            <td><b>{{number_of_sales}}</b></td>
                             <td><a class="tm-product-delete-link" href="/products/{{product_id}}/edit">
                             <i class="fas fa-info-circle tm-product-delete-icon"></i></a></td>
                         </tr>

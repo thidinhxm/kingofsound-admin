@@ -157,3 +157,23 @@ exports.updateProduct = (product) => {
 		},
 	});
 }
+
+exports.getTop10Products = () => {
+	return models.products.findAll({
+		include: [{
+			model: models.images,
+			as: "images",
+			where: {
+				image_stt: 1,
+			},
+		}],
+		where: {
+			is_active: true,
+		},
+		order: [
+			["number_of_sales", "DESC"],
+		],
+		raw: true,
+		limit: 10,
+	});
+}
