@@ -13,114 +13,31 @@ cloudinary.config({
 
 exports.list = async (req, res, next) => {
 	try {
-		// data for filter and search
-		const search_name = req.query.search_name;
-		const selected_filter_brand = req.query.filter_brand
-		const selected_filter_parentCategory = req.query.filter_parentCategory
-		const selected_filter_subCategory = req.query.filter_subCategory
-
 		// data for render Product view
-		const itemPerPage = 8;
-		let page = !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0;
-		let categories = await categoryService.listcategory();
 		const parentCategories = await categoryService.listParentCategories();
 		const brands = await brandService.listBrands();
-		let active = { product: true, }
-
-		if (search_name) {
-			const products = await productService.listByName(search_name, page);
-
-			// const Pages = Math.round(products.count / itemPerPage);
-			// let next = page < Pages - 1 ? page + 2 : Pages;
-			// let previous = page > 0 ? page : 1;
-
-			const Pages = Math.ceil(products.count / itemPerPage);
-			let next =page < Pages - 1?page+2:0;
-			let previous =page>0?page:0;
-			res.render('../components/products/productViews/products', {
-				products: products.rows,
-				categories,
-				parentCategories,
-				brands,
-				search_name,
-				Pages,
-				next,
-				previous,
-				indexpage: page,
-				active
-			});
-		}
-		else if (selected_filter_brand || selected_filter_parentCategory || selected_filter_subCategory) {
-			const subCategory= await categoryService.getCategory(selected_filter_subCategory)
-			const brand = await brandService.getBrand(selected_filter_brand)
-			const parentCategory = await categoryService.getParentCategory(selected_filter_parentCategory)
-
-			const filter_brand = isNaN(selected_filter_brand) ? [1, 2, 3] : [selected_filter_brand];
-			const filter_parentCategory = isNaN(selected_filter_parentCategory) ? [1, 2] : [selected_filter_parentCategory]
-			const filter_subCategory = isNaN(selected_filter_subCategory) ? [3, 4, 5, 6] : [selected_filter_subCategory];
-			const products = await productService.filterProduct(filter_parentCategory, filter_subCategory, filter_brand)
-			const filterCriteria = {
-				parentCategory: parentCategory.category_name,
-				subCategory:subCategory.category_name,
-				brand: brand.brand_name,
-
-			}
-			console.log(filterCriteria)
-			const Pages = Math.round(products.count / itemPerPage);
-			let next = page < Pages - 1 ? page + 2 : Pages;
-			let previous = page > 0 ? page : 1;
-			res.render('../components/products/productViews/products', {
-				products: products.rows,
-				filterCriteria,
-				categories,
-				parentCategories,
-				brands,
-				Pages,
-				next,
-				previous,
-				indexpage: page,
-				active
-			});
-		}
-		else {
-			const products = await productService.list(page);
-			const Pages = Math.round(products.count / itemPerPage);
-			// let next = page < Pages - 1 ? page + 2 : Pages;
-			// let previous = page > 0 ? page : 1;
-
-			let next =page < Pages - 1? page+2:0;
-			let previous =page>0?page:0;
-			res.render('../components/products/productViews/products', {
-				products: products.rows,
-				categories,
-				parentCategories,
-				brands,
-				Pages,
-				next,
-				previous,
-				indexpage: page,
-				active
-			});
-		}
-	}
-	catch (err) {
-		next(err);
-	}
-}
-
-exports.listByName = async (req, res, next) => {
-	try {
-		const search_name = req.query.search_name;
-		const products = await productService.listByName(search_name, !isNaN(req.query.page) && req.query.page > 0 ? req.query.page - 1 : 0);
-		const categories = await categoryService.listcategory();
 		const active = { product: true }
+		const productsRowAndCount = await productService.list();
+		const pagination = {
+			page: 1,
+            limit: 9,
+            totalRows: productsRowAndCount.count,
+            pages: Math.ceil(productsRowAndCount.count / 9) || 1
+		}
 
-		res.render('../components/products/productViews/products', { products, parentCategories, categories, brands, active });
+		res.render('../components/products/productViews/products', {
+			products: productsRowAndCount.rows,
+			parentCategories,
+			brands,
+			pagination,
+			active
+		});
 	}
 	catch (err) {
 		next(err);
 	}
 }
+
 
 exports.add = async (req, res, next) => {
 	try {

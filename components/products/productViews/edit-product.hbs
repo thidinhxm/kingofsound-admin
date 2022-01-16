@@ -124,9 +124,7 @@
 	$('input[type=file]').change(function(e) {
 
 		for (let i = 0; i < e.originalEvent.srcElement.files.length; i++) {
-
 			const file = e.originalEvent.srcElement.files[i];
-
 			const img = document.createElement("img");
 			$(img).css('width', '200px');
 			$(img).css('height', '100%');

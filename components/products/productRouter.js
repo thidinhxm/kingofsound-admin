@@ -17,10 +17,9 @@ router.post('/:id/delete', adminController.isLogin, productController.delete);
 
 router.get('/', adminController.isLogin, productController.list);
 
-router.get('/search', adminController.isLogin, productController.listByName);
-
 router.get('/add/subCategories', adminController.isLogin, categoryAPI.getSubCategories);
 
 router.post('/suggest',productAPI.searchSuggest);
 
+router.post('/paginate',productAPI.getProductsPaginate);
 module.exports = router;
