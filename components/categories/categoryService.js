@@ -2,7 +2,14 @@ const { models } = require('../../models');
 const { Op } = require('sequelize');
 
 exports.createCategory = (category) => {
-	return models.sub_categories.create(category);
+	return models.categories.create(category);
+}
+exports.deleteCategory = (id) => {
+	return models.categories.destroy({
+			where: {
+				category_id: id
+			}
+	})
 }
 
 exports.listcategory = () => {

@@ -7,8 +7,13 @@ exports.listcategory = async (req, res, next) => {
 	res.render('../components/categories/categoryViews/categories',{ active, categories})
 }
 
-exports.delete =  (req, res, next) => {
-  res.send('delete OK')
+exports.delete =  async (req, res, next) => {
+  try{
+		await categoryService.deleteCategory(req.params.id)
+		res.redirect('/categories')
+	}catch(err){
+		console.log(err)
+	}
 }
 
 exports.addCategory = (req, res, next) =>{
@@ -16,7 +21,7 @@ exports.addCategory = (req, res, next) =>{
 }
 exports.storeCategory = async (req, res, next) =>{
 	try {
-		
+
 		const { category_name, descriptions, parent_category } = req.body;
 
 		await categoryService.createCategory({

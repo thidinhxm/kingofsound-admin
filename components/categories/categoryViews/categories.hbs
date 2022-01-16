@@ -22,7 +22,7 @@
 									<th scope="col"></th>
 									<th scope="col">Mã loại sản phẩm</th>
 									<th scope="col">Loại sản phẩm</th>
-									<th scope="col"></th>
+									{{!-- <th scope="col"></th> --}}
 									<th scope="col"></th>
 
 
@@ -33,11 +33,11 @@
 								<td></td>
 								<td class="tm-product-name">{{category_id}}</td>
 								<td class="tm-product-name">{{category_name}}</td>
-								<td>
+								{{!-- <td>
 									<a href="#" class=" tm-product-delete-link">
 										<i class="far fa-edit tm-product-delete-icon"></i>
 									</a>
-								</td>
+								</td> --}}
 							 	<td>
 									<a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
 										data-target="#delete-product-modal" data-id="{{category_id}}">
@@ -62,13 +62,13 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Xoá sản phẩm</h5>
+				<h5 class="modal-title">Xoá loại sản phẩm</h5>
 				<button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<p>Bạn chắc chắn muốn xoá sản phẩm này ?</p>
+				<p>Bạn chắc chắn muốn xoá loại sản phẩm này ?</p>
 			</div>
 			<div class="modal-footer">
 				<button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Xoá bỏ</button>
