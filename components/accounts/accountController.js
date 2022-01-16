@@ -160,3 +160,19 @@ exports.lock = async (req, res) => {
 	}
 	catch (err) { console.log(err) }
 };
+
+
+exports.deleteAdmin = async (req, res) => {
+	try {
+		await models.users.update(
+			{
+				is_blocked: true
+			}, {
+			where: {
+				user_id: req.params.id,
+			}
+		})
+		res.redirect('/accounts/admins/');
+	}
+	catch (err) { console.log(err) }
+};

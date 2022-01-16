@@ -85,17 +85,17 @@ exports.addProduct = (product) => {
 }
 
 exports.getProductSuggest = (search_name) => {
-    return models.products.findAll({
-        attributes:['product_name','product_id'],
-        where:{
-            product_name:
-            {
-                [Op.substring]:search_name
-            }
-        },
-        raw:true,
-        limit:10
-    })
+	return models.products.findAll({
+		attributes: ['product_name', 'product_id'],
+		where: {
+			product_name:
+			{
+				[Op.substring]: search_name
+			}
+		},
+		raw: true,
+		limit: 10
+	})
 }
 
 exports.getProductById = (product_id) => {

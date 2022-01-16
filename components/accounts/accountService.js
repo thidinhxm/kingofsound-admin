@@ -15,6 +15,10 @@ exports.listAdminAccount = () => {
             model: models.roles,
             as: 'role_id_roles',
         }],
+        where: {
+            is_blocked: false
+        }
+        ,
         raw: true
     });
 }
