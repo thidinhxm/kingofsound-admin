@@ -2,7 +2,7 @@ const { models } = require('../../models');
 
 exports.listBrands = () => {
     return models.brands.findAll({
-        attributes: ['brand_name', 'brand_id'],
+        attributes: ['brand_name', 'brand_id','address'],
         order: [
             ['brand_name', 'ASC']
         ],
@@ -11,7 +11,6 @@ exports.listBrands = () => {
 }
 exports.getBrand = (id) => {
     if (isNaN(id)){
-        console.log("Not have brand id: " + id )
         return false;
     }
 
