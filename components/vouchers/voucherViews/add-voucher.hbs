@@ -17,7 +17,7 @@
 								<label for="voucher_code">Mã giảm giá
 								</label>
 								<input id="voucher_code" name="voucher_code" type="text" class="form-control validate" placeholder=""
-									required onkeydown="upperCaseF(this)" maxlength="10" />
+									required onkeydown="upperCaseF(this)" maxlength="10" oninput="while(this.value[0] == ' ') {this.value = this.value.slice(1) };" />
 							</div>
 
 						</div>
@@ -25,7 +25,7 @@
 						<div class="form-group mb-12 col-xs-12 col-sm-12">
 							<label for="discount">Mức giảm </label>
 							<input id="discount" name="discount" type="number" class="form-control validate" placeholder=""
-								data-large-mode="true" required />
+								data-large-mode="true" required min="1" max="100" />
 						</div>
 
 						<div class="form-group mb-12 col-xs-12 col-sm-12 ">
