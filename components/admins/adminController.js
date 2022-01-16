@@ -34,10 +34,11 @@ exports.updateProfile = async (req, res, next) => {
 			address: req.body.address,
 		}
 
-		await models.users.update(adminUpdate, { where: { user_id: req.params.id } })
-		res.redirect('/admin/profile')
+		await models.users.update(adminUpdate, { where: { user_id: req.user.user_id } })
+		res.redirect('/profile')
 	}
 	catch (err) {
+		console.error(err)
 		next(err);
 	}
 
