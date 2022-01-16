@@ -57,51 +57,54 @@ exports.listByName = (search_name, page = 0, itemPerPage = 8) => {
 };
 
 
-exports.filterProduct = (parentCategory_id,subCategory_id,brand_id,page = 0, itemPerPage = 8 )=>{
-	return models.products.findAndCountAll({
-		include: [
-			{
-				model: models.images,
-				as: "images",
-				where: {
-					image_stt: 1,
+exports.filterProduct = (parentCategory_id, subCategory_id, brand_id, page = 0, itemPerPage = 8) => {
+	try {
+		return models.products.findAndCountAll({
+			include: [
+				{
+					model: models.images,
+					as: "images",
+					where: {
+						image_stt: 1,
+					},
 				},
+				{
+					model: models.categories,
+					as: "category",
+					where: {
+						parent_category: { [Op.in]: parentCategory_id },
+						category_id: { [Op.in]: subCategory_id },
+					}
+				},
+			],
+			where: {
+				category_id: { [Op.in]: subCategory_id },
+				brand_id: { [Op.in]: brand_id },
+				is_active: true,
 			},
-			{
-				model: models.categories,
-				as: "category",
-				where: {
-					parent_category: {[Op.in]: parentCategory_id},
-					category_id: {[Op.in]:subCategory_id},
-				}
-			},
-		],
-		where: {
-			category_id: {[Op.in]:subCategory_id},
-			brand_id: {[Op.in]:brand_id},
-			is_active: true,
-		},
-		raw: true,
-		offset: page * itemPerPage,
-		limit: itemPerPage,
-	});
+			raw: true,
+			offset: page * itemPerPage,
+			limit: itemPerPage,
+		});
+	}
+	catch (err) { console.log(err); }
 }
 exports.addProduct = (product) => {
 	return models.products.create(product);
 }
 
 exports.getProductSuggest = (search_name) => {
-    return models.products.findAll({
-        attributes:['product_name','product_id'],
-        where:{
-            product_name:
-            {
-                [Op.substring]:search_name
-            }
-        },
-        raw:true,
-        limit:10
-    })
+	return models.products.findAll({
+		attributes: ['product_name', 'product_id'],
+		where: {
+			product_name:
+			{
+				[Op.substring]: search_name
+			}
+		},
+		raw: true,
+		limit: 10
+	})
 }
 
 exports.getProductById = (product_id) => {

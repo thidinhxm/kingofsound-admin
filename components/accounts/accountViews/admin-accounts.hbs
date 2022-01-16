@@ -7,7 +7,7 @@
         <form action="/products" method="get">
           <div class="wrap">
             {{!-- <div class="search">
-              <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
+              <input type="text" class="searchTerm" placeholder="quản trị viên bạn tìm kiếm là ?" id="search_name"
                 name="search_name" value="{{search_name}}">
               <button type="submit" class="searchButton">
                 <i class="fa fa-search"></i>
@@ -118,18 +118,20 @@
 
   </div>
 </div>
+
+
 {{!-- Confirm delete modal --}}
 <div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Xoá sản phẩm</h5>
+				<h5 class="modal-title">Xoá quản trị viên</h5>
 				<button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<p>Bạn chắc chắn muốn xoá sản phẩm này ?</p>
+				<p>Bạn chắc quản trị viên này ?</p>
 			</div>
 			<div class="modal-footer">
 				<button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Xoá bỏ</button>
@@ -139,11 +141,9 @@
 	</div>
 </div>
 
-
-{{!-- Delete hidden for, --}}
-<form method="post" name="delete-product-form" action="'/products/{{product_id}}/delete'">
+{{!-- Delete hidden form --}}
+<form method="post" name="delete-product-form" action="">
 </form>
-
 
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
@@ -158,9 +158,10 @@
 		var btnDeleteProduct = document.getElementById('btn-delete-product');
 
 		btnDeleteProduct.onclick = function () {
-			deleteForm.action = '/products/' + productID + '/delete';
+			deleteForm.action = '/accounts/admins/' + productID + '/delete';
 			deleteForm.submit();
 		}
 
 	});
+
 </script>
