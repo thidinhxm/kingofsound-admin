@@ -888,3 +888,39 @@ h1.tm-site-title.mb-0{
   width: 40px;
   height: 40px;
 }
+
+.input-file {
+  opacity: 0;
+  /* overflow: hidden; */
+  position: absolute;
+  z-index: -1;
+}
+
+.label-file {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.add-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  margin-left: 10px;
+  border-radius: 50%;
+  border: #f5a623 solid 3px;
+  background-color: #fff;
+}
+
+.add-block i {
+  color: #f5a623;
+}
+.add-block:hover {
+  border: #fff solid 3px;
+  background-color: #f5a623;
+}
+
+.add-block:hover i {
+  color: #fff;
+}

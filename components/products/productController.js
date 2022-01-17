@@ -13,7 +13,6 @@ cloudinary.config({
 
 exports.list = async (req, res, next) => {
 	try {
-		// data for render Product view
 		const parentCategories = await categoryService.listParentCategories();
 		const brands = await brandService.listBrands();
 		const active = { product: true }
@@ -62,8 +61,9 @@ exports.addProductPost = async (req, res, next) => {
 			}
 			else {
 				const newProduct = (await productService.addProduct({
-					product_name: fields.name,
+					product_name: fields.product_name,
 					price: fields.price,
+					quantity: fields.quantity,
 					category_id: fields.subCategory,
 					descriptions: fields.descriptions,
 					brand_id: fields.brand,
@@ -153,6 +153,7 @@ exports.edit = async (req, res, next) => {
 		product.images = await productService.getImagesProduct(req.params.id);
 		product.categories = await categoryService.getCategory(product.category_id);
 		product.brand = await brandService.getBrand(product.brand_id);
+
 		res.render('../components/products/productViews/edit-product', {
 			product,
 			categories,
@@ -176,8 +177,9 @@ exports.update = async (req, res, next) => {
 				const product = await productService.getProductById(req.params.id);
 				await productService.updateProduct({
 					product_id: req.params.id,
-					product_name: fields.name,
+					product_name: fields.product_name,
 					price: fields.price,
+					quantity: fields.quantity,
 					category_id: fields.subCategory,
 					descriptions: fields.descriptions,
 					brand_id: fields.brand,
