@@ -5,11 +5,14 @@ exports.createCategory = (category) => {
 	return models.categories.create(category);
 }
 exports.deleteCategory = (id) => {
-	return models.categories.destroy({
+	return models.categories.update({
+		is_active: false
+	},
+		{
 			where: {
 				category_id: id
 			}
-	})
+		})
 }
 
 exports.listcategory = () => {
@@ -18,6 +21,7 @@ exports.listcategory = () => {
 			parent_category: {
 				[Op.ne]: null,
 			},
+			is_active:true,
 		},
 		order: ['category_id'],
 		raw: true,
@@ -43,24 +47,24 @@ exports.listSubCategories = (parent_category) => {
 };
 
 exports.getCategory = async (id) => {
-    try {
-        const category = await models.categories.findOne({
-            attributes : [ 'category_id', 'category_name', 'parent_category' ],
-            where : {
-                category_id : id
-            },
-            include : [{
-                model : models.categories,
-                as : 'parent_category_category',
-                attributes : ['category_name'],
+	try {
+		const category = await models.categories.findOne({
+			attributes: ['category_id', 'category_name', 'parent_category'],
+			where: {
+				category_id: id
+			},
+			include: [{
+				model: models.categories,
+				as: 'parent_category_category',
+				attributes: ['category_name'],
 			}],
-			raw : true
-        });
+			raw: true
+		});
 
-        category.parent_category_name = category['parent_category_category.category_name'];
-        return category;
-    }
-    catch (error) {
-        return error;
-    }
+		category.parent_category_name = category['parent_category_category.category_name'];
+		return category;
+	}
+	catch (error) {
+		return error;
+	}
 }
