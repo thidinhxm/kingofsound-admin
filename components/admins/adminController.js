@@ -1,4 +1,4 @@
-const { models } = require("../../models");
+const adminService = require('./adminService');
 
 exports.adminProfile = (req, res, next) => {
 	const active = { admin: true }
@@ -26,7 +26,7 @@ exports.editProfile = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
 	try {
-		const adminUpdate = {
+		const profile = {
 			firstname: req.body.firstname,
 			lastname: req.body.lastname,
 			email: req.body.email,
@@ -34,8 +34,13 @@ exports.updateProfile = async (req, res, next) => {
 			address: req.body.address,
 		}
 
-		await models.users.update(adminUpdate, { where: { user_id: req.user.user_id } })
-		res.redirect('/profile')
+		await adminService.updateProfile(req.user.user_id, profile);
+		const user = await adminService.getAdminByEmail(req.user.email);
+		req.login(user, function(error) {
+            if (!error) {
+               res.redirect('/profile'); 
+            }
+        });
 	}
 	catch (err) {
 		console.error(err)

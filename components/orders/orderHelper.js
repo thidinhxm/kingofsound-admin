@@ -24,5 +24,5 @@ exports.formatMonthYear = (timestamp) => {
         month: 'numeric',
         year: 'numeric',
         hour12: false
-        });
+    });
 }

@@ -16,3 +16,11 @@ exports.getAdminByEmail = (email) => {
         }],
         raw: true
 })};
+
+exports.updateProfile = (id, profile) => {
+    return models.users.update(profile, {
+        where: {
+            user_id: id
+        }
+    })
+}
