@@ -4,7 +4,7 @@ exports.listBrands = () => {
     return models.brands.findAll({
         attributes: ['brand_name', 'brand_id','address'],
         order: [
-            ['brand_name', 'ASC']
+            ['brand_id', 'ASC']
         ],
         raw: true
     });
@@ -22,4 +22,8 @@ exports.getBrand = (id) => {
             raw: true
         });
     }
+}
+
+exports.createBrand =(brand) => {
+    return models.brands.create(brand)
 }

@@ -19,6 +19,7 @@ exports.listcategory = () => {
 				[Op.ne]: null,
 			},
 		},
+		order: ['category_id'],
 		raw: true,
 	});
 };
