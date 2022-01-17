@@ -1,6 +1,7 @@
 const { models } = require('../../models');
 const { Op } = require('sequelize');
 
+
 exports.createCategory = (category) => {
 	return models.categories.create(category);
 }

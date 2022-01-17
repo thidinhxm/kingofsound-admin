@@ -23,11 +23,11 @@ exports.list = (condition) => {
 		},
 		raw: true
 	};
-	
+
 	if (condition) {
 		const page = condition.page || 1;
 		const limit = parseInt(condition.limit) || 9;
-		
+
 		option.offset = (page - 1) * limit;
 		option.limit = limit;
 
@@ -50,22 +50,22 @@ exports.list = (condition) => {
 				option.order = [
 					["price", "ASC"],
 				];
-			} 
+			}
 			else if (condition.sort === "price_desc") {
 				option.order = [
 					["price", "DESC"],
 				];
-			} 
+			}
 			else if (condition.sort === "name_asc") {
 				option.order = [
 					["product_name", "ASC"],
 				];
-			} 
+			}
 			else if (condition.sort === "name_desc") {
 				option.order = [
 					["product_name", "DESC"],
 				];
-			} 
+			}
 			else if (condition.sort === "model_year") {
 				option.order = [
 					["model_year", "ASC"],
@@ -170,4 +170,22 @@ exports.getTop10Products = () => {
 		raw: true,
 		limit: 10,
 	});
+}
+
+exports.deleteProductsOfCategory = (categoryID) => {
+	return models.products.update(
+		{ is_active: false },
+		{
+			where: { category_id : categoryID }
+		}
+	)
+}
+
+exports.deleteProductsOfBrand = (brandID) => {
+	return models.products.update(
+			{ is_active: false },
+			{
+					where: { brand_id: brandID }
+			}
+	)
 }

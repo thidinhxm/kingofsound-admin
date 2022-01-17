@@ -34,10 +34,12 @@ exports.createBrand = (brand) => {
 
 exports.deleteBrand = (id) => {
     return models.brands.update({
-		is_active: false },
+        is_active: false
+    },
         {
             where: {
                 brand_id: id
             }
-	})
+        })
 }
+

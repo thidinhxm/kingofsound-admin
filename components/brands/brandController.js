@@ -1,4 +1,5 @@
 const brandService = require("./brandService");
+const productService = require("../products/productService");
 const active = { product: true }
 
 exports.listBrands = async function (req, res, next) {
@@ -12,6 +13,7 @@ exports.add = (req, res, next) => {
 }
 exports.delete = async (req, res, next) => {
 	try {
+		await productService.deleteProductsOfBrand(req.params.id)
 		await brandService.deleteBrand(req.params.id)
 		res.redirect('/brands')
 	} catch (error) {

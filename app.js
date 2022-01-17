@@ -46,13 +46,7 @@ app.engine('hbs', exphbs({
 		isNotSuperAdmin: function(id) { return id != 1 },
 		isNotYourAccount: function(id1,id2) { return id1 != id2 },
 		isAdmin: function(id) { return id == 'admins' },
-		isLockedEnable: function(id,userID) {
-			console.log('====================')
-			console.log(id)
-			console.log(userID)
-			console.log( id != userID)
-			console.log('====================')
-			return  (id != 1 && id != userID) },
+		isLockedEnable: function(id,userID) {	return  (id != 1 && id != userID) },
 		compareStatus: orderHelper.compareStatus,
 		isBlockedAccount: function(is_blocked) { return is_blocked},
 		formatPrice: orderHelper.formatPrice,

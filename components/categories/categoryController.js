@@ -1,5 +1,5 @@
 const categoryService = require("./categoryService");
-
+const productService = require("../products/productService");
 const active = {product: true}
 
 exports.listcategory = async (req, res, next) => {
@@ -9,6 +9,7 @@ exports.listcategory = async (req, res, next) => {
 
 exports.delete =  async (req, res, next) => {
   try{
+		await productService.deleteProductsOfCategory(req.params.id)
 		await categoryService.deleteCategory(req.params.id)
 		res.redirect('/categories')
 	}catch(err){
