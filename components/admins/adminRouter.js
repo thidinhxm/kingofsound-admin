@@ -11,7 +11,7 @@ router.post('/profile/update', adminController.isLogin, adminController.updatePr
 
 router.get('/profile/change-password', adminController.isLogin, adminController.changePassword);
 
-// router.post('/profile/change-password', adminController.isLogin, adminController.updatePassword);
+router.post('/profile/change-password', adminController.isLogin, adminController.updatePassword);
 
 
 

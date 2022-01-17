@@ -1,5 +1,5 @@
 const adminService = require('./adminService');
-
+const bcrypt = require('bcrypt');
 exports.adminProfile = (req, res, next) => {
 	const active = { admin: true }
 	res.render('../components/admins/adminViews/profile', { active });
@@ -53,4 +53,23 @@ exports.changePassword = (req, res, next) => {
 	res.render('../components/admins/adminViews/change-password')
 }
 
+exports.updatePassword = async (req,res,next) => {
+    try {
+        const { oldpassword, newpassword, renewpassword } = req.body;
+        const user = req.user;
+        const user_id = req.user.user_id;
+        if (!bcrypt.compareSync(oldpassword, user.password)) {
+            res.render('../components/admins/adminViews/change-password', {error :"Mật khẩu chưa chính xác!"})
+        }   
+        else {
+            const salt = bcrypt.genSaltSync(10);
+            const passwordHash = bcrypt.hashSync(newpassword, salt);
+            await adminService.updatePassword(user_id, passwordHash);
+            res.redirect('/profile');  
+        }
+    }
+    catch (error) {
+        next(error);
+    }
+}
 

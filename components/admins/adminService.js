@@ -24,3 +24,11 @@ exports.updateProfile = (id, profile) => {
         }
     })
 }
+
+exports.updatePassword = (id, password) => {
+    return models.users.update(password, {
+        where: {
+            user_id: id
+        }
+    })
+}
