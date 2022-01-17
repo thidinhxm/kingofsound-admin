@@ -4,7 +4,6 @@ const { models } = require("../../models");
 exports.getAdminAccounts = async (req, res, next) => {
 	const adminAccounts = await accountService.listAdminAccount();
 	const active = { user: true }
-
 	res.render('../components/accounts/accountViews/admin-accounts', { adminAccounts, active });
 }
 
@@ -65,8 +64,8 @@ exports.userDetail = async (req, res, next) => {
 
 exports.edit = async (req, res, next) => {
 	const currentUser = await models.users.findOne({ where: { user_id: req.params.id }, raw: true })
-
-	res.render('../components/accounts/accountViews/account-edit', { currentUser });
+	const userRole = await accountService.userRole(req.params.id)
+	res.render('../components/accounts/accountViews/account-edit', { currentUser,userRole });
 	// res.json({currentAdmin})
 }
 

@@ -112,52 +112,7 @@
   </div>
 </div>
 {{!-- Confirm delete modal --}}
-{{!-- <div id="unlock-user-modal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Xoá sản phẩm</h5>
-        <button type="button" class="close" data-dismiss="modal" data-id="id" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Bạn chắc chắn mở khoá người dùng này ?</p>
-      </div>
-      <div class="modal-footer">
-        <button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Mở khoá</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-
-{{!-- Delete hidden for, --}}
-<form method="post" name="delete-product-form" action="">
-</form>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const userID
-    const deleteForm = document.forms['delete-product-form'];
-    $('#unlock-user-modal').on('show.bs.modal', function (event) {
-      const button = $(event.relatedTarget) // Button that triggered the modal
-      userID = button.data('id')
-
-    });
-
-    const btnDeleteProduct = document.getElementById('btn-delete-product');
-
-    btnDeleteProduct.onclick = function () {
-      deleteForm.action = '/accounts/' + userID + '/unlock';
-      deleteForm.submit();
-    }
-
-  });
-
-</script> --}}
 
 <div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">

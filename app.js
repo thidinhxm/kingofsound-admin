@@ -44,6 +44,7 @@ app.engine('hbs', exphbs({
 		},
 
 		isNotSuperAdmin: function(id) { return id != 1 },
+		isAdmin: function(id) { return id == 'admins' },
 		compareStatus: orderHelper.compareStatus,
 		isBlockedAccount: function(is_blocked) { return is_blocked},
 		formatPrice: orderHelper.formatPrice,

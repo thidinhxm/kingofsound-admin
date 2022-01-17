@@ -1,4 +1,3 @@
-
 {{> header }}
 <div class="container mt-5">
   <div class="container">
@@ -23,8 +22,8 @@
         <div class="row">
           <div class="col-md-12">
             <a href="/accounts/admins/add-admin" class="btn btn-primary btn-block text-uppercase mb-3">
-             <i class="fas fa-plus" style="margin-right: 10px;"> </i>
-             Thêm Admin</a>
+              <i class="fas fa-plus" style="margin-right: 10px;"> </i>
+              Thêm Admin</a>
           </div>
         </div>
         <div class="tm-product-table-container">
@@ -69,10 +68,19 @@
 
                 <td>
                   {{#if (isNotSuperAdmin user_id)}}
+
+                  {{#if (isBlockedAccount is_blocked)}}
                   <a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
                     data-target="#delete-product-modal" data-id="{{user_id}}">
-                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                    <i class="fas fa-lock tm-product-delete-icon"></i>
                   </a>
+                  {{else}}
+                  <a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+                    data-target="#delete-product-modal" data-id="{{user_id}}">
+                    <i class="fas fa-unlock tm-product-delete-icon"></i>
+                  </a>
+                  {{/if}}
+
                   {{/if}}
                 </td>
 
@@ -122,23 +130,23 @@
 
 {{!-- Confirm delete modal --}}
 <div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Xoá quản trị viên</h5>
-				<button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Bạn chắc quản trị viên này ?</p>
-			</div>
-			<div class="modal-footer">
-				<button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Xoá bỏ</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
-			</div>
-		</div>
-	</div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xoá quản trị viên</h5>
+        <button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc quản trị viên này ?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Xoá bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 {{!-- Delete hidden form --}}
@@ -146,22 +154,22 @@
 </form>
 
 <script>
-	document.addEventListener("DOMContentLoaded", function () {
-		var productID
-		var deleteForm = document.forms['delete-product-form'];
-		$('#delete-product-modal').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget) // Button that triggered the modal
-			productID = button.data('id')
+  document.addEventListener("DOMContentLoaded", function () {
+    var productID
+    var deleteForm = document.forms['delete-product-form'];
+    $('#delete-product-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      productID = button.data('id')
 
-		});
+    });
 
-		var btnDeleteProduct = document.getElementById('btn-delete-product');
+    var btnDeleteProduct = document.getElementById('btn-delete-product');
 
-		btnDeleteProduct.onclick = function () {
-			deleteForm.action = '/accounts/admins/' + productID + '/delete';
-			deleteForm.submit();
-		}
+    btnDeleteProduct.onclick = function () {
+      deleteForm.action = '/accounts/admins/' + productID + '/delete';
+      deleteForm.submit();
+    }
 
-	});
+  });
 
 </script>
