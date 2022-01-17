@@ -27,3 +27,12 @@ exports.getBrand = (id) => {
 exports.createBrand =(brand) => {
     return models.brands.create(brand)
 }
+
+
+exports.deleteBrand = (id) => {
+	return models.brands.destroy({
+			where: {
+				brand_id: id
+			}
+	})
+}

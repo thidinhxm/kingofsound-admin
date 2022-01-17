@@ -10,8 +10,13 @@ exports.add = (req, res, next) => {
 	res.render('../components/brands/brandViews/add-brand', { active })
 
 }
-exports.delete = (req, res, next) => {
-	res.send('Delete Ok')
+exports.delete = async (req, res, next) => {
+	try {
+		await brandService.deleteBrand(req.params.id)
+		res.redirect('/brands')
+	} catch (error) {
+		console.log(error);
+	}
 }
 exports.store = async (req, res, next) => {
 	try {
