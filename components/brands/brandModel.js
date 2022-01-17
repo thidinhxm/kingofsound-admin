@@ -18,6 +18,11 @@ module.exports = function(sequelize, DataTypes) {
     descriptions: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,
