@@ -13,23 +13,58 @@
 				<form method="POST" action="/products/{{product.product_id}}/update" 
 					enctype="multipart/form-data" class="tm-edit-product-form">
 					<div class="row tm-edit-product-row">
-						<div class="col-xl-6 col-lg-6 col-md-12">
+						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
 								<label for="name_update">Tên sản phẩm</label>
-								<input id="name_update" name="name" type="text" value="{{product.product_name}}" class="form-control validate" required maxlength="50" oninput="while(this.value[0] == ' ') {this.value = this.value.slice(1) };" />
+								<input 
+									id="name_update" name="product_name" 
+									type="text" value="{{product.product_name}}" 
+									class="form-control validate" required maxlength="50" 
+									oninvalid="this.setCustomValidity('Tên sản phẩm không được để trống')"
+									oninput="setCustomValidity('');while(this.value[0] == ' ') {this.value = this.value.slice(1) };"
+								/>
 							</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="price_update">Giá tiền (vnđ)</label>
-								<input id="price_update" name="price" type="number" value="{{product.price}}" class="form-control validate" required min="0" />
+								<input 
+									id="price_update" name="price" 
+									type="number" value="{{product.price}}" 
+									class="form-control validate" required min="0" 
+									oninvalid="this.setCustomValidity('Giá tiền không được để trống')"
+									oninput="setCustomValidity('')"
+								/>
+							</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-12">
+							<div class="form-group mb-3">
+								<label for="price_update">Số lượng</label>
+								<input 
+									id="quantity_update" name="quantity" 
+									type="number" value="{{product.quantity}}" 
+									class="form-control validate" required min="1" 
+									oninvalid="this.setCustomValidity('Số lượng không được để trống')"
+									oninput="setCustomValidity('')"
+								/>
 							</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="productCategory">Phân loại </label>
-								<select class="custom-select tm-select-accounts" onchange="getSubCategories(this)" id="productCategory" name="category">
-									<option value={{product.categories.parent_category}} disabled selected hidden>{{product.categories.parent_category_name}}</option>
+								<select 
+									class="custom-select tm-select-accounts" 
+									onchange="getSubCategories(this)" id="productCategory" 
+									name="category" required
+									oninvalid="this.setCustomValidity('Bạn chưa chọn loại sản phẩm')"
+									oninput="setCustomValidity('')"
+								>
+									<option 
+										value={{product.categories.parent_category}} 
+										disabled selected hidden
+									>
+										{{product.categories.parent_category_name}}
+									</option>
 									{{#each categories}}
 									<option value="{{category_id}}">{{category_name}}</option>
 									{{/each}}
@@ -39,16 +74,36 @@
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="productSubCategory">Phân loại con</label>
-								<select class="custom-select tm-select-accounts" id="productSubCategory" name="subCategory" required>
-									<option value="{{product.categories.category_id}}" disabled selected hidden>{{product.categories.category_name}}</option>
+								<select 
+									class="custom-select tm-select-accounts" 
+									id="productSubCategory" name="subCategory" required
+									oninvalid="this.setCustomValidity('Bạn chưa chọn phân loại con sản phẩm')"
+									oninput="setCustomValidity('')"
+								>
+									<option 
+										value="{{product.categories.category_id}}" 
+										disabled selected hidden
+									>
+										{{product.categories.category_name}}
+									</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="brand_update">Nhà sản xuất </label>
-								<select class="custom-select tm-select-accounts" id="brand_update" name="brand">
-									<option value="{{product.brand_id}}" disabled selected hidden>{{product.brand.brand_name}}</option>
+								<select 
+									class="custom-select tm-select-accounts" 
+									id="brand_update" name="brand" required
+									oninvalid="this.setCustomValidity('Bạn chưa chọn nhà sản xuất')"
+									oninput="setCustomValidity('')"
+								>
+									<option 
+										value="{{product.brand_id}}" 
+										disabled selected hidden
+									>
+										{{product.brand.brand_name}}
+									</option>
 									{{#each brands}}
 									<option value="{{brand_id}}">{{brand_name}}</option>
 									{{/each}}
@@ -58,15 +113,26 @@
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="model_year_update">Năm sản xuất</label>
-								<input id="model_year_update" name="model_year" value={{product.model_year}} type="number" class="form-control validate"
-									data-large-mode="true"  min ="2000" max="2022"/>
+								<input 
+									id="model_year_update" name="model_year" 
+									value={{product.model_year}} type="number" 
+									class="form-control validate" data-large-mode="true"  
+									min ="2000" max="{{currentYear}}" required
+									oninvalid="this.setCustomValidity('Năm sản xuất phải trong khoảng 2000 - {{getCurrentYear}}')"
+									oninput="setCustomValidity('')"
+								/>
 							</div>
 						</div>
 						
 						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
 								<label for="descriptions_update">Mô tả chi tiết</label>
-								<textarea name="descriptions" id="descriptions_update" rows="3" class="form-control validate" required>{{product.descriptions}}</textarea>
+								<textarea 
+									name="descriptions"  id="descriptions_update" 
+									rows="4" class="form-control validate" required
+									oninvalid="this.setCustomValidity('Mô tả không được để trống')"
+									oninput="setCustomValidity('');while(this.value[0] == ' ') {this.value = this.value.slice(1) };"
+								>{{product.descriptions}}</textarea>
 							</div>
 						</div>
 
@@ -78,37 +144,44 @@
 
 						<div class="col-lg-3 col-md-6 col-ms-6 col-12 mx-auto mb-4">
 							<div class="tm-product-img-dummy mx-auto">
-								<label for="image1_update">
+								<label for="image1_update" class="label-file">
 									<img src="{{product.images.0.image_link}}" style="height=100%; width: 200px; margin-top: 6px;" alt="image" />
 								</label>
-								<input type="file" name="image1" id="image1_update" class="form-control validate" accept="image/*" style="display: none;"/>
+								<input 
+									type="file" name="image1" id="image1_update" 
+									class="form-control validate input-file" 
+									accept="image/*" style="display: none;"
+								/>
 							</div>
 						</div>
 
 						<div class="col-lg-3 col-md-6 col-ms-6 col-12 mx-auto mb-4">
 							<div class="tm-product-img-dummy mx-auto">
-								<label for="image2_update">
+								<label for="image2_update" class="label-file">
 									<img src="{{product.images.1.image_link}}" style="height=100%; width: 200px; margin-top: 6px;" alt="image" />
 								</label>
-								<input type="file" name="image2" id="image2_update" class="form-control validate" accept="image/*" style="display: none;"/>
+								<input 
+									type="file" name="image2" id="image2_update" 
+									class="form-control validate input-file" 
+									accept="image/*" style="display: none;"/>
 							</div>
 						</div>
 
 						<div class="col-lg-3 col-md-6 col-ms-6 col-12 mx-auto mb-4">
 							<div class="tm-product-img-dummy mx-auto">
-								<label for="image3_update">
+								<label for="image3_update" class="label-file">
 									<img src="{{product.images.2.image_link}}" style="height=100%; width: 200px; margin-top: 6px;" alt="image" />
 								</label>
-								<input type="file" name="image3" id="image3_update" class="form-control validate" accept="image/*" style="display: none;"/>
+								<input type="file" name="image3" id="image3_update" class="form-control validate input-file" accept="image/*" style="display: none;"/>
 							</div>
 						</div>
 
 						<div class="col-lg-3 col-md-6 col-ms-6 col-12 mx-auto mb-4">
 							<div class="tm-product-img-dummy mx-auto">
-								<label for="image4_update">
+								<label for="image4_update" class="label-file">
 									<img src="{{product.images.3.image_link}}" style="height=100%; width: 200px; margin-top: 6px;" alt="image" />
 								</label>
-								<input type="file" name="image4" id="image4_update" class="form-control validate" accept="image/*" style="display: none;"/>
+								<input type="file" name="image4" id="image4_update" class="form-control validate input-file" accept="image/*" style="display: none;"/>
 							</div>
 						</div>
 						<div class="col-12">

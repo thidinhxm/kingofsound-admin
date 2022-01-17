@@ -49,6 +49,7 @@ app.engine('hbs', exphbs({
 		formatPrice: orderHelper.formatPrice,
 		formatDateTime: orderHelper.formatDateTime,
 		paginateProductList: productHelper.paginateProductList,
+		getCurrentYear: productHelper.getCurrentYear,
 	}
 }));
 app.set('view engine', 'hbs');

@@ -51,3 +51,8 @@ exports.paginateProductList = function (pagination) {
     template = template + '</ul>';
     return template;
 };
+
+exports.getCurrentYear = function () {
+    let currentYear = new Date().getFullYear();
+    return currentYear;
+}

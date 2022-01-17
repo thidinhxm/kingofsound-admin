@@ -12,25 +12,55 @@
 
 				<form method="POST" action="/products/add" enctype="multipart/form-data" class="tm-edit-product-form">
 					<div class="row tm-edit-product-row">
-						<div class="col-xl-6 col-lg-6 col-md-12">
+						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
 								<label for="name">Tên sản phẩm
 								</label>
-								<input id="name" name="name" type="text" class="form-control validate" required maxlength="50" oninput="while(this.value[0] == ' ') {this.value = this.value.slice(1) };"/>
+								<input 
+									id="product_name" name="product_name" type="text" 
+									class="form-control validate" required maxlength="50" 
+									oninvalid="this.setCustomValidity('Tên sản phẩm không được để trống')"
+									oninput="setCustomValidity('');while(this.value[0] == ' ') {this.value = this.value.slice(1) };"
+								/>
 							</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="price">Giá tiền (vnđ)
 								</label>
-								<input id="price" name="price" type="number" class="form-control validate" required min="0" />
+								<input 
+									id="price" name="price" 
+									type="number" class="form-control validate" 
+									required min="0" 
+									oninvalid="this.setCustomValidity('Giá tiền không được để trống')"
+									oninput="setCustomValidity('')"
+								/>
+							</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-12">
+							<div class="form-group mb-3">
+								<label for="price">Số lượng
+								</label>
+								<input 
+									id="quantity" name="quantity" 
+									type="number" class="form-control validate" 
+									required min="1" 
+									oninvalid="this.setCustomValidity('Số lượng không được để trống và phải từ 1 trở lên')"
+									oninput="setCustomValidity('')"
+								/>
 							</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="productCategory">Phân loại </label>
-								<select class="custom-select tm-select-accounts" onchange="getSubCategories(this)" id="productCategory" name="category">
-									<option disabled selected hidden>-- Chọn --</option>
+								<select 
+									class="custom-select tm-select-accounts" 
+									onchange="getSubCategories(this)" id="productCategory" 
+									name="category" required
+									oninvalid="this.setCustomValidity('Bạn chưa chọn loại sản phẩm')"
+									oninput="setCustomValidity('')"
+								>
+									<option value="" disabled selected hidden>-- Chọn --</option>
 									{{#each categories}}
 									<option value="{{category_id}}">{{category_name}}</option>
 									{{/each}}
@@ -40,7 +70,12 @@
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="productSubCategory">Phân loại con</label>
-								<select class="custom-select tm-select-accounts" id="productSubCategory" name="subCategory" required>
+								<select 
+									class="custom-select tm-select-accounts" 
+									id="productSubCategory" name="subCategory" required
+									oninvalid="this.setCustomValidity('Bạn chưa chọn phân loại con sản phẩm')"
+									oninput="setCustomValidity('')"
+								>
 									<option value="" disabled selected hidden>-- Chọn --</option>
 								</select>
 							</div>
@@ -48,7 +83,12 @@
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="brand">Nhà sản xuất </label>
-								<select class="custom-select tm-select-accounts" id="brand" name="brand">
+								<select 
+									class="custom-select tm-select-accounts" 
+									id="brand" name="brand" required
+									oninvalid="this.setCustomValidity('Bạn chưa chọn nhà sản xuất')"
+									oninput="setCustomValidity('')"
+								>
 									<option value="" disabled selected hidden>-- Chọn --</option>
 									{{#each brands}}
 									<option value="{{brand_id}}">{{brand_name}}</option>
@@ -59,15 +99,28 @@
 						<div class="col-xl-6 col-lg-6 col-md-12">
 							<div class="form-group mb-3">
 								<label for="model_year">Năm sản xuất</label>
-								<input id="model_year" name="model_year" type="number" class="form-control validate"
-									data-large-mode="true" min="2000" max="2022" />
+								<input 
+									id="model_year" name="model_year" type="number"
+									class="form-control validate" data-large-mode="true" 
+									min="2000" max="{{getCurrentYear}}" required
+									oninvalid="this.setCustomValidity('Năm sản xuất phải trong khoảng 2000 - {{getCurrentYear}}')"
+									oninput="setCustomValidity('')"
+								/>
 							</div>
 						</div>
 						
 						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
 								<label for="descriptions">Mô tả chi tiết</label>
-								<textarea name="descriptions" id="descriptions" rows="3" class="form-control validate" required></textarea>
+								<textarea 
+									name="descriptions" 
+									id="descriptions" 
+									rows="3" 
+									class="form-control validate" 
+									required
+									oninvalid="this.setCustomValidity('Mô tả không được để trống')"
+									oninput="setCustomValidity('');while(this.value[0] == ' ') {this.value = this.value.slice(1) };"
+								></textarea>
 							</div>
 						</div>
 
@@ -79,10 +132,16 @@
 
 						<div class="col-lg-3 col-md-6 col-ms-6 col-12 mx-auto mb-4">
 							<div class="tm-product-img-dummy mx-auto">
-								<label for="image1">
+								<label for="image1" class="label-file">
 									<i class="fas fa-cloud-upload-alt tm-upload-icon"></i>
 								</label>
-								<input type="file" name="image1" id="image1" class="form-control validate" accept="image/*" required style="display: none;"/>
+								<input 
+									type="file" name="image1" 
+									id="image1" class="form-control validate input-file" 
+									accept="image/*" required
+									oninvalid="this.setCustomValidity('Bạn chưa chọn ảnh sản phẩm')"
+									oninput="setCustomValidity('')"
+									/>
 							</div>
 						</div>
 
@@ -91,7 +150,13 @@
 								<label for="image2">
 									<i class="fas fa-cloud-upload-alt tm-upload-icon"></i>
 								</label>
-								<input type="file" name="image2" id="image2" class="form-control validate" accept="image/*" required style="display: none;"/>
+								<input 
+									type="file" name="image2" 
+									id="image2" class="form-control validate input-file" 
+									accept="image/*" required
+									oninvalid="this.setCustomValidity('Bạn chưa chọn ảnh sản phẩm')"
+									oninput="setCustomValidity('')"
+								/>
 							</div>
 						</div>
 
@@ -100,7 +165,13 @@
 								<label for="image3">
 									<i class="fas fa-cloud-upload-alt tm-upload-icon"></i>
 								</label>
-								<input type="file" name="image3" id="image3" class="form-control validate" accept="image/*" required style="display: none;"/>
+								<input 
+									type="file" name="image3" 
+									id="image3" class="form-control validate input-file" 
+									accept="image/*" required
+									oninvalid="this.setCustomValidity('Bạn chưa chọn ảnh sản phẩm')"
+									oninput="setCustomValidity('')"
+								/>
 							</div>
 						</div>
 
@@ -109,11 +180,17 @@
 								<label for="image4">
 									<i class="fas fa-cloud-upload-alt tm-upload-icon"></i>
 								</label>
-								<input type="file" name="image4" id="image4" class="form-control validate" accept="image/*" required style="display: none;"/>
+								<input 
+									type="file" name="image4" 
+									id="image4" class="form-control validate input-file" 
+									accept="image/*" required
+									oninvalid="this.setCustomValidity('Bạn chưa chọn ảnh sản phẩm')"
+									oninput="setCustomValidity('')"
+								/>
 							</div>
 						</div>
 						<div class="col-12">
-							<button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm sản phẩm</button>
+							<button type="submit" class="btn btn-primary btn-block text-uppercase" id="btn-add-product">Thêm sản phẩm</button>
 						</div>
 					</div>
 				</form>
@@ -138,6 +215,7 @@
 			}
 			reader.readAsDataURL(file);
 			$(this).parent().find('label').html(img);
+			$(this).css('display', 'none');
 		}
 	});
 </script>
