@@ -12,9 +12,6 @@
                 <h2 class="tm-block-title">Loại tài khoản</h2>
                 <div class="tm-avatar-container">
                     <img src="/img/user_avatar.png" alt="Avatar" class="tm-avatar img-fluid mb-4" />
-                    <a href="#" class="tm-avatar-delete-link">
-                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                    </a>
                 </div>
                 {{!-- <button class="btn btn-primary btn-block text-uppercase">
                     Tải ảnh đại diện
@@ -73,15 +70,11 @@
 
                     <div class="row">
                         <div class="col">
-                            <a href="/accounts/{{currentUser.user_id}}/account-edit"
-                                class="btn btn-primary btn-block text-uppercase mb-3">Chỉnh sửa thông tin</a>
-                        </div>
-                        <div class="col">
                             {{#if (isBlockedAccount currentUser.is_blocked)}}
-                             <a href="/accounts/users/{{currentUser.user_id}}/unlock"
+                             <a href="/accounts/{{currentUser.user_id}}/unlock"
                                 class="btn btn-success btn-block text-uppercase mb-3">Mở khoá tài khoản</a>
                             {{else}}
-                            <a href="/accounts/users/{{currentUser.user_id}}/lock"
+                            <a href="/accounts/{{currentUser.user_id}}/lock"
                                 class="btn btn-danger btn-block text-uppercase mb-3">Khoá tài khoản</a>
                             {{/if}}
                         </div>

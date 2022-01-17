@@ -119,5 +119,27 @@ exports.listByUsername = (search_name, page = 0, itemPerPage = 8) => {
     });
 };
 
+exports.lock = (id)=>{
+    return models.users.update(
+        {
+            is_blocked: true
+        }, {
+        where: {
+            user_id: id,
+        }
+    })
+}
+
+exports.unlock = (id)=>{
+    return models.users.update(
+        {
+            is_blocked: false
+        }, {
+        where: {
+            user_id: id,
+        }
+    })
+}
+
 
 

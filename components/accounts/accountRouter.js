@@ -8,11 +8,14 @@ router.get('/admins/add-admin/', adminController.isLogin, accountController.addA
 router.post('/admins/store', adminController.isLogin, accountController.createAdminAcount);
 router.post('/admins/:id/delete', adminController.isLogin, accountController.deleteAdmin);
 
-
 router.get('/admins', adminController.isLogin, accountController.getAdminAccounts);
 router.get('/:id/account-edit',adminController.isLogin, accountController.edit);
-router.post('/users/:id/unlock',adminController.isLogin, accountController.unlock);
-router.get('/users/:id/lock',adminController.isLogin, accountController.lock);
+router.post('/:id/unlock',adminController.isLogin, accountController.unlock);
+router.get('/:id/unlock',adminController.isLogin, accountController.unlock);
+
+router.get('/:id/lock',adminController.isLogin, accountController.lock);
+router.post('/:id/lock',adminController.isLogin, accountController.lock);
+
 
 router.post('/:id/account-update',adminController.isLogin, accountController.update);
 

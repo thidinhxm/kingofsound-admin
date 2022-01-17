@@ -4,7 +4,9 @@ const { models } = require("../../models");
 exports.getAdminAccounts = async (req, res, next) => {
 	const adminAccounts = await accountService.listAdminAccount();
 	const active = { user: true }
-	res.render('../components/accounts/accountViews/admin-accounts', { adminAccounts, active });
+	const currentAdminID = req.user.user_id;
+	console.log(req.user.user_id)
+	res.render('../components/accounts/accountViews/admin-accounts', { adminAccounts,currentAdminID, active });
 }
 
 
@@ -65,7 +67,7 @@ exports.userDetail = async (req, res, next) => {
 exports.edit = async (req, res, next) => {
 	const currentUser = await models.users.findOne({ where: { user_id: req.params.id }, raw: true })
 	const userRole = await accountService.userRole(req.params.id)
-	res.render('../components/accounts/accountViews/account-edit', { currentUser,userRole });
+	res.render('../components/accounts/accountViews/account-edit', { currentUser, userRole });
 	// res.json({currentAdmin})
 }
 
@@ -132,30 +134,19 @@ exports.getUserAccounts = async (req, res, next) => {
 
 exports.unlock = async (req, res) => {
 	try {
-		await models.users.update(
-			{
-				is_blocked: false
-			}, {
-			where: {
-				user_id: req.params.id,
-			}
-		})
-		res.redirect('/accounts/users/');
+		await accountService.unlock(req.params.id)
+		const userRole = await accountService.userRole(req.params.id)
+		res.redirect('/accounts/'+ userRole);
+			res.redirect('/accounts/users/');
 	}
 	catch (err) { console.log(err) }
 };
 
 exports.lock = async (req, res) => {
 	try {
-		await models.users.update(
-			{
-				is_blocked: true
-			}, {
-			where: {
-				user_id: req.params.id,
-			}
-		})
-		res.redirect('/accounts/users/');
+		await accountService.lock(req.params.id)
+		const userRole = await accountService.userRole(req.params.id)
+		res.redirect('/accounts/'+ userRole);
 	}
 	catch (err) { console.log(err) }
 };
