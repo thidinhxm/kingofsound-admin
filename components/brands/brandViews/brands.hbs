@@ -75,25 +75,25 @@
 </div>
 
 
-{{!-- Delete hidden for, --}}
-<form method="post" name="delete-product-form" action="'/products//delete'">
+{{!-- Delete hidden form, --}}
+<form method="post" name="delete-product-form">
 </form>
 
 
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
-		var productID
-		var deleteForm = document.forms['delete-product-form'];
+		let brandID;
+		const deleteForm = document.forms['delete-product-form'];
 		$('#delete-product-modal').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget) // Button that triggered the modal
-			productID = button.data('id')
+			const button = $(event.relatedTarget) // Button that triggered the modal
+			brandID = button.data('id')
 
 		});
 
-		var btnDeleteProduct = document.getElementById('btn-delete-product');
+		const btnDeleteProduct = document.getElementById('btn-delete-product');
 
 		btnDeleteProduct.onclick = function () {
-			deleteForm.action = '/brands/' + productID + '/delete';
+			deleteForm.action = '/brands/' + brandID + '/delete';
 			deleteForm.submit();
 		}
 

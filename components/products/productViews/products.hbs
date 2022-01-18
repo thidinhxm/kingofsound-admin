@@ -3,21 +3,18 @@
 <div class="container mt-5">
 	<div class="row tm-content-row">
 		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-			{{!------------------ Search area ---------------------}}
+			
 			<div class="row justify-content-center" style="margin-bottom: 20px;">
 				<div class="col-3">
-					{{!-- <form action="/products" method="get"> --}}
-						<div class="wrap">
-							<div class="search">
-								<input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" name="search_name"
-									value="{{search_name}}" autocomplete="off" onkeyup="changePage(1)" id="search_name">
-								<button type="button" class="searchButton" onclick="changePage(1)">
-									<i class="fa fa-search"></i>
-								</button>
-								{{!-- <div id="search-suggest"></div> --}}
-							</div>
+					<div class="wrap">
+						<div class="search">
+							<input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" name="search_name"
+								value="{{search_name}}" autocomplete="off" onkeyup="changePage(1)" id="search_name">
+							<button type="button" class="searchButton" onclick="changePage(1)">
+								<i class="fa fa-search"></i>
+							</button>
 						</div>
-					{{!-- </form> --}}
+					</div>
 				</div>
 				<div class="col-2">
 					<select class="filter-category" id="category"
@@ -172,20 +169,20 @@
 
 
 {{!-- Delete hidden form --}}
-<form method="post" name="delete-product-form" action="'/products/{{product_id}}/delete'">
+<form method="post" name="delete-product-form">
 </form>
 
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
-		var productID
-		var deleteForm = document.forms['delete-product-form'];
+		let productID;
+		const deleteForm = document.forms['delete-product-form'];
 		$('#delete-product-modal').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget) // Button that triggered the modal
+			const button = $(event.relatedTarget) // Button that triggered the modal
 			productID = button.data('id')
 
 		});
 
-		var btnDeleteProduct = document.getElementById('btn-delete-product');
+		const btnDeleteProduct = document.getElementById('btn-delete-product');
 
 		btnDeleteProduct.onclick = function () {
 			deleteForm.action = '/products/' + productID + '/delete';

@@ -173,19 +173,17 @@ exports.getTop10Products = () => {
 }
 
 exports.deleteProductsOfCategory = (categoryID) => {
-	return models.products.update(
-		{ is_active: false },
-		{
-			where: { category_id : categoryID }
-		}
-	)
+	return models.products.update({ 
+		is_active: false 
+	},{
+		where: { category_id : categoryID }
+	})
 }
 
 exports.deleteProductsOfBrand = (brandID) => {
-	return models.products.update(
-			{ is_active: false },
-			{
-					where: { brand_id: brandID }
-			}
-	)
+	return models.products.update({ 
+		is_active: false 
+	}, {
+		where: { brand_id: brandID }
+	})
 }

@@ -2,8 +2,8 @@
 {{> header }}
 <div class="container mt-5">
 	<div class="row tm-content-row">
-
 		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+
 			<div class="tm-bg-primary-dark tm-block tm-block-product-categories">
 				<div class="row">
 					<div class="col-md-12">
@@ -22,7 +22,7 @@
 									<th scope="col"></th>
 									<th scope="col">Mã loại sản phẩm</th>
 									<th scope="col">Loại sản phẩm</th>
-									{{!-- <th scope="col"></th> --}}
+									<th scope="col">Loại sản phẩm cha</th>
 									<th scope="col"></th>
 
 
@@ -33,11 +33,13 @@
 								<td></td>
 								<td class="tm-product-name">{{category_id}}</td>
 								<td class="tm-product-name">{{category_name}}</td>
-								{{!-- <td>
-									<a href="#" class=" tm-product-delete-link">
-										<i class="far fa-edit tm-product-delete-icon"></i>
-									</a>
-								</td> --}}
+								<td class="tm-product-name">
+									{{#if parent_category_name}}
+									{{category_name}}
+									{{else}}
+									Không có
+									{{/if}}
+								</td>
 							 	<td>
 									<a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
 										data-target="#delete-product-modal" data-id="{{category_id}}">
@@ -69,7 +71,8 @@
 			</div>
 			<div class="modal-body">
 				<p>Bạn chắc chắn muốn xoá loại sản phẩm này ?</p>
-				<p style="color: red; font-weight:bold;">Lưu ý: Tất cả các sản phẩm thuộc loại này cũng sẽ bị xoá</p>
+				<p style="color: red; font-weight:bold;">
+					Lưu ý: Tất cả phân loại sản phẩm con (nếu có) và các sản phẩm thuộc loại này và loại con cũng sẽ bị xoá</p>
 			</div>
 			<div class="modal-footer">
 				<button id="btn-delete-product" type="button" class=" btn btn-danger" method="post">Xoá bỏ</button>
@@ -80,25 +83,25 @@
 </div>
 
 
-{{!-- Delete hidden for, --}}
-<form method="post" name="delete-product-form" action="'/products//delete'">
+{{!-- Delete hidden form, --}}
+<form method="post" name="delete-product-form">
 </form>
 
 
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
-		var productID
-		var deleteForm = document.forms['delete-product-form'];
+		let categoryID;
+		const deleteForm = document.forms['delete-product-form'];
 		$('#delete-product-modal').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget) // Button that triggered the modal
-			productID = button.data('id')
+			const button = $(event.relatedTarget) // Button that triggered the modal
+			categoryID = button.data('id')
 
 		});
 
-		var btnDeleteProduct = document.getElementById('btn-delete-product');
+		const btnDeleteProduct = document.getElementById('btn-delete-product');
 
 		btnDeleteProduct.onclick = function () {
-			deleteForm.action = '/categories/' + productID + '/delete';
+			deleteForm.action = '/categories/' + categoryID + '/delete';
 			deleteForm.submit();
 		}
 

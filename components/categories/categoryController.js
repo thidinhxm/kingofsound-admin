@@ -2,15 +2,32 @@ const categoryService = require("./categoryService");
 const productService = require("../products/productService");
 const active = {product: true}
 
-exports.listcategory = async (req, res, next) => {
-	let categories = await categoryService.listcategory();
+exports.listCategories = async (req, res, next) => {
+	let categories = await categoryService.listCategories();
 	res.render('../components/categories/categoryViews/categories',{ active, categories})
 }
 
 exports.delete =  async (req, res, next) => {
-  try{
-		await productService.deleteProductsOfCategory(req.params.id)
-		await categoryService.deleteCategory(req.params.id)
+  try {
+	  	const category = await categoryService.getCategory(req.params.id);
+		console.log(category);
+		if (category.parent_category) {
+			await productService.deleteProductsOfCategory(req.params.id)
+			await categoryService.deleteCategory(req.params.id)
+		}
+		else {
+			const subCategories = await categoryService.listSubCategories(req.params.id);
+			if (subCategories.length > 0) {
+				await Promise.all(subCategories.map(async (subCategory) => 
+					await productService.deleteProductsOfCategory(subCategory.category_id)
+				));
+
+				await Promise.all(subCategories.map(async (subCategory) =>
+					await categoryService.deleteCategory(subCategory.category_id)
+				));	
+			}
+			await categoryService.deleteCategory(req.params.id)
+		}	
 		res.redirect('/categories')
 	}catch(err){
 		console.log(err)
@@ -22,15 +39,12 @@ exports.addCategory = (req, res, next) =>{
 }
 exports.storeCategory = async (req, res, next) =>{
 	try {
-
 		const { category_name, descriptions, parent_category } = req.body;
-
 		await categoryService.createCategory({
 			category_name,
 			descriptions,
 			parent_category,
 		})
-
 		res.redirect('/categories');
 
 	}
