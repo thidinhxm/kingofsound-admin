@@ -62,30 +62,27 @@ exports.getTotalDelivery = () => {
 }
 
 exports.detailOrder = (id) => {
-    return models.orders.findAll({
+    return models.orders.findOne({
+
         where: {
             order_id: id
         },
-        include: [{
-            model: models.detailorders,
-            as: 'detailorders',
-            attributes: [
-                [sequelize.fn('count', sequelize.col('orders.order_id')), 'totalProduct'],
-
-            ],
-            required: true,
-            include: [{
-                model: models.products,
-                as: 'product',
-                attributes: ['product_name'],
-            }]
-
-        },{
-            model: models.users,
-            as: 'user',
-            attributes: ['firstname','lastname']
-        }],
-        group: 'orders.order_id',
+        include: [
+            {
+                model: models.detailorders,
+                attributes: [
+                    'order_id',
+                    [sequelize.fn('count', sequelize.col('orders.order_id')), 'totalProduct'],
+                ],
+                as: 'detailorders',
+                required: true,
+            },
+            {
+                model: models.users,
+                as: 'user',
+                attributes: ['firstname', 'lastname']
+            }],
+        group: ['orders.order_id',],
         raw: true
     })
 }

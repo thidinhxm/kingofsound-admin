@@ -13,9 +13,9 @@ exports.getOders = async (req, res, next) => {
 }
 exports.edit = async (req, res, next) => {
     try {
-        const currentOrder = await orderService.detailOrder(req.params.id);
-        const order = currentOrder[0]
-        console.log(currentOrder[0])
+        const order = await orderService.detailOrder(req.params.id);
+        const currentOrder = order
+        console.log(currentOrder)
         res.render('../components/orders/orderViews/order-edit', {order,active})
     }
     catch (error) {
