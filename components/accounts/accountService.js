@@ -15,10 +15,6 @@ exports.listAdminAccount = () => {
             model: models.roles,
             as: 'role_id_roles',
         }],
-        // where: {
-        //     is_blocked: false
-        // }
-        // ,
         raw: true
     });
 }
@@ -32,20 +28,7 @@ exports.createAdminRole = (user_role) => {
     return models.userroles.create(user_role);
 }
 
-// exports.listUserAccount = () => {
-//     return models.users.findAll({
-//         include: [{
-//             model: models.userroles,
-//             as: "userroles",
-//             where: {
-//                 role_id: 3
-//             },
-//         }],
-//         raw: true
-//     });
-// }
 exports.totalCredit = (userId) => {
-    // return models.orders.sum('total_credit',{where: {id: userId }})
     return models.orders.findAll({
         attributes: [
             'user_id',

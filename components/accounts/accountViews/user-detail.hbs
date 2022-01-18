@@ -1,9 +1,7 @@
 {{> header }}
 <div class="container mt-5">
     <div class="row tm-content-row">
-        <div class="col-12 tm-block-col">
-
-        </div>
+        <div class="col-12 tm-block-col"></div>
     </div>
     <!-- row -->
     <div class="row tm-content-row">
@@ -13,9 +11,6 @@
                 <div class="tm-avatar-container">
                     <img src="/img/user_avatar.png" alt="Avatar" class="tm-avatar img-fluid mb-4" />
                 </div>
-                {{!-- <button class="btn btn-primary btn-block text-uppercase">
-                    Tải ảnh đại diện
-                </button> --}}
             </div>
         </div>
         <div class="tm-block-col tm-col-account-settings">
@@ -66,20 +61,6 @@
                             <p>{{totalAmount}}</p>
                         </div>
                     </div>
-
-
-                    <div class="row">
-                        <div class="col">
-                            {{#if (isBlockedAccount currentUser.is_blocked)}}
-                             <a href="/accounts/{{currentUser.user_id}}/unlock"
-                                class="btn btn-success btn-block text-uppercase mb-3">Mở khoá tài khoản</a>
-                            {{else}}
-                            <a href="/accounts/{{currentUser.user_id}}/lock"
-                                class="btn btn-danger btn-block text-uppercase mb-3">Khoá tài khoản</a>
-                            {{/if}}
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
