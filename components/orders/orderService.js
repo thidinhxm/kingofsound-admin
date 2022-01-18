@@ -97,3 +97,14 @@ exports.updateOrder = (id, order) => {
         }
     })
 }
+
+exports.getOrdersGroupByStatus = () => {
+    return models.orders.findAll({
+        attributes: [
+            'order_status',
+            [sequelize.fn('count', sequelize.col('order_status')), 'total'],
+        ],
+        group: 'order_status',
+        raw: true,
+    })
+}
