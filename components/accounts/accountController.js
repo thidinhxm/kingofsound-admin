@@ -1,10 +1,21 @@
 const accountService = require("./accountService");
-const { models } = require("../../models");
 
 exports.getAdminAccounts = async (req, res, next) => {
-	const adminAccounts = await accountService.listAdminAccount();
+	const adminsRowAndCount = await accountService.listAdmins();
+	const pagination = {
+		page: 1,
+		limit: 5,
+		totalRows: adminsRowAndCount.count,
+		pages: Math.ceil(adminsRowAndCount.count / 5) || 1
+	}
+
 	const active = { user: true };
-	res.render('../components/accounts/accountViews/admin-accounts', { adminAccounts, active });
+	res.render('../components/accounts/accountViews/admin-accounts', { 
+		admins: adminsRowAndCount.rows,
+		totalAdmins: adminsRowAndCount.count,
+		pagination, 
+		active 
+	});
 }
 
 exports.addAdmin = (req, res, next) => {
@@ -59,8 +70,19 @@ exports.getUserAccounts = async (req, res, next) => {
 
 	try {
 		const active = { user: true }
-		const userAccounts = await accountService.listUser();
-		res.render('../components/accounts/accountViews/user-accounts', { userAccounts, active });
+		const usersRowAndCount = await accountService.listUsers();
+		const pagination = {
+			page: 1,
+            limit: 5,
+            totalRows: usersRowAndCount.count,
+            pages: Math.ceil(usersRowAndCount.count / 5) || 1
+		}
+		res.render('../components/accounts/accountViews/user-accounts', { 
+			users: usersRowAndCount.rows,
+			totalUsers: usersRowAndCount.count.length,
+			active, 
+			pagination 
+		});
 	}
 	catch (error) {
 		console.log(error);

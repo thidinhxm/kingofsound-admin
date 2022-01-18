@@ -42,7 +42,7 @@ const suggest = function(search){
     });
 }
 
-const paginateProductList = function (pagination) {
+const paginateList = function (pagination, functionName) {
     let limit = 10, n;
     let page = parseInt(pagination.page);
     let leftText = '<i class="fa fa-chevron-left"></i>';
@@ -54,11 +54,11 @@ const paginateProductList = function (pagination) {
     // ========= Previous Button ===============
     if (page === 1) {
         n = 1;
-        template = template + `<li class="disabled page-item"><a onclick="changePage(${n}" class="page-link">${leftText}</a></li>`;
+        template = template + `<li class="disabled page-item"><a onclick="${functionName}(${n}" class="page-link">${leftText}</a></li>`;
     }
     else {
         n = page - 1;
-        template = template + `<li class="page-item"><a onclick="changePage(${n})" class="page-link">${leftText}</a></li>`;
+        template = template + `<li class="page-item"><a onclick="${functionName}(${n})" class="page-link">${leftText}</a></li>`;
     }
     // ========= Page Numbers Middle ======
     let leftCount = Math.ceil(limit / 2) - 1;
@@ -74,10 +74,10 @@ const paginateProductList = function (pagination) {
     while (i < limit && i < pageCount) {
         n = start;
         if (start === page) {
-            template = template + `<li class="active page-item"><a onclick="changePage(${n})" class="page-link">${n}</a></li>`;
+            template = template + `<li class="active page-item"><a onclick="${functionName}(${n})" class="page-link">${n}</a></li>`;
 
         } else {
-            template = template + `<li class="page-item"><a onclick="changePage(${n})" class="page-link">${n}</a></li>`;
+            template = template + `<li class="page-item"><a onclick="${functionName}(${n})" class="page-link">${n}</a></li>`;
         }
         start++;
         i++;
@@ -85,11 +85,11 @@ const paginateProductList = function (pagination) {
     // ========== Next Buton ===========
     if (page === pageCount) {
         n = pageCount;
-        template = template + `<li class="disabled page-item"><a onclick="changePage(${n})" class="page-link">${rightText}</a></li>`;
+        template = template + `<li class="disabled page-item"><a onclick="${functionName}(${n})" class="page-link">${rightText}</a></li>`;
     }
     else {
         n = page + 1;
-        template = template + `<li class="page-item"><a onclick="changePage(${n})" class="page-link">${rightText}</a></li>`;
+        template = template + `<li class="page-item"><a onclick="${functionName}(${n})" class="page-link">${rightText}</a></li>`;
     }
     template = template + '</ul>';
     return template;
@@ -116,11 +116,12 @@ const changePage = function(page) {
             if (data.success) {
                 let productListTemplate = Handlebars.compile($('#product-list-template').html());
                 $('#product-list').html(productListTemplate({products: data.products}));
-                $('#pagination-product').html(paginateProductList(data.pagination));
+                $('#pagination-product').html(paginateList(data.pagination, 'changePage'));
                 return true;
             }
-            else
-            return false;
+            else {
+                return false;
+            }
         }
     });
 }
@@ -156,4 +157,145 @@ const checkPassword = function()
         $("#change-password-error").removeAttr('class');
         $("#change-password-form").submit();
     }
+}
+
+const getUserListTemplate = function () {
+    return `{{#each users}}
+    <tr>
+        <th scope="row"><b>{{user_id}}</b></th>
+        <td><b>{{firstname}} {{lastname}}</b></td>
+        <td><b>{{phone}}</b></td>
+        <td><b>{{total_amount}}</b></td>
+        <td>
+            {{#if is_blocked}}
+            <a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+                data-target="#unlock-product-modal" data-id="{{user_id}}">
+                <i class="fas fa-lock tm-product-delete-icon"></i>
+            </a>
+            {{else}}
+            <a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+                data-target="#lock-product-modal" data-id="{{user_id}}">
+                <i class="fas fa-unlock tm-product-delete-icon"></i>
+            </a>
+            {{/if}}
+        </td>
+        <td>
+            <a href="/accounts/users/{{user_id}}" class=" tm-product-delete-link">
+                <i class="far fa-eye tm-product-delete-icon"></i>
+            </a>
+        </td>
+    </tr>
+    {{/each}}`
+}
+const changePageUser = function(page) {
+    const search_name = $('#search_user').val();
+    const sort = $('#sort-user').val();
+    const limit = $('#limit-user').val();
+    $.ajax({
+        url: '/accounts/paginate-user',
+        type: 'POST',
+        data: {
+            search_name: search_name,
+            sort: sort,
+            limit: limit,
+            page: page
+        },
+        success: function (data) {
+            if (data.success) {
+                let userListTemplate = Handlebars.compile(getUserListTemplate());
+                $('#user-list').html(userListTemplate({users: data.users}));
+                $('#pagination-user').html(paginateList(data.pagination, 'changePageUser'));
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    });
+}
+
+const compileTemplateAdmin = (admins, user_id) => {
+    let html = '';
+    admins.forEach(admin => {
+        html += `<tr>
+        <td class="tm-product-name">${admin.user_id}</td>
+        <td>${admin.firstname} ${admin.lastname}</td>
+        <td>${admin.address}</td>
+        <td>${admin.phone}</td>
+        <td>${admin.email}</td>
+        <td>${admin['role_id_roles.role_name']}</td>
+        <td>
+            <a href="/accounts/admin/${admin.user_id}" class=" tm-product-delete-link">
+                <i class="far fa-eye tm-product-delete-icon"></i>
+            </a>
+        </td>
+
+        <td>`;
+        if (admin.is_blocked) {
+            if (user_id != 1) {
+                html += `<a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+                data-target="#prevent-lock-unlock-admin-modal" data-id="${admin.user_id}">
+                <i class="fas fa-lock tm-product-delete-icon"></i>
+            </a>`;
+            }
+            else {
+                html += `<a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+                data-target="#unlock-product-modal" data-id="${admin.user_id}">
+                <i class="fas fa-lock tm-product-delete-icon"></i>
+            </a>`;
+            }
+        }
+        else {
+            if (user_id != 1) {
+                html += `<a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+                data-target="#prevent-lock-unlock-admin-modal">
+                <i class="fas fa-unlock tm-product-delete-icon"></i>
+            </a>`;
+            }
+            else {
+                if (admin.user_id != 1) {
+                    html += `<a href="#" class="tm-product-delete-link btn-danger"
+                    data-toggle="modal" data-target="#lock-product-modal" data-id="${admin.user_id}">
+                    <i class="fas fa-unlock tm-product-delete-icon"></i>
+                </a>`;
+                }
+                else {
+                    html += `<a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+                    data-target="#prevent-lock-yourself-modal" data-id="${admin.user_id}">
+                    <i class="fas fa-unlock tm-product-delete-icon"></i>
+                </a>`;
+                }
+            }
+        }
+    });
+    return html;
+}
+const changePageAdmin = function(page) {
+    const search_name = $('#search_admin').val();
+    const sort = $('#sort-admin').val();
+    const limit = $('#limit-admin').val();
+    const role = $('#role-admin').val();
+    const admin_id = $('#hidden-id').val();
+
+    $.ajax({
+        url: '/accounts/paginate-admin',
+        type: 'POST',
+        data: {
+            search_name: search_name,
+            sort: sort,
+            limit: limit,
+            role: role,
+            page: page
+        },
+        success: function (data) {
+            if (data.success) {
+                $('#admin-list').html(compileTemplateAdmin(data.admins, admin_id));
+                $('#pagination-admin').html(paginateList(data.pagination, 'changePageAdmin'));
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    });
 }

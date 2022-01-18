@@ -1,4 +1,4 @@
-exports.paginateList = function (pagination, functionName) {
+exports.paginateAccountList = function (pagination) {
     let limit = 10, n;
     let page = parseInt(pagination.page);
     let leftText = '<i class="fa fa-chevron-left"></i>';
@@ -11,11 +11,11 @@ exports.paginateList = function (pagination, functionName) {
     if (page === 1) {
         n = 1;
 
-        template = template + `<li class="disabled page-item"><a onclick="${functionName}(${n}" class="page-link">${leftText}</a></li>`;
+        template = template + `<li class="disabled page-item"><a onclick="changePageAccount(${n}" class="page-link">${leftText}</a></li>`;
     }
     else {
         n = page - 1;
-        template = template + `<li class="page-item"><a onclick="${functionName}(${n})" class="page-link">${leftText}</a></li>`;
+        template = template + `<li class="page-item"><a onclick="changePageAccount(${n})" class="page-link">${leftText}</a></li>`;
     }
     // ========= Page Numbers Middle ======
     let leftCount = Math.ceil(limit / 2) - 1;
@@ -31,10 +31,10 @@ exports.paginateList = function (pagination, functionName) {
     while (i < limit && i < pageCount) {
         n = start;
         if (start === page) {
-            template = template + `<li class="active page-item"><a onclick="${functionName}(${n})" class="page-link">${n}</a></li>`;
+            template = template + `<li class="active page-item"><a onclick="changePageAccount(${n})" class="page-link">${n}</a></li>`;
 
         } else {
-            template = template + `<li class="page-item"><a onclick="${functionName}(${n})" class="page-link">${n}</a></li>`;
+            template = template + `<li class="page-item"><a onclick="changePageAccount(${n})" class="page-link">${n}</a></li>`;
         }
         start++;
         i++;
@@ -42,17 +42,12 @@ exports.paginateList = function (pagination, functionName) {
     // ========== Next Buton ===========
     if (page === pageCount) {
         n = pageCount;
-        template = template + `<li class="disabled page-item"><a onclick="${functionName}(${n})" class="page-link">${rightText}</a></li>`;
+        template = template + `<li class="disabled page-item"><a onclick="changePageAccount(${n})" class="page-link">${rightText}</a></li>`;
     }
     else {
         n = page + 1;
-        template = template + `<li class="page-item"><a onclick="${functionName}(${n})" class="page-link">${rightText}</a></li>`;
+        template = template + `<li class="page-item"><a onclick="changePageAccount(${n})" class="page-link">${rightText}</a></li>`;
     }
     template = template + '</ul>';
     return template;
 };
-
-exports.getCurrentYear = function () {
-    let currentYear = new Date().getFullYear();
-    return currentYear;
-}

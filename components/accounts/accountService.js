@@ -1,22 +1,66 @@
 const { models } = require('../../models');
 const bcrypt = require('bcrypt');
-const sequelize = require('sequelize');
-const { Op } = require('sequelize');
+const { Op, fn, col, literal } = require('sequelize');
 
-exports.listAdminAccount = () => {
-    return models.users.findAll({
+exports.listAdmins = (condition) => {
+    const option = {
+        subQuery: false,
         include: [{
             model: models.userroles,
             as: "userroles",
-            where: {
-                role_id: [1, 2]
-            },
         }, {
             model: models.roles,
             as: 'role_id_roles',
         }],
+        where: {
+            '$userroles.role_id$': [1, 2],
+        },
         raw: true
-    });
+    }
+
+    if (condition) {
+        const page = condition.page || 1;
+		const limit = parseInt(condition.limit) || 5;
+
+        option.offset = (page - 1) * limit;
+		option.limit = limit;
+
+        if (condition.search_name) {
+			option.where = {
+                ...option.where,
+                [Op.or]: [{
+                    lastname: {
+                        [Op.substring]: '%' + condition.search_name + '%',
+                    }
+                }, {
+                    firstname: {
+                        [Op.substring]: '%' + condition.search_name + '%',
+                    }
+                }]
+            }
+		}
+        if (condition.sort) {
+			if (condition.sort === "name_asc") {
+				option.order = [
+					["lastname", "ASC"],
+				];
+			}
+			else if (condition.sort === "name_desc") {
+				option.order = [
+					["lastname", "DESC"],
+				];
+			}
+		}
+
+        if (condition.role) {
+            option.where['$userroles.role_id$'] = condition.role;
+        }
+    }
+    else {
+        option.limit = 5;
+		option.offset = 0;
+    }
+    return models.users.findAndCountAll(option);
 }
 
 exports.createUser = (user) => {
@@ -28,20 +72,6 @@ exports.createAdminRole = (user_role) => {
     return models.userroles.create(user_role);
 }
 
-exports.totalCredit = (userId) => {
-    return models.orders.findAll({
-        attributes: [
-            'user_id',
-            [sequelize.fn('sum', sequelize.col('total_price')), 'total_amount'],
-        ],
-        where: [
-            { user_id: userId },
-            { order_status: 'Đã giao' },
-        ],
-        group: ['user_id'],
-        raw: true
-    })
-}
 exports.userRole = async (id) => {
     try {
         const roleUserID = 3
@@ -58,51 +88,8 @@ exports.userRole = async (id) => {
     }
 
 }
-exports.listUserPage = (page = 0, itemPerPage = 8) => {
-    return models.users.findAndCountAll({
-        include: [{
-            model: models.userroles,
-            as: "userroles",
-            where: {
-                role_id: 3
-            },
-        }],
-        raw: true,
-        offset: page * itemPerPage,
-        limit: itemPerPage,
-    });
-};
 
-exports.listByUsername = (search_name, page = 0, itemPerPage = 8) => {
-    return models.users.findAndCountAll({
-        where: {
-            [sequelize.Op.or]: [
-                {
-                    firstname: {
-                        [Op.substring]: '%' + search_name + '%',
-                    }
-                },
-                {
-                    lastname: {
-                        [Op.substring]: '%' + search_name + '%',
-                    }
-                },
-            ]
-        },
-        include: [{
-            model: models.userroles,
-            as: "userroles",
-            where: {
-                role_id: 3
-            },
-        }],
-        raw: true,
-        offset: page * itemPerPage,
-        limit: itemPerPage,
-    });
-};
-
-exports.lock = (id)=>{
+exports.lock = (id)=> {
     return models.users.update(
         {
             is_blocked: true
@@ -135,8 +122,8 @@ exports.getUserById = (id) => {
 
 
 
-exports.listUser = () => {
-    return models.users.findAll({
+exports.listUsers = (condition) => {
+    const option = {
         subQuery: false,
         include: [{
             model: models.userroles,
@@ -146,17 +133,65 @@ exports.listUser = () => {
             model: models.orders,
             as: 'orders',
             attributes: [],
-            raw: true
         }],
         where: {
             '$userroles.role_id$': 3,
-            '$orders.payment_status$': 'Đã thanh toán'
         },
-        attributes: [
-            'user_id', 'firstname', 'lastname', 'email', 'phone', 'address', 
-            [sequelize.fn('sum', sequelize.col('orders.total_price')), 'total_amount']
-        ],
-        group: ['user_id', 'firstname', 'lastname', 'email', 'phone', 'address'],
+        attributes: {
+            include: [
+                [fn('sum', literal('case when payment_status = "Đã thanh toán" then total_price else 0 end')), 'total_amount']
+            ],
+        },
+        group: ['user_id'],
         raw: true,
-    });
+    }
+    if (condition) {
+        const page = condition.page || 1;
+		const limit = parseInt(condition.limit) || 5;
+
+        option.offset = (page - 1) * limit;
+		option.limit = limit;
+
+        if (condition.search_name) {
+			option.where = {
+                ...option.where,
+                [Op.or]: [{
+                    lastname: {
+                        [Op.substring]: '%' + condition.search_name + '%',
+                    }
+                }, {
+                    firstname: {
+                        [Op.substring]: '%' + condition.search_name + '%',
+                    }
+                }]
+            }
+		}
+        if (condition.sort) {
+			if (condition.sort === "price_asc") {
+				option.order = [
+					literal('sum(case when payment_status = "Đã thanh toán" then total_price else 0 end) ASC')
+				];
+			}
+			else if (condition.sort === "price_desc") {
+				option.order = [
+                    literal('sum(case when payment_status = "Đã thanh toán" then total_price else 0 end) DESC')
+                ];
+			}
+			else if (condition.sort === "name_asc") {
+				option.order = [
+					["lastname", "ASC"],
+				];
+			}
+			else if (condition.sort === "name_desc") {
+				option.order = [
+					["lastname", "DESC"],
+				];
+			}
+		}
+    }
+    else {
+        option.limit = 5;
+		option.offset = 0;
+    }
+    return models.users.findAndCountAll(option);
 }

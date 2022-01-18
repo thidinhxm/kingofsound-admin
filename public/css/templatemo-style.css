@@ -924,3 +924,7 @@ h1.tm-site-title.mb-0{
 .add-block:hover i {
   color: #fff;
 }
+
+.background-white {
+  background-color: #fff;
+}

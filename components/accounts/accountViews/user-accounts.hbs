@@ -2,17 +2,39 @@
 <div class="container mt-5">
 	<div class="row tm-content-row">
 		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-			<div div="row">
-				<form action="/accounts/users" method="get" style="margin: 20px auto;">
+			<div class="row justify-content-center" style="margin-bottom: 20px;">
+				<div class="col-3">
 					<div class="wrap">
 						<div class="search">
-							<input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
-								name="search_name" value="{{search_name}}">
-							<button type="submit" class="searchButton">
+							<input type="text" class="searchTerm" placeholder="Người dùng muốn tìm kiếm?" name="search_name"
+								value="" autocomplete="off" onkeyup="changePageUser(1)" id="search_user">
+							<button type="button" class="searchButton" onclick="changePageUser(1)">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
-				</form>
+					</div>
+				</div>
+				<div class="col-2">
+					<select class="filter-category" id="sort-user" name="sort" onchange="changePageUser(1)">
+						<option value="" selected>Sắp xếp theo</option>
+						<option value="price_asc">Chi tiêu tăng dần</option>
+						<option value="price_desc">Chi tiêu giảm dần</option>
+						<option value="name_asc">Tên A-Z</option>
+						<option value="name_desc">Tên Z-A</option>
+					</select>
+				</div>
+				<div class="col-2">
+					<select class="filter-category" id="limit-user" name="limit" onchange="changePageUser(1)">
+						<option value="" selected>Hiển thị</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
+				</div>
+				<div class="col-2">
+					<div class="filter-category background-white text-center">Số người dùng:&nbsp;&nbsp;<strong>{{totalUsers}}</strong></div>
+				</div>
 			</div>
 
 			<div class="tm-bg-primary-dark tm-block tm-block-products">
@@ -29,16 +51,17 @@
 								<th scope="col">Chi tiết</th>
 							</tr>
 						</thead>
-						<tbody>
-							{{#if userAccounts}}
-							{{#each userAccounts}}
+						{{#if users}}
+						<tbody id="user-list">
+							
+							{{#each users}}
 							<tr>
 								<th scope="row"><b>{{user_id}}</b></th>
 								<td><b>{{firstname}} {{lastname}}</b></td>
 								<td><b>{{phone}}</b></td>
 								<td><b>{{total_amount}}</b></td>
 								<td>
-									{{#if (isBlockedAccount is_blocked)}}
+									{{#if is_blocked}}
 									<a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
 										data-target="#unlock-product-modal" data-id="{{user_id}}">
 										<i class="fas fa-lock tm-product-delete-icon"></i>
@@ -48,7 +71,6 @@
 										data-target="#lock-product-modal" data-id="{{user_id}}">
 										<i class="fas fa-unlock tm-product-delete-icon"></i>
 									</a>
-
 									{{/if}}
 								</td>
 								<td>
@@ -58,12 +80,15 @@
 								</td>
 							</tr>
 							{{/each}}
-							{{else}}
-							<h1 class="Notification">Không có người dùng nào phù hợp!</h1>
-							{{/if}}
 						</tbody>
+						{{else}}
+							<h1 class="Notification">Không có người dùng nào phù hợp!</h1>
+						{{/if}}
 					</table>
 				</div>
+				<nav aria-label="Page navigation example" id="pagination-user">
+					{{{paginateList pagination 'changePageUser'}}}
+				</nav>
 			</div>
 		</div>
 
