@@ -29,7 +29,7 @@
 							Thêm Admin
 						</a>
 						{{else}}
-						<a href="/accounts/admins/add-admin" class="btn btn-primary btn-block text-uppercase mb-3">
+						<a href="/accounts/admins/add" class="btn btn-primary btn-block text-uppercase mb-3">
 							<i class="fas fa-plus" style="margin-right: 10px;"> </i>
 							Thêm Admin
 						</a>
@@ -68,7 +68,7 @@
 								<td>{{email}}</td>
 								<td>{{"role_id_roles.role_name"}}</td>
 								<td>
-									<a href="/accounts/{{user_id}}/account-edit" class=" tm-product-delete-link">
+									<a href="/accounts/admin/{{user_id}}" class=" tm-product-delete-link">
 										<i class="far fa-eye tm-product-delete-icon"></i>
 									</a>
 								</td>
@@ -213,13 +213,13 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Khoá người dùng</h5>
+				<h5 class="modal-title">Mở khóa admin</h5>
 				<button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<p>Bạn chắc chắn muốn mở khoá người dùng này ?</p>
+				<p>Bạn chắc chắn muốn mở khoá admin này ?</p>
 			</div>
 			<div class="modal-footer">
 				<button id="btn-unlock" type="button" class=" btn btn-danger" method="post">Mở khoá</button>
@@ -233,13 +233,13 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Khoá người dùng</h5>
+				<h5 class="modal-title">Khoá admin</h5>
 				<button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<p>Bạn chắc chắn muốn khoá người dùng này ?</p>
+				<p>Bạn chắc chắn muốn khoá admin này ?</p>
 			</div>
 			<div class="modal-footer">
 				<button id="btn-lock" type="button" class=" btn btn-danger" method="post">Khoá</button>
@@ -256,40 +256,41 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
-		var productID
-		var deleteForm = document.forms['delete-product-form'];
+		let adminID;;
+		const deleteForm = document.forms['delete-product-form'];
 		$('#unlock-product-modal').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget) // Button that triggered the modal
-			productID = button.data('id')
+			const button = $(event.relatedTarget) // Button that triggered the modal
+			adminID = button.data('id')
 
 		});
 
-		var btnDeleteProduct = document.getElementById('btn-unlock');
+		
+		const btnDeleteProduct = document.getElementById('btn-unlock');
 
 		btnDeleteProduct.onclick = function () {
-			deleteForm.action = '/accounts/' + productID + '/unlock';
+			deleteForm.action = '/accounts/unlock';
+			deleteForm.innerHTML = `<input type="text" name="user_id" value=${adminID} hidden>`;
 			deleteForm.submit();
 		}
 
 	});
 
 	document.addEventListener("DOMContentLoaded", function () {
-		var productID
-		var deleteForm = document.forms['delete-product-form'];
+		let adminID;
+		const deleteForm = document.forms['delete-product-form'];
 		$('#lock-product-modal').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget) // Button that triggered the modal
-			productID = button.data('id')
+			const button = $(event.relatedTarget) // Button that triggered the modal
+			adminID = button.data('id')
 
 		});
 
-		var btnDeleteProduct = document.getElementById('btn-lock');
+		const btnDeleteProduct = document.getElementById('btn-lock');
 
 		btnDeleteProduct.onclick = function () {
-			deleteForm.action = '/accounts/' + productID + '/lock';
+			deleteForm.action = '/accounts/lock';
+			deleteForm.innerHTML = `<input type="text" name="user_id" value=${adminID} hidden>`;
 			deleteForm.submit();
 		}
 
 	});
-
-
 </script>

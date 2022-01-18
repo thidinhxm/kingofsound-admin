@@ -1,208 +1,156 @@
 {{> header }}
 <div class="container mt-5">
-  <div class="row tm-content-row">
-    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-      <div div="row">
-        <form action="/accounts/users" method="get" style="margin: 20px auto;">
-          <div class="wrap">
-            <div class="search">
-              <input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
-                name="search_name" value="{{search_name}}">
-              <button type="submit" class="searchButton">
-                <i class="fa fa-search"></i>
-              </button>
-            </div>
-        </form>
-      </div>
+	<div class="row tm-content-row">
+		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+			<div div="row">
+				<form action="/accounts/users" method="get" style="margin: 20px auto;">
+					<div class="wrap">
+						<div class="search">
+							<input type="text" class="searchTerm" placeholder="Sản phẩm bạn tìm kiếm là ?" id="search_name"
+								name="search_name" value="{{search_name}}">
+							<button type="submit" class="searchButton">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+				</form>
+			</div>
 
-      <div class="tm-bg-primary-dark tm-block tm-block-products">
-        <div class="row">
-        </div>
-        <div class="tm-product-table-container">
-          <table class="table table-hover tm-table-small tm-product-table">
-            <thead>
-              {{#if Pages}}
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Tên khách hàng</th>
-                <th scope="col">Email</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col">Chi tiết</th>
-              </tr>
-              {{/if}}
-            </thead>
-            <tbody>
-              {{#if userAccounts}}
-              {{#each userAccounts}}
-              <tr>
-                <th scope="row"><b>{{user_id}}</b></th>
-                <td><b>{{firstname}} {{lastname}}</b></td>
-                <td><b>{{email}}</b></td>
-                <td>
-                  {{#if (isBlockedAccount is_blocked)}}
-                  {{!-- <button><i class="fas fa-lock"></i>Locked</button> --}}
-                  <a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
-                    data-target="#unlock-product-modal" data-id="{{user_id}}">
-                    <i class="fas fa-lock tm-product-delete-icon"></i>
-                  </a>
-                  {{else}}
-                  <a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
-                    data-target="#lock-product-modal" data-id="{{user_id}}">
-                    <i class="fas fa-unlock tm-product-delete-icon"></i>
-                  </a>
+			<div class="tm-bg-primary-dark tm-block tm-block-products">
+				<div class="row"></div>
+				<div class="tm-product-table-container">
+					<table class="table table-hover tm-table-small tm-product-table">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Tên khách hàng</th>
+								<th scope="col">Số điện thoại</th>
+								<th scope="col">Tổng chi tiêu</th>
+								<th scope="col">Trạng thái</th>
+								<th scope="col">Chi tiết</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#if userAccounts}}
+							{{#each userAccounts}}
+							<tr>
+								<th scope="row"><b>{{user_id}}</b></th>
+								<td><b>{{firstname}} {{lastname}}</b></td>
+								<td><b>{{phone}}</b></td>
+								<td><b>{{total_amount}}</b></td>
+								<td>
+									{{#if (isBlockedAccount is_blocked)}}
+									<a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+										data-target="#unlock-product-modal" data-id="{{user_id}}">
+										<i class="fas fa-lock tm-product-delete-icon"></i>
+									</a>
+									{{else}}
+									<a href="" class="tm-product-delete-link btn-danger" data-toggle="modal"
+										data-target="#lock-product-modal" data-id="{{user_id}}">
+										<i class="fas fa-unlock tm-product-delete-icon"></i>
+									</a>
 
-                  {{/if}}
+									{{/if}}
+								</td>
+								<td>
+									<a href="/accounts/users/{{user_id}}" class=" tm-product-delete-link">
+										<i class="far fa-eye tm-product-delete-icon"></i>
+									</a>
+								</td>
+							</tr>
+							{{/each}}
+							{{else}}
+							<h1 class="Notification">Không có người dùng nào phù hợp!</h1>
+							{{/if}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 
-
-                </td>
-                <td>
-                  <a href="/accounts/users/{{user_id}}/profile" class=" tm-product-delete-link">
-                    <i class="far fa-eye tm-product-delete-icon"></i>
-                  </a>
-                </td>
-              </tr>
-              {{/each}}
-              {{else}}
-              <h1 class="Notification">Không có người dùng nào phù hợp!</h1>
-              {{/if}}
-            </tbody>
-          </table>
-        </div>
-
-        {{#if Pages}}
-        <nav aria-label="Page navigation example">
-          <ul class="pagination" style="display: flex; justify-content: center;">
-            {{#if search_name}}
-            <li class="page-item">
-              <a class="page-link" href="?search_name={{search_name}}&page={{previous}}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-
-            {{#pages Pages indexpage search_name}}
-            <li class="page-item {{active}}"><a class="page-link"
-                href="?search_name={{search_name}}&page={{index}}">{{index}}</a>
-            </li>
-            {{/pages}}
-            <li class="page-item">
-              <a class="page-link" href="?search_name={{search_name}}&page={{next}}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-            {{else}}
-            <li class="page-item">
-              <a class="page-link" href="?page={{previous}}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            {{#pages Pages indexpage search_name}}
-            <li class="page-item {{active}}"><a class="page-link" href="?page={{index}}">{{index}}</a></li>
-            {{/pages}}
-            <li class="page-item">
-              <a class="page-link" href="?page={{next}}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-            {{/if}}
-          </ul>
-        </nav>
-        {{/if}}
-        <!-- table container -->
-      </div>
-    </div>
-
-  </div>
+	</div>
 </div>
 {{!-- Confirm delete modal --}}
 
 
 <div id="unlock-product-modal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Khoá người dùng</h5>
-        <button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Bạn chắc chắn muốn mở khoá người dùng này ?</p>
-      </div>
-      <div class="modal-footer">
-        <button id="btn-unlock" type="button" class=" btn btn-danger" method="post">Mở khoá</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Khoá người dùng</h5>
+				<button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Bạn chắc chắn muốn mở khoá người dùng này ?</p>
+			</div>
+			<div class="modal-footer">
+				<button id="btn-unlock" type="button" class=" btn btn-danger" method="post">Mở khoá</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div id="lock-product-modal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Khoá người dùng</h5>
-        <button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Bạn chắc chắn muốn khoá người dùng này ?</p>
-      </div>
-      <div class="modal-footer">
-        <button id="btn-lock" type="button" class=" btn btn-danger" method="post">Khoá</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Khoá người dùng</h5>
+				<button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Bạn chắc chắn muốn khoá người dùng này ?</p>
+			</div>
+			<div class="modal-footer">
+				<button id="btn-lock" type="button" class=" btn btn-danger" method="post">Khoá</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 
-{{!-- Delete hidden form --}}
-<form method="post" name="delete-product-form" action="">
-</form>
+{{!-- hidden form --}}
+<form method="post" name="delete-product-form"></form>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var productID
-    var deleteForm = document.forms['delete-product-form'];
-    $('#unlock-product-modal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      productID = button.data('id')
+	document.addEventListener("DOMContentLoaded", function () {
+		let userID;
+		const deleteForm = document.forms['delete-product-form'];
+		$('#unlock-product-modal').on('show.bs.modal', function (event) {
+			const button = $(event.relatedTarget) // Button that triggered the modal
+			userID = button.data('id')
 
-    });
+		});
 
-    var btnDeleteProduct = document.getElementById('btn-unlock');
+		const btnDeleteProduct = document.getElementById('btn-unlock');
 
-    btnDeleteProduct.onclick = function () {
-      deleteForm.action = '/accounts/' + productID + '/unlock';
-      deleteForm.submit();
-    }
+		btnDeleteProduct.onclick = function () {
+			deleteForm.action = '/accounts/unlock';
+			deleteForm.innerHTML = `<input type="hidden" name="user_id" value="${userID}">`;
+			deleteForm.submit();
+		}
 
-  });
+	});
 
-    document.addEventListener("DOMContentLoaded", function () {
-    var productID
-    var deleteForm = document.forms['delete-product-form'];
-    $('#lock-product-modal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      productID = button.data('id')
+		document.addEventListener("DOMContentLoaded", function () {
+		let userID;
+		const deleteForm = document.forms['delete-product-form'];
+		$('#lock-product-modal').on('show.bs.modal', function (event) {
+			const button = $(event.relatedTarget) // Button that triggered the modal
+			userID = button.data('id')
 
-    });
+		});
 
-    var btnDeleteProduct = document.getElementById('btn-lock');
+		const btnDeleteProduct = document.getElementById('btn-lock');
 
-    btnDeleteProduct.onclick = function () {
-      deleteForm.action = '/accounts/' + productID + '/lock';
-      deleteForm.submit();
-    }
-
-  });
-
-
+		btnDeleteProduct.onclick = function () {
+			deleteForm.action = '/accounts/lock';
+			deleteForm.innerHTML = `<input type="hidden" name="user_id" value="${userID}">`;
+			deleteForm.submit();
+		}
+	});
 </script>
-
-</body>

@@ -1,26 +1,22 @@
 const express = require('express');
 const router = express.Router();
+
 const accountController = require('./accountController');
 const adminController = require('../admins/adminController');
 
-router.get('/admins/add-admin/', adminController.isLogin, accountController.addAdmin);
+router.get('/admins/add', adminController.isLogin, accountController.addAdmin);
 
-router.post('/admins/store', adminController.isLogin, accountController.createAdminAcount);
-router.post('/admins/:id/delete', adminController.isLogin, accountController.deleteAdmin);
+router.post('/admins/store', adminController.isLogin, accountController.createAdminAccount);
 
 router.get('/admins', adminController.isLogin, accountController.getAdminAccounts);
-router.get('/:id/account-edit',adminController.isLogin, accountController.edit);
-router.post('/:id/unlock',adminController.isLogin, accountController.unlock);
-router.get('/:id/unlock',adminController.isLogin, accountController.unlock);
 
-router.get('/:id/lock',adminController.isLogin, accountController.lock);
-router.post('/:id/lock',adminController.isLogin, accountController.lock);
+router.get('/admin/:id', adminController.isLogin, accountController.adminDetail);
 
+router.post('/unlock', adminController.isLogin, accountController.unlock);
 
-router.post('/:id/account-update',adminController.isLogin, accountController.update);
+router.post('/lock', adminController.isLogin, accountController.lock);
 
-
-router.get('/users/:id/profile', adminController.isLogin, accountController.userDetail);
+router.get('/users/:id', adminController.isLogin, accountController.userDetail);
 
 router.get('/users/', adminController.isLogin, accountController.getUserAccounts);
 

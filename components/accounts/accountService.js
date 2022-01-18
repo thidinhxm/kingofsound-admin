@@ -124,5 +124,39 @@ exports.unlock = (id)=>{
     })
 }
 
+exports.getUserById = (id) => {
+    return models.users.findOne({
+        where: {
+            user_id: id,
+        },
+        raw: true,
+    });
+}
 
 
+
+exports.listUser = () => {
+    return models.users.findAll({
+        subQuery: false,
+        include: [{
+            model: models.userroles,
+            as: "userroles",
+            attributes: [],
+        }, {
+            model: models.orders,
+            as: 'orders',
+            attributes: [],
+            raw: true
+        }],
+        where: {
+            '$userroles.role_id$': 3,
+            '$orders.payment_status$': 'Đã thanh toán'
+        },
+        attributes: [
+            'user_id', 'firstname', 'lastname', 'email', 'phone', 'address', 
+            [sequelize.fn('sum', sequelize.col('orders.total_price')), 'total_amount']
+        ],
+        group: ['user_id', 'firstname', 'lastname', 'email', 'phone', 'address'],
+        raw: true,
+    });
+}
