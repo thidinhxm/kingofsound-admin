@@ -19,9 +19,10 @@ const voucherRouter = require('./components/vouchers/voucherRouter');
 const categoryRouter = require('./components/categories/categoryRouter');
 const brandRouter = require('./components/brands/brandRouter');
 const passport = require('./components/auth/passport');
+
 const orderHelper = require('./components/orders/orderHelper');
 const productHelper = require('./components/products/productHelper');
-
+const dashboardHelper = require('./components/dashboard/dashboardHelper');
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.engine('hbs', exphbs({
 		formatPrice: orderHelper.formatPrice,
 		formatDateTime: orderHelper.formatDateTime,
 		paginateProductList: productHelper.paginateProductList,
+		drawPieChartOrder: dashboardHelper.drawPieChartOrder,
 	}
 }));
 app.set('view engine', 'hbs');
