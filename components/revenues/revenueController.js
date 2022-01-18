@@ -12,6 +12,7 @@ exports.getRevenueDay = async (req, res, next) => {
         // console.log(Pages)
         let next = page < Pages - 1 ? page + 2 : 0;
         let previous = page > 0 ? page : 0;
+
         res.render('../components/revenues/revenueViews/revenue_day', {
             dailyRevenue: dailyRevenue.rows,
             Pages,
@@ -21,6 +22,7 @@ exports.getRevenueDay = async (req, res, next) => {
             indexpage: page,
             active
         });
+
     }
     catch (err) {
         next(err);
@@ -42,6 +44,7 @@ exports.getRevenueMonth = async (req, res, next) => {
         // console.log(Pages)
         let next = page < Pages - 1 ? page + 2 : 0;
         let previous = page > 0 ? page : 0;
+
         res.render('../components/revenues/revenueViews/revenue_month', {
             monthlyRevenue: monthlyRevenue.rows,
             Pages,
@@ -51,10 +54,13 @@ exports.getRevenueMonth = async (req, res, next) => {
             indexpage: page,
             active
         });
+
     }
     catch (err) {
+        console.error(err);
         next(err);
     }
+
 }
 
 exports.getRevenueYear = async (req, res, next) => {
