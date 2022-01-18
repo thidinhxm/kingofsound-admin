@@ -18,6 +18,15 @@ exports.formatDateTime = (timestamp) => {
         });
 }
 
+exports.formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString('en-GB', {
+        month: 'numeric',
+        day: 'numeric',
+        year: 'numeric',
+    });
+}
+
 exports.formatMonthYear = (timestamp) => {
     const date = new Date(timestamp);
     return date.toLocaleString('en-GB', {

@@ -299,3 +299,50 @@ const changePageAdmin = function(page) {
         }
     });
 }
+
+const getOrderListTemplate = () => {
+    return `{{#each orders}}
+    <tr>
+        <th scope="row"><b>{{order_id}}</b></th>
+        <td><b>{{'user.firstname'}} {{'user.lastname'}}</b></td>
+        <td><b>{{'user.phone'}}</b></td>
+        <td><b>{{totalString}}</b></td>
+        <td>{{order_status}}</td>
+        <td><b>{{createDateFormat}}</b></td>
+
+        <td>
+            <a href="/orders/{{order_id}}/edit" class="tm-product-delete-link">
+                <i class="far fa-edit tm-product-delete-icon"></i>
+            </a>
+        </td>
+    </tr>
+    {{/each}}`
+}
+const changePageOrder = function(page) {
+    const search_name = $('#search_order').val();
+    const sort = $('#sort-order').val();
+    const limit = $('#limit-order').val();
+    const type = $('#type-order').val();
+    $.ajax({
+        url: '/orders/paginate',
+        type: 'POST',
+        data: {
+            search_name: search_name,
+            sort: sort,
+            limit: limit,
+            type: type,
+            page: page
+        },
+        success: function (data) {
+            if (data.success) {
+                let productListTemplate = Handlebars.compile(getOrderListTemplate());
+                $('#order-list').html(productListTemplate({orders: data.orders}));
+                $('#pagination-order').html(paginateList(data.pagination, 'changePageOrder'));
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    });
+}

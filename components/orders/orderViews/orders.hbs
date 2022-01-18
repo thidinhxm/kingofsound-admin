@@ -1,53 +1,89 @@
 
 {{> header }}
-<div class="container-fluid mt-5 order-container row">
-    <div class="col-9">
-        <div class="tm-bg-primary-dark ">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Mã đơn</th>
-                        <th scope="col">Tên khách hàng</th>
-                        <th scope="col">Số điện thoại</th>
-                        <th scope="col">Thành tiền</th>
-                        <th scope="col">Trạng thái</th>
-                        <th scope="col">Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each orders}}
-                    <tr>
-                        <th scope="row"><b>{{order_id}}</b></th>
-                        <td><b>{{'user.firstname'}} {{'user.lastname'}}</b></td>
-                        <td><b>{{'user.phone'}}</b></td>
-                        <td><b>{{formatPrice total_price}}</b></td>
-                        <td>
-                            {{#if (compareStatus 'Đang chờ xử lý' order_status)}}
-                                <div class="tm-status-circle pending"></div>
-                                Đang chờ xử lý
-                            {{/if}}
-                            {{#if (compareStatus 'Đang giao' order_status)}}
-                                <div class="tm-status-circle moving"></div>
-                                Đang vận chuyển
-                            {{/if}}
-                            {{#if (compareStatus 'Đã giao' order_status)}}
-                                <div class="tm-status-circle done"></div>
-                                Đã giao hàng
-                            {{/if}}
-                            {{#if (compareStatus "Đã hủy" order_status)}}
-                                <div class="tm-status-circle cancelled"></div>
-                                Đã hủy
-                            {{/if}}
-                        </td>
-                        <td>
-                            <a href="/orders/{{order_id}}/edit" class="tm-product-delete-link">
-                                <i class="far fa-edit tm-product-delete-icon"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+<div class="container mt-5">
+    <div class="row justify-content-center" style="margin-bottom: 20px;">
+        <div class="col-3">
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" class="searchTerm" placeholder="Tên khách hàng?" name="search_name"
+                        value="" autocomplete="off" onkeyup="changePageOrder(1)" id="search_order">
+                    <button type="button" class="searchButton" onclick="changePageOrder(1)">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <select class="filter-category" id="type-order" name="type" onchange="changePageOrder(1)">
+                <option value="" selected>Loại hóa đơn</option>
+                <option value="Đã giao">Đã giao</option>
+                <option value="Đang giao">Đang giao</option>
+                <option value="Đang chờ xử lý">Đang chờ xử lý</option>
+                <option value="Đã hủy">Đã hủy</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select class="filter-category" id="sort-order" name="sort" onchange="changePageOrder(1)">
+                <option value="" selected>Sắp xếp theo</option>
+                <option value="price_asc">Giá tăng dần</option>
+                <option value="price_desc">Giá giảm dần</option>
+                <option value="date_asc">Ngày đặt tăng dần</option>
+                <option value="date_desc">Ngày đặt giảm dần</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select class="filter-category" id="limit-order" name="limit" onchange="changePageOrder(1)">
+                <option value="" selected>Hiển thị</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <div class="filter-category background-white text-center">Số hóa đơn:&nbsp;&nbsp;<strong>{{totalOrders}}</strong></div>
+        </div>
+    </div>
+    <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-products">
+                <div class="tm-product-table-container">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mã đơn</th>
+                                <th scope="col">Tên khách hàng</th>
+                                <th scope="col">Số điện thoại</th>
+                                <th scope="col">Thành tiền</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Ngày đặt</th>
+                                <th scope="col">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-list">
+                            {{#each orders}}
+                            <tr>
+                                <th scope="row"><b>{{order_id}}</b></th>
+                                <td><b>{{'user.firstname'}} {{'user.lastname'}}</b></td>
+                                <td><b>{{'user.phone'}}</b></td>
+                                <td><b>{{totalString}}</b></td>
+                                <td>{{order_status}}</td>
+                                <td><b>{{createDateFormat}}</b></td>
+
+                                <td>
+                                    <a href="/orders/{{order_id}}/edit" class="tm-product-delete-link">
+                                        <i class="far fa-edit tm-product-delete-icon"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <nav aria-label="Page navigation example" id="pagination-order">
+					{{{paginateList pagination 'changePageOrder'}}}
+				</nav>
+            </div>
         </div>
     </div>
 </div>

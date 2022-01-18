@@ -50,6 +50,7 @@ app.engine('hbs', exphbs({
 		compareStatus: orderHelper.compareStatus,
 		isBlockedAccount: function(is_blocked) { return is_blocked},
 		formatPrice: orderHelper.formatPrice,
+		formatDate: orderHelper.formatDate,
 		formatDateTime: orderHelper.formatDateTime,
 		paginateList: productHelper.paginateList,
 		drawPieChartOrder: dashboardHelper.drawPieChartOrder,
