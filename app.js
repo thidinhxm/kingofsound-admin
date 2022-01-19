@@ -54,6 +54,7 @@ app.engine('hbs', exphbs({
 		formatDateTime: orderHelper.formatDateTime,
 		paginateList: productHelper.paginateList,
 		drawPieChartOrder: dashboardHelper.drawPieChartOrder,
+		formatDateFollowMMDDYYY: orderHelper.formatDateFollowMMDDYYY,
 	}
 }));
 app.set('view engine', 'hbs');

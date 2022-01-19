@@ -1,0 +1,143 @@
+{{> header }}
+<div class="container tm-mt-big tm-mb-big">
+	<div class="row">
+		<div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 mx-auto">
+			<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+				<div class="row">
+					<div class="col-12">
+						<h2 class="tm-block-title d-inline-block">Sửa vouncher</h2>
+					</div>
+				</div>
+				{{#with voucher}}
+				<form method="POST" action="/vouchers/{{voucher_id}}/update" class="tm-edit-product-form form-add-voucher"
+					id="add-voucher-form">
+					<div class="row tm-edit-product-row">
+						<div class="form-group mb-12 col-xs-6 col-md-6 col-sm-12">
+								<label for="voucher_code">Mã giảm giá (tối đa 10 kí tự)</label>
+								<input 
+									id="voucher_code" name="voucher_code" type="text"
+									class="form-control validate" placeholder=""
+                                    value="{{voucher_id}}" readonly
+								/>
+						</div>
+
+						<div class="form-group mb-12 col-xs-6 col-md-6 col-sm-12">
+							<label for="discount">Mức giảm (%)</label>
+							<input 
+								id="discount" name="discount" type="number" step="1" 
+								pattern="\d+" class="form-control validate" placeholder=""
+								data-large-mode="true" required min="1" max="100" 
+								value="{{discount}}"
+							/>
+							<label id = "voucher-error" style="color:red;"></label>
+							
+						</div>
+
+						<div class="form-group mb-12 col-xs-6 col-md-6 col-sm-12 ">
+							<label for="start_date">Ngày bắt đầu</label>
+							<div class="input-group date" id="start_date">
+								<input 
+									type="text" class="form-control readonly" 
+									name='start_date' id="start_date" required
+									onchange="checkValidStartDate()"
+									value="{{formatDateFollowMMDDYYY start_date}}"
+								/>
+								<span class="input-group-append">
+									<span class="input-group-text bg-white">
+										<i class="fa fa-calendar"></i>
+									</span>
+								</span>
+							</div>
+							<label id="start-date-error" style="color:red;"></label>
+
+						</div>
+
+						<div class="form-group mb-12 col-xs-6 col-md-6 col-sm-12">
+							<label for="start_date">Ngày kết thúc</label>
+							<div class="input-group date" id="end_date">
+								<input 
+									type="text" class="form-control readonly" 
+									name='end_date' id="end_date" 
+									onchange="checkValidEndDate()"
+									value="{{formatDateFollowMMDDYYY end_date}}"
+									required
+								/>
+								<span class="input-group-append">
+									<span class="input-group-text bg-white">
+										<i class="fa fa-calendar"></i>
+									</span>
+								</span>
+							</div>
+							<label id="end-date-error" style="color:red;"></label>
+							
+						</div>
+
+						<div class="mb-12 col-xs-12 col-sm-12">
+							<button 
+								type="submit" 
+								class="btn btn-primary btn-block text-uppercase" 
+								id="submit-check-voucher-edit"
+							>
+								Sửa voucher
+							</button>
+						</div>
+					</div>
+				</form>
+				{{/with}}
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	$(function () {
+		$('#start_date').datepicker();
+	});
+	$(function () {
+		$('#end_date').datepicker();
+	});
+
+	function upperCaseF(a) {
+		setTimeout(function () {
+			a.value = a.value.toUpperCase();
+		}, 1);
+	}
+
+	function checkValidStartDate() {
+		console.log('aaaaaaaa')
+		const start_date = $('#start_date').val();
+		const now = new Date();
+		const start = new Date(start_date);
+		if (start < now) {
+			$('#start-date-error').text('Ngày bắt đầu phải lớn hơn ngày hiện tại');
+			$('#submit-check-voucher-edit').attr('disabled', true);
+		} else {
+			$('#start-date-error').text('');
+			$('#submit-check-voucher-edit').attr('disabled', false);
+		}
+	}
+
+	function checkValidEndDate() {
+		console.log('bbbbbbbbbb')
+		const start_date = $("#start_date").datepicker("getDate")
+		const end_date = $("#end_date").datepicker("getDate")
+		console.log(start_date)
+		console.log(end_date)
+		if (start_date >= end_date) {
+			console.log('cccccccccc')
+			$("#end-date-error").text("Ngày kết thúc phải ở sau ngày bắt đầu ")
+			$('#submit-check-voucher-edit').attr("disabled", "disabled")
+		}
+		else {
+			console.log('dddddddddd')
+			$('#submit-check-voucher-edit').removeAttr("disabled")
+			$("#end-date-error").text("")
+		}
+	}
+
+	$('.readonly').keydown(function(e){
+        e.preventDefault();
+    });
+
+</script>

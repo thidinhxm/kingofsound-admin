@@ -27,6 +27,13 @@ exports.formatDate = (timestamp) => {
     });
 }
 
+exports.formatDateFollowMMDDYYY = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+}
 exports.formatMonthYear = (timestamp) => {
     const date = new Date(timestamp);
     return date.toLocaleString('en-GB', {

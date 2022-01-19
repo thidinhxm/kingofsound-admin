@@ -7,6 +7,8 @@ const voucherAPI = require('./voucherAPI');
 
 router.get('/:id/edit', adminController.isLogin, voucherController.edit);
 
+router.post('/:id/update', adminController.isLogin, voucherController.updateVoucher);
+
 router.get('/add', adminController.isLogin, voucherController.add);
 
 router.post('/store', adminController.isLogin, voucherController.store);
