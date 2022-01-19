@@ -6,11 +6,12 @@ const voucherAPI = require('./voucherAPI');
 
 
 router.get('/:id/edit', adminController.isLogin, voucherController.edit);
-router.post('/:id/delete', adminController.isLogin, voucherController.delete);
-router.get('/add-voucher', adminController.isLogin, voucherController.add);
-router.post('/store-voucher', adminController.isLogin, voucherController.store);
-router.post('/check-voucher',voucherAPI.checkExistVoucher)
 
+router.get('/add', adminController.isLogin, voucherController.add);
+
+router.post('/store', adminController.isLogin, voucherController.store);
+
+router.post('/check-exist', voucherAPI.checkExistVoucher)
 
 router.get('/', adminController.isLogin, voucherController.index);
 

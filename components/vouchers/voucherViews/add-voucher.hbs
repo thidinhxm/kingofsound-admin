@@ -12,39 +12,51 @@
 				<form method="POST" action="/vouchers/store-voucher" class="tm-edit-product-form form-add-voucher"
 					id="add-voucher-form">
 					<div class="row tm-edit-product-row">
-						<div class="col-xl-12 col-lg-12 col-md-12">
-							<div class="form-group mb-3">
-								<label for="voucher_code">Mã giảm giá
-								</label>
-								<input id="voucher_code" name="voucher_code" type="text" class="form-control validate" placeholder=""
-									required onkeydown="upperCaseF(this)" maxlength="10" oninput="while(this.value[0] == ' ') {this.value = this.value.slice(1) };" />
-							</div>
-
+						<div class="form-group mb-12 col-xs-6 col-md-6 col-sm-12">
+								<label for="voucher_code">Mã giảm giá (tối đa 10 kí tự)</label>
+								<input 
+									id="voucher_code" name="voucher_code" type="text" 
+									class="form-control validate" placeholder=""
+									required onkeydown="upperCaseF(this)" maxlength="10" 
+									oninput="while(this.value[0] == ' ') {this.value = this.value.slice(1) };"
+									onkeyup="checkExistVoucher(this.value)" 
+									onblur="checkExistVoucher(this.value)"
+								/>
+							<label id = "voucher-error" style="color:red;"></label>
+							<label id = "voucher-success" style="color:rgb(12, 235, 12);"></label>
 						</div>
 
-						<div class="form-group mb-12 col-xs-12 col-sm-12">
-							<label for="discount">Mức giảm </label>
-							<input id="discount" name="discount" type="number" class="form-control validate" placeholder=""
+						<div class="form-group mb-12 col-xs-6 col-md-6 col-sm-12">
+							<label for="discount">Mức giảm (%)</label>
+							<input id="discount" name="discount" type="number" step="1" pattern="\d+" class="form-control validate" placeholder=""
 								data-large-mode="true" required min="1" max="100" />
+							<label id = "voucher-error" style="color:red;"></label>
+							
 						</div>
 
-						<div class="form-group mb-12 col-xs-12 col-sm-12 ">
+						<div class="form-group mb-12 col-xs-6 col-md-6 col-sm-12 ">
 							<label for="start_date">Ngày bắt đầu</label>
 							<div class="input-group date" id="start_date">
-								<input type="text" class="form-control" name='start_date' id="start_day" required readonly />
+								<input 
+									type="text" class="form-control readonly" 
+									name='start_date' id="start_day" required
+									onchange="checkValidStartDay()"
+								/>
 								<span class="input-group-append">
 									<span class="input-group-text bg-white">
 										<i class="fa fa-calendar"></i>
 									</span>
 								</span>
 							</div>
+							<label id="start-day-error" style="color:red;"></label>
+
 						</div>
 
-						<div class="form-group mb-12 col-xs-12 col-sm-12">
+						<div class="form-group mb-12 col-xs-6 col-md-6 col-sm-12">
 							<label for="start_date">Ngày kết thúc</label>
 							<div class="input-group date" id="end_date">
-								<input type="text" class="form-control" name='end_date' id="end_day" onchange="checkValidEndDay()"
-									required readonly />
+								<input type="text" class="form-control readonly" name='end_date' id="end_day" onchange="checkValidEndDay()"
+									required/>
 								<span class="input-group-append">
 									<span class="input-group-text bg-white">
 										<i class="fa fa-calendar"></i>
@@ -52,6 +64,7 @@
 								</span>
 							</div>
 							<label id="end-day-error" style="color:red;"></label>
+							
 						</div>
 
 						<div class="mb-12 col-xs-12 col-sm-12">
@@ -80,19 +93,35 @@
 		}, 1);
 	}
 
+	function checkValidStartDay() {
+		const start_day = $('#start_day').val();
+		const now = new Date();
+		const start_date = new Date(start_day);
+		if (start_date < now) {
+			$('#start-day-error').text('Ngày bắt đầu phải lớn hơn ngày hiện tại');
+			$('#submit-check-voucher').attr('disabled', true);
+		} else {
+			$('#start-day-error').text('');
+			$('#submit-check-voucher').attr('disabled', false);
+		}
+	}
+
 	function checkValidEndDay() {
 		const start_day = $("#start_day").datepicker("getDate")
 		const end_day = $("#end_day").datepicker("getDate")
 		if (start_day >= end_day) {
 			$("#end-day-error").text("Ngày kết thúc phải ở sau ngày bắt đầu ")
 			$('#submit-check-voucher').attr("disabled", "disabled")
-			console.log("Invalid Date")
 		}
 		else {
-				$('#submit-check-voucher').removeAttr("disabled")
+			$('#submit-check-voucher').removeAttr("disabled")
 			$("#end-day-error").text("")
 			console.log("Valid Date")
 		}
 	}
+
+	$('.readonly').keydown(function(e){
+        e.preventDefault();
+    });
 
 </script>

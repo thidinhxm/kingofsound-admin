@@ -372,3 +372,33 @@ const updateOrder = function(order_id) {
         }
     });
 }
+
+const checkExistVoucher = function (voucher_code) {
+    if (voucher_code != "")
+        $.ajax({
+            url: '/vouchers/check-exist',
+            type: 'POST',
+            data: {
+                voucher_id: voucher_code,
+            },
+            success: function (data) {
+                if (!data) {
+                    $('#voucher-success').text("Mã khuyến mãi hợp lệ");
+                    $('#voucher-error').text("");
+			        $('#submit-check-voucher').removeAttr("disabled")
+                    return true;
+                }
+                else {
+                    $('#voucher-error').text('Mã khuyến mại "' + voucher_code + '" đã tồn tại!');
+                    $('#voucher-success').text("");
+                    $('#submit-check-voucher').attr("disabled", "disabled");
+                    return false;
+                }
+            }
+        });
+    else {
+        $('#voucher-error').text("");
+        $('#voucher-success').text("");
+        $('#submit-check-voucher').attr("disabled", "disabled");
+    }
+};
