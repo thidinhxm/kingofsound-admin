@@ -22,3 +22,17 @@ exports.getOrdersPaginate = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.updateStatus = async (req, res, next) => {
+    try {
+        const currentOrder = {
+            order_status: req.body.order_status,
+            payment_status: req.body.payment_status,
+        }
+        await orderService.updateOrder(req.params.id, currentOrder);
+        res.json(true);
+    }
+    catch (error) {
+        res.json(false);
+    }
+}

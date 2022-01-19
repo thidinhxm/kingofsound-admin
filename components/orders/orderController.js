@@ -1,8 +1,7 @@
 const orderService = require('./orderService');
 const active = { order: true };
 
-
-exports.getOders = async (req, res, next) => {
+exports.listOders = async (req, res, next) => {
     try {
         const ordersRowAndCount = await orderService.listOrders();
         const pagination = {
@@ -32,20 +31,18 @@ exports.edit = async (req, res, next) => {
     }
 }
 
-exports.update = async (req, res, next) => {
+exports.getDetails = async (req, res, next) => {
     try {
-        const currentOrder = {
-            order_status: req.body.order_status,
-            payment_status: req.body.payment_status,
+        const detailOrders = await orderService.getDetailOrders(req.params.id);
+        const order = await orderService.getOrder(req.params.id);
+        let discount = 0;
+        if (order.voucher) {
+            const voucher = await orderService.getVoucher(order.voucher);
+            discount = voucher.discount;
         }
-        await orderService.updateOrder(req.body.order_id, currentOrder);
-        console.log(currentOrder)
-       res.redirect('/orders')
+        res.render('../components/orders/orderViews/order-detail', {order, detailOrders, active, discount })
     }
     catch (error) {
-        console.error(error)
+        next(error);
     }
 }
-
-
-// dailyRevenue()

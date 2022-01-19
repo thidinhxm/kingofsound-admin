@@ -130,32 +130,6 @@ exports.getTotalDelivery = () => {
     })
 }
 
-exports.detailOrder = (id) => {
-    return models.orders.findOne({
-
-        where: {
-            order_id: id
-        },
-        include: [
-            {
-                model: models.detailorders,
-                attributes: [
-                    'order_id',
-                    [fn('count', col('orders.order_id')), 'totalProduct'],
-                ],
-                as: 'detailorders',
-                required: true,
-            },
-            {
-                model: models.users,
-                as: 'user',
-                attributes: ['firstname', 'lastname']
-            }],
-        group: ['orders.order_id',],
-        raw: true
-    })
-}
-
 exports.updateOrder = (id, order) => {
     return models.orders.update(order, {
         where: {
@@ -172,5 +146,42 @@ exports.getOrdersGroupByStatus = () => {
         ],
         group: 'order_status',
         raw: true,
+    })
+}
+
+exports.getOrder = (id) => {
+    return models.orders.findOne({
+        where: {
+            order_id: id
+        },
+        include: [
+            {
+                model: models.users,
+                as: 'user',
+                attributes: ['firstname', 'lastname']
+            }],
+        raw: true
+    })
+}
+
+
+exports.getDetailOrders = (id) => {
+    return models.detailorders.findAll({
+        where: {
+            order_id: id
+        },
+        include: [{
+            model: models.products,
+            attributes: ['product_name', 'price'],
+            as: 'product',
+            include: [{
+                model: models.images,
+                as: 'images',
+                where: {
+                    image_stt: 1
+                },
+            }]
+        }],
+        raw: true
     })
 }

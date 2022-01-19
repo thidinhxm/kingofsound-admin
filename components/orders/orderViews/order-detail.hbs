@@ -1,0 +1,110 @@
+{{> header }}
+<div class="container mt-5">
+    <div class="row justify-content-center tm-content-row" style="margin-bottom: 20px;">
+        {{#with order}}
+        <div class="col-9"><p class="detail-info">Khách hàng: {{'user.firstname'}} {{'user.lastname'}}</p></div>
+        <div class="col-3"><p class="detail-info">Số điện thoại: {{receive_phone}}</p></div>
+        <div class="col-9"><p class="detail-info">Địa chỉ nhận hàng: {{receive_address}}</p></div>
+        <div class="col-3"><p class="detail-info">Ngày tạo hóa đơn: {{formatDate create_date}}</p></div>
+        {{/with}}
+        <div class="col-2" style="margin-top: 20px;">
+            <p class="detail-title">Chi tiết đơn</p>
+            
+        </div>
+        <input type="hidden" value="{{order.order_id}}" id="hidden-order-id">
+        <div class="col-4" style="margin-top: 20px;">
+            <div class="update-order">
+                <label class="label-update" for="order_status">Trạng thái</label>
+                <select id="order_status">
+                    <option value="{{order.order_status}}" selected hidden>{{order.order_status}}</option>
+                    <option value="Đang chờ xử lý">Đang chờ xử lý</option>
+                    <option value="Đang giao">Đang giao</option>
+                    <option value="Đã giao">Đã giao</option>
+                    <option value="Đã hủy">Đã hủy</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-4" style="margin-top: 20px;">
+            <div class="update-order">
+                <label class="label-update" for="payment_status">Thanh toán</label>
+                <select id="payment_status">
+                    <option value="{{order.payment_status}}" selected hidden>{{order.payment_status}}</option>
+                    <option value="Đã thanh toán">Đã thanh toán</option>
+                    <option value="Đã thanh toán">Chưa thanh toán</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2" style="margin-top: 20px;">
+            <div class="update-order">
+                <button 
+                    type="button" onclick="updateOrder({{order.order_id}})" id="update-order-btn"
+                    data-toggle="modal" data-target="#order-update-modal"
+                >
+                    Cập nhật
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-products">
+                <div class="tm-product-table-container">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sản phẩm</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Đơn giá</th>
+                                <th scope="col">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-list">
+                            {{#each detailOrders}}
+                            <tr>
+                                <th scope="row"><a href="/products/{{product_id}}/edit"><img src="{{'product.images.image_link'}}" alt=""></a></th>
+                                <td><b>{{'product.product_name'}}</b></td>
+                                <td><b>{{quantity}}</b></td>
+                                <td><b>{{'product.price'}}</b></td>
+                                <td>{{formatPrice subtotal}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="update-order">
+                    <div class="row">
+                        <div class="col-md-12" class="final-total">
+                            <div style="text-align:right;margin:50px 130px 30px 0px">
+                                <b class="detail-info">{{#if discount}}Giảm giá - {{discount}}%{{/if}}</b>
+                            </div>
+                            <div class="detail-info">
+                                <b class="total">Tổng hóa đơn :</b> <i id="basket-total">{{formatPrice order.total_price}} vnđ</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="order-update-modal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông báo</h5>
+				<button type="button" class="close" data-dismiss="modal" data-id="" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Trạng thái hóa đơn đã được cập nhật</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -5,12 +5,12 @@ const orderController = require('./orderController');
 const adminController = require('../admins/adminController');
 const orderAPI = require('./orderAPI');
 
-router.get('/:id/edit', adminController.isLogin, orderController.edit);
+router.get('/:id/edit', adminController.isLogin, orderController.getDetails);
 
-router.post('/update', adminController.isLogin, orderController.update);
-
-router.get('/', adminController.isLogin, orderController.getOders);
+router.get('/', adminController.isLogin, orderController.listOders);
 
 router.post('/paginate', adminController.isLogin, orderAPI.getOrdersPaginate);
+
+router.post('/:id/update', adminController.isLogin, orderAPI.updateStatus);
 
 module.exports = router;

@@ -928,3 +928,54 @@ h1.tm-site-title.mb-0{
 .background-white {
   background-color: #fff;
 }
+
+.detail-title {
+  font-size: 28px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.detail-info {
+  font-size: 18px;
+  color: #fff;
+}
+
+.update-order {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 18px;
+}
+
+.update-order label {
+  color: #fff;
+  margin-top: 8px;
+  margin-right: 10px;
+}
+
+.update-order select  {
+  background-color: #fff;
+  color: #333;
+  height: auto;
+  padding: 8px;
+  margin-left: 5px;
+  border-radius: 5px;
+
+}
+
+.update-order button {
+  background-color: #f5a623;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
+.update-order button:hover {
+  
+  background-color: #fff;
+  color: #f5a623;
+  cursor: pointer;
+}

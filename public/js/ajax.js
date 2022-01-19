@@ -345,4 +345,30 @@ const changePageOrder = function(page) {
             }
         }
     });
+};
+
+const updateOrder = function(order_id) {
+    const order_status = $('#order_status').val();
+    const payment_status = $('#payment_status').val();
+    
+    $.ajax({
+        url: '/orders/' + order_id + '/update',
+        type: 'POST',
+        data: {
+            order_status: order_status,
+            payment_status: payment_status
+        },
+        success: function (data) {
+            if (data.success) {
+                $('order_status').val(order_status);
+                $('payment_status').val(payment_status);
+                $('#order-update-modal').modal('show');
+
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    });
 }
