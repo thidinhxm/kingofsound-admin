@@ -34,17 +34,32 @@ exports.delete =  async (req, res, next) => {
 	}
 }
 
-exports.addCategory = (req, res, next) =>{
-	res.render('../components/categories/categoryViews/add-category')
+exports.addCategory = async (req, res, next) => {
+	try {
+		const parentCategories = await categoryService.listParentCategories();
+		res.render('../components/categories/categoryViews/add-category', { active, parentCategories });
+	}
+	catch (err) {
+		next(err)
+	}
 }
 exports.storeCategory = async (req, res, next) =>{
 	try {
 		const { category_name, descriptions, parent_category } = req.body;
-		await categoryService.createCategory({
-			category_name,
-			descriptions,
-			parent_category,
-		})
+		if (parent_category == "0") {
+			await categoryService.createCategory({
+				category_name,
+				descriptions,
+				parent_category: null,
+			});
+		}
+		else {
+			await categoryService.createCategory({
+				category_name,
+				descriptions,
+				parent_category: parent_category,
+			});
+		}
 		res.redirect('/categories');
 
 	}

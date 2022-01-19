@@ -1,49 +1,49 @@
 {{> header }}
 <div class="container tm-mt-big tm-mb-big">
-  <div class="row">
-    <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 mx-auto">
-      <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-        <div class="row">
-          <div class="col-12">
-            <h2 class="tm-block-title d-inline-block">Thêm nhà sản xuất mới</h2>
-          </div>
-        </div>
+	<div class="row">
+		<div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 mx-auto">
+			<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+				<div class="row">
+					<div class="col-12">
+						<h2 class="tm-block-title d-inline-block">Thêm nhà sản xuất mới</h2>
+					</div>
+				</div>
 
-        <form method="POST" action="/brands/store-brand" class="tm-edit-product-form">
-          <div class="row tm-edit-product-row">
-            <div class="col-xl-12 col-lg-12 col-md-12">
-              <div class="form-group mb-3">
-                <label for="brand_name">Tên nhà sản xuất
-                </label>
-                <input id="brand_name" name="brand_name" type="text" class="form-control validate"
-                  placeholder="Ví dụ: Vinfast" required maxlength="50" />
-              </div>
-            </div>
-
-
-            <div class="col-xl-12 col-lg-12 col-md-12">
-              <div class="form-group mb-3">
-                <label for="address">Xuất xứ
-                </label>
-                <input id="address" name="address" type="text" class="form-control validate"
-                  placeholder="Ví dụ: Mỹ,Canada,.." required maxlength="20" />
-              </div>
-            </div>
+				<form method="POST" action="/brands/store-brand" class="tm-edit-product-form">
+					<div class="row tm-edit-product-row">
+						<div class="col-xl-12 col-lg-12 col-md-12">
+							<div class="form-group mb-3">
+								<label for="brand_name">Tên nhà sản xuất
+								</label>
+								<input id="brand_name" name="brand_name" type="text" class="form-control validate"
+									placeholder="Ví dụ: Vinfast" required maxlength="50" />
+							</div>
+						</div>
 
 
-            <div class="form-group mb-12 col-xs-12 col-sm-12">
-              <label for="descriptions">Mô tả chi tiết</label>
-              <input id="descriptions" name="descriptions" type="text" class="form-control validate"
-                placeholder="Ví dụ: Đi đầu lĩnh vực tai nghe không dây" data-large-mode="true" />
-            </div>
+						<div class="col-xl-12 col-lg-12 col-md-12">
+							<div class="form-group mb-3">
+								<label for="address">Xuất xứ
+								</label>
+								<input id="address" name="address" type="text" class="form-control validate"
+									placeholder="Ví dụ: Mỹ,Canada,.." required maxlength="20" />
+							</div>
+						</div>
 
-            <div class="mb-12 col-xs-12 col-sm-12">
-              <button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm nhà sản xuất</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+
+						<div class="form-group mb-12 col-xs-12 col-sm-12">
+							<label for="descriptions">Mô tả chi tiết</label>
+							<input id="descriptions" name="descriptions" type="text" class="form-control validate"
+								placeholder="Ví dụ: Đi đầu lĩnh vực tai nghe không dây" data-large-mode="true" required/>
+						</div>
+
+						<div class="mb-12 col-xs-12 col-sm-12">
+							<button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm nhà sản xuất</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 </div>

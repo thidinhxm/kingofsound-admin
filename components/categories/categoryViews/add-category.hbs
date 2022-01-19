@@ -9,7 +9,7 @@
 					</div>
 				</div>
 
-				<form method="POST" action="/categories/store-category" class="tm-edit-product-form">
+				<form method="POST" action="/categories/store" class="tm-edit-product-form">
 					<div class="row tm-edit-product-row">
 						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
@@ -23,13 +23,13 @@
 						<div class="col-xl-12 col-lg-12 col-md-12">
 							<div class="form-group mb-3">
 								<label for="parent_category">Nhóm sản phẩm </label>
-								<select class="custom-select tm-select-accounts" id="parent_category" name="parent_category">
+								<select class="custom-select tm-select-accounts" id="parent_category" name="parent_category" required>
 
-									<option selected> Chọn nhóm sản phẩm </option>
-									<option value="1">Tai nghe</option>
-									<option value="2">Loa</option>
-									<option value="3">Không có</option>
-
+									<option value="" selected hidden> Chọn nhóm sản phẩm </option>
+									{{#each parentCategories}}
+									<option value="{{category_id}}">{{category_name}}</option>
+									{{/each}}
+									<option value="0">Không có</option>
 								</select>
 							</div>
 						</div>
@@ -37,7 +37,7 @@
 						<div class="form-group mb-12 col-xs-12 col-sm-12">
 							<label for="descriptions">Mô tả chi tiết</label>
 							<input id="descriptions" name="descriptions" type="text" class="form-control validate"
-								placeholder="Ví dụ: Công nghệ hiện đại, Bluetooth 5.0" data-large-mode="true" />
+								placeholder="Ví dụ: Công nghệ hiện đại, Bluetooth 5.0" data-large-mode="true" required/>
 						</div>
 
 						<div class="mb-12 col-xs-12 col-sm-12">
