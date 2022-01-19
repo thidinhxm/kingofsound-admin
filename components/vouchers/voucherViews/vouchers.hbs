@@ -1,15 +1,50 @@
 
 {{> header }}
 <div class="container mt-5">
-	 <div class="d-flex justify-content-center row" >
-
-        <div class="row">
-            <div class="col">
-                <a href="/vouchers/add" class="btn btn-primary btn-block text-uppercase mb-3">
-                    <i class="fas fa-plus" style="margin-right: 10px;"> </i>
-                    Thêm vouncher</a>
+	 <div class="row justify-content-center" style="margin-bottom: 20px;">
+        <div class="col-3">
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" class="searchTerm" placeholder="Mã voucher?" name="search_name"
+                        value="" autocomplete="off" onkeyup="changePageVoucher(1)" id="search_voucher">
+                    <button type="button" class="searchButton" onclick="changePageVoucher(1)">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
             </div>
         </div>
+        <div class="col-2">
+            <select class="filter-category" id="type-voucher" name="type" onchange="changePageVoucher(1)">
+                <option value="" selected>Loại voucher</option>
+                <option value="pending">Chưa bắt đầu</option>
+                <option value="active">Đang hiệu lực</option>
+                <option value="expired">Hết hiệu lực</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select class="filter-category" id="sort-voucher" name="sort" onchange="changePageVoucher(1)">
+                <option value="" selected>Sắp xếp theo</option>
+                <option value="discount_asc">Mức giảm tăng dần</option>
+                <option value="discount_desc">Mức giảm giảm dần</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select class="filter-category" id="limit-voucher" name="limit" onchange="changePageVoucher(1)">
+                <option value="" selected>Hiển thị</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <div class="filter-category background-white text-center">Số voucher:&nbsp;&nbsp;<strong>{{totalVouchers}}</strong></div>
+        </div>
+		<div class="add-block">
+			<a href="/vouchers/add">
+				<i class="fas fa-plus"> </i>
+			</a>
+		</div>
     </div>
 	<div class="row tm-content-row">
 		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
@@ -45,6 +80,11 @@
 							</table>
 						</div>
 						<!-- table container -->
+						{{#if pagination.pages}}
+						<nav aria-label="Page navigation example" id="pagination-voucher">
+							{{{paginateList pagination "changePageVoucher"}}}
+						</nav>
+						{{/if}}
 					</div>
 				</div>
 

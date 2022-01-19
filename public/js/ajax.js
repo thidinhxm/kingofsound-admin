@@ -402,3 +402,47 @@ const checkExistVoucher = function (voucher_code) {
         $('#submit-check-voucher').attr("disabled", "disabled");
     }
 };
+
+const getVoucherListTemplate = () => {
+    return `{{#each vouchers}}
+    <tr>
+        <td>{{voucher_id}}</td>
+        <td class="">{{discount}} %</td>
+        <td>{{start_date}}</td>
+        <td>{{end_date}}</td>
+        <td>
+            <a href="/vouchers/{{voucher_id}}/edit" class=" tm-product-delete-link">
+                <i class="far fa-edit tm-product-delete-icon"></i>
+            </a>
+        </td>
+    </tr>
+    {{/each}}`;
+}
+const changePageVoucher = function(page) {
+    const search_name = $('#search_voucher').val();
+    const sort = $('#sort-voucher').val();
+    const limit = $('#limit-voucher').val();
+    const type = $('#type-voucher').val();
+    $.ajax({
+        url: '/vouchers/paginate',
+        type: 'POST',
+        data: {
+            search_name: search_name,
+            sort: sort,
+            limit: parseInt(limit),
+            page: page,
+            type: type
+        },
+        success: function (data) {
+            if (data.success) {
+                let voucherListTemplate = Handlebars.compile(getVoucherListTemplate());
+                $('#voucher-list').html(voucherListTemplate({vouchers: data.vouchers}));
+                $('#pagination-voucher').html(paginateList(data.pagination, 'changePageVoucher'));
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    });
+}

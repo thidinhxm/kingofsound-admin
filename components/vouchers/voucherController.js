@@ -3,8 +3,19 @@ const active = {order: true}
 
 exports.index = async (req, res, next) => {
 	try {
-		const vouchers = await voucherService.getListVoucher();
-		res.render('../components/vouchers/voucherViews/vouchers',{vouchers,active});
+		const vouchersRowAndCount = await voucherService.listVouchers();
+		const pagination = {
+			page: 1,
+			limit: 5,
+			totalRows: vouchersRowAndCount.count,
+			pages: Math.ceil(vouchersRowAndCount.count / 5) || 1,
+		}
+		res.render('../components/vouchers/voucherViews/vouchers',{
+			vouchers: vouchersRowAndCount.rows,
+			totalVouchers: vouchersRowAndCount.count,
+			pagination,
+			active
+		});
 	}
 	catch(err) {
 		next(err);

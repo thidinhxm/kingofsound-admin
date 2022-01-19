@@ -17,5 +17,6 @@ router.post('/check-exist', voucherAPI.checkExistVoucher)
 
 router.get('/', adminController.isLogin, voucherController.index);
 
+router.post('/paginate', adminController.isLogin, voucherAPI.getVoucherPaginate);
 module.exports = router;
 
