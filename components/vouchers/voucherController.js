@@ -4,7 +4,7 @@ const active = {order: true}
 exports.index = async (req, res, next) => {
 	try {
 		const vouchers = await voucherService.getListVoucher();
-		res.render('../components/vouchers/voucherViews/vouchers',{vouchers,active});
+		res.render('../components/vouchers/voucherViews/voucherList',{vouchers,active});
 	}
 	catch(err) {
 		next(err);
