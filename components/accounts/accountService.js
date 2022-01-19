@@ -1,6 +1,6 @@
 const { models } = require('../../models');
 const bcrypt = require('bcrypt');
-const { Op, fn, col, literal } = require('sequelize');
+const { Op, fn, col, literal, where } = require('sequelize');
 
 exports.listAdmins = (condition) => {
     const option = {
@@ -30,12 +30,16 @@ exports.listAdmins = (condition) => {
                 ...option.where,
                 [Op.or]: [{
                     lastname: {
-                        [Op.substring]: '%' + condition.search_name + '%',
+                        [Op.like]: '%' + condition.search_name + '%',
                     }
                 }, {
                     firstname: {
-                        [Op.substring]: '%' + condition.search_name + '%',
+                        [Op.like]: '%' + condition.search_name + '%',
                     }
+                }, {
+                    namesQuery: where(fn('concat', col('firstname'), ' ', col('lastname')), {
+                        [Op.like]: '%' + condition.search_name + '%',
+                    })
                 }]
             }
 		}
@@ -157,12 +161,16 @@ exports.listUsers = (condition) => {
                 ...option.where,
                 [Op.or]: [{
                     lastname: {
-                        [Op.substring]: '%' + condition.search_name + '%',
+                        [Op.like]: '%' + condition.search_name + '%',
                     }
                 }, {
                     firstname: {
-                        [Op.substring]: '%' + condition.search_name + '%',
+                        [Op.like]: '%' + condition.search_name + '%',
                     }
+                }, {
+                    namesQuery: where(fn('concat', col('firstname'), ' ', col('lastname')), {
+                        [Op.like]: '%' + condition.search_name + '%',
+                    })
                 }]
             }
 		}
