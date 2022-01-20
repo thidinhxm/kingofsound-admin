@@ -446,3 +446,71 @@ const changePageVoucher = function(page) {
         }
     });
 }
+
+function drawBarChartRevenue(data) {
+	const width_threshold = 480;
+	if ($("#barChart").length) {
+		ctxBar = document.getElementById("barChart").getContext("2d");
+		optionsBar = {
+			responsive: true,
+			scales: {
+				yAxes: [
+					{
+						barPercentage: 0.2,
+						ticks: {
+							beginAtZero: true
+						},
+						scaleLabel: {
+							display: true,
+							labelString: "Doanh thu theo từng tháng"
+						}
+					}
+				]
+			}
+		};
+
+		optionsBar.maintainAspectRatio =
+			$(window).width() < width_threshold ? false : true;
+		configBar = {
+			type: "horizontalBar",
+			data: {
+				labels: data.map(item => `Tháng ${item.month}`),
+				datasets: [
+					{
+						label: "Doanh thu",
+						data: data.map(item => item.totalRevenue),
+						backgroundColor: [
+							"#F7604D", "#4ED6B8", "#A8D582", "#D7D768", "#9D66CC", "#DB9C3F",
+							"#3889FC", "#F7604D", "#4ED6B8", "#A8D582", "#D7D768", "#9D66CC",
+						],
+						borderWidth: 0
+					}
+				]
+			},
+			options: optionsBar
+		};
+
+		barChart = new Chart(ctxBar, configBar);
+	}
+}
+
+const changeRevenueByYear = () => {
+    const year = $('#year-revenue').val();
+    $.ajax({
+        url: `/revenue/revenue-by-year`,
+        type: 'GET',
+        data: {
+            year: year
+        },
+        success: function (data) {
+            if (data.success) {
+                drawBarChartRevenue(data.revenueMonths);
+                $('#total-revenue').text(`Doanh thu: ${data.totalInYear} vnđ`);
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    });
+}

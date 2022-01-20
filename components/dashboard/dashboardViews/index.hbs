@@ -22,13 +22,13 @@
                 </div>
                 <div class="row justify-content-between">
                     <div class=" col-3">
-                        <select id="year-revenue" class="select-revenue">
+                        <select id="year-revenue" class="select-revenue" onchange="changeRevenueByYear()">
                             {{#each years}}
                             <option value="{{this}}">{{this}}</option>
                             {{/each}}
                         </select>
                     </div>
-                    <p class="tm-block-title mt--4 col-7" id="revenue-year">Doanh thu: {{totalInYear}} vnđ</p>
+                    <p class="tm-block-title mt--4 col-7" id="total-revenue">Doanh thu: {{totalInYear}} vnđ</p>
                 </div>
                 <canvas id="barChart"></canvas>
             </div>
