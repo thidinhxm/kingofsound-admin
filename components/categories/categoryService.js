@@ -1,5 +1,5 @@
 const { models } = require('../../models');
-
+const { Op } = require('sequelize');
 exports.createCategory = (category) => {
 	return models.categories.create(category);
 }
@@ -57,6 +57,19 @@ exports.listSubCategories = (parent_category) => {
 		where: {
 			parent_category: parent_category,
 			is_active: true,
+		},
+		raw: true,
+	});
+};
+
+exports.listAllSubCategories = () => {
+	return models.categories.findAll({
+		atrributes: ['category_id', 'category_name'],
+		where: {
+			is_active: true,
+			parent_category: {
+				[Op.ne]: null,
+			},
 		},
 		raw: true,
 	});

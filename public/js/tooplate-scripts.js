@@ -55,7 +55,7 @@ function drawPieChart() {
 	}
 }
 
- function drawLineChart() {
+function drawLineChart() {
 	const width_threshold = 480;
 	if ($("#lineChart").length) {
 		ctxLine = document.getElementById("lineChart").getContext("2d");
@@ -65,7 +65,7 @@ function drawPieChart() {
 					{
 						scaleLabel: {
 							display: true,
-							labelString: "Hits"
+							labelString: "Số lượng đã bán theo từng tháng"
 						}
 					}
 				]
@@ -102,6 +102,22 @@ function drawPieChart() {
 						data: [33, 45, 37, 21, 55, 74, 69],
 						fill: false,
 						borderColor: "rgba(255,99,132,1)",
+						cubicInterpolationMode: "monotone",
+						pointRadius: 0
+					},
+					{
+						label: "Tai nghe nhor",
+						data: [33, 32, 37, 66, 55, 14, 69],
+						fill: false,
+						borderColor: "rgba(255,230,132,1)",
+						cubicInterpolationMode: "monotone",
+						pointRadius: 0
+					},
+					{
+						label: "Tai nghe lonw",
+						data: [22, 45, 37, 57, 55, 65, 69],
+						fill: false,
+						borderColor: "rgba(47,99,132,1)",
 						cubicInterpolationMode: "monotone",
 						pointRadius: 0
 					},

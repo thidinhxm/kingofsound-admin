@@ -36,3 +36,23 @@ exports.updateStatus = async (req, res, next) => {
         res.json(false);
     }
 }
+
+exports.getQtySaleOfCategoryByYear = async (req, res, next) => {
+    try {
+        const year = req.query.year;
+        const qtyCategoryMonths = await orderService.getQtySaleOfCategoryByYear(year);
+        const totalQtyInYear = qtyCategoryMonths.reduce((total, item) => {
+			return total + item.quantityList.reduce((subtotal, subitem) => subtotal + parseInt(subitem), 0);
+		}, 0);
+        res.json({
+            qtyCategoryMonths, 
+            totalQtyInYear, 
+            success: true
+        });
+    }
+    catch (err) {
+        res.json({
+            success: false,
+        });
+    }
+}

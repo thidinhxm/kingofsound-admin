@@ -15,13 +15,20 @@ exports.index = async (req, res, next) => {
 		const revenueMonths = await revenueService.getRevenueMonthsByYear(currentYear);
 		const totalInYear = formatPrice(revenueMonths.reduce((total, item) => total + parseInt(item.totalRevenue), 0));
 		const years = [...Array(5).keys()].map(item => currentYear - item);
+		const qtyCategoryMonths = await orderService.getQtySaleOfCategoryByYear(currentYear);
+		const totalQtyInYear = qtyCategoryMonths.reduce((total, item) => {
+			return total + item.quantityList.reduce((subtotal, subitem) => subtotal + parseInt(subitem), 0);
+		}, 0);
+
 		res.render('../components/dashboard/dashboardViews/index', { 
 			top10Products, 
 			orderCount, 
 			orderStatus,
 			revenueMonths,
 			totalInYear,
-			years, 
+			years,
+			qtyCategoryMonths, 
+			totalQtyInYear,
 			active 
 		});
 	}

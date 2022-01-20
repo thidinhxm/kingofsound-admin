@@ -1,6 +1,7 @@
 const { models } = require('../../models');
-const {Op, literal, fn, col} = require('sequelize');
+const {Op, literal, fn, col, where} = require('sequelize');
 const {formatDate, formatPrice} = require('./orderHelper');
+const categoryService = require('../categories/categoryService');
 exports.listOrders = async (condition) => {
     try {
         const option = {
@@ -184,4 +185,70 @@ exports.getDetailOrders = (id) => {
         }],
         raw: true
     })
+}
+
+exports.getQtySaleOfCategoryByYear = async (year) => {
+    try {
+        const qtySaleOfCategoryMonths = await models.orders.findAll({
+            subQuery: false,
+            attributes: [
+                [fn('MONTH', col('create_date')), 'month'],
+                [fn('YEAR', col('create_date')), 'year'],
+                [fn('sum', col('detailorders.quantity')), 'total'],
+                'detailorders.product.category.category_id',
+                'detailorders.product.category.category_name',
+            ],
+            include: [{
+                model: models.detailorders,
+                as: 'detailorders',
+                attributes: [],
+                include: [{
+                    model: models.products,
+                    as: 'product',
+                    attributes: [],
+                    include: [{
+                        model: models.categories,
+                        as: 'category',
+                        attributes:[],
+                    }]
+                }]
+            }],
+            where: {
+                query: where(fn('YEAR', col('create_date')), year),
+                payment_status: 'Đã thanh toán',
+            },
+            group: [
+                'detailorders.product.category.category_id',
+                'detailorders.product.category.category_name',
+                [literal('MONTH(create_date)', 'month')], 
+                [literal('YEAR(create_date)', 'year')]
+            ],
+            raw: true,
+        })
+
+        const subCategories = await categoryService.listAllSubCategories();
+
+        const result = [];
+        subCategories.forEach(subCategory => {
+            const subCategoryObj = {
+                category_id: subCategory.category_id,
+                category_name: subCategory.category_name,
+                quantityList: new Array(12).fill(0),
+            }
+            for (let i = 1; i <= 12; i++) {
+                qtySaleOfCategoryMonths.forEach(qtySaleOfCategoryMonth => {
+                    if (qtySaleOfCategoryMonth.category_id === subCategory.category_id && qtySaleOfCategoryMonth.month === i) {
+                        subCategoryObj.quantityList[i - 1] = parseInt(qtySaleOfCategoryMonth.total);
+                    }
+                    
+                })
+            }
+            result.push(subCategoryObj)
+        })
+        return result;
+        
+    } 
+    catch(err) {
+        throw(err);
+    }
 }

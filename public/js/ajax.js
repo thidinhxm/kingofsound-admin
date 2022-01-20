@@ -514,3 +514,72 @@ const changeRevenueByYear = () => {
         }
     });
 }
+
+const drawLineChartQty = (data) => {
+    const colors = ['#F7604D', '#4ED6B8', '#A8D582', '#D7D768', '#9D66CC', '#DB9C3F', '#3889FC'];
+    const dataset = data.map((item, index) => {
+        return {
+            label: `${item.category_name}`,
+            data: item.quantityList,
+            fill: false,
+            borderColor: colors[index],
+            cubicInterpolationMode: "monotone",
+            pointRadius: 0
+        }
+    });
+    const width_threshold = 480;
+    if ($("#lineChart").length) {
+        ctxLine = document.getElementById("lineChart").getContext("2d");
+        optionsLine = {
+            scales: {
+                yAxes: [
+                    {
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Số lượng đã bán theo từng tháng"
+                        }
+                    }
+                ]
+            }
+        };
+        optionsLine.maintainAspectRatio = $(window).width() < width_threshold ? false : true;
+
+        configLine = {
+            type: "line",
+            data: {
+                labels: [
+                    "Tháng 1","Tháng 2","Tháng 3",
+                    "Tháng 4","Tháng 5","Tháng 6",
+                    "Tháng 7","Tháng 8","Tháng 9",
+                    "Tháng 10","Tháng 11","Tháng 12",
+                ],
+                datasets: dataset
+            },
+            options: optionsLine
+        };
+        lineChart = new Chart(ctxLine, configLine);
+    }
+}
+
+
+const changeQuantityByYear = () => {
+    const year = $('#year-quantity').val();
+    $.ajax({
+        url: `/orders/quantity-of-category-by-year`,
+        type: 'GET',
+        data: {
+            year: year
+        },
+        success: function (data) {
+            if (data.success) {
+                drawLineChartQty(data.qtyCategoryMonths);
+                $('#total-quantity').text(`Số lượng đã bán: ${data.totalQtyInYear}`);
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    });
+}
+    

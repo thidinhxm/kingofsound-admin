@@ -13,4 +13,5 @@ router.post('/paginate', adminController.isLogin, orderAPI.getOrdersPaginate);
 
 router.post('/:id/update', adminController.isLogin, orderAPI.updateStatus);
 
+router.get('/quantity-of-category-by-year', adminController.isLogin, orderAPI.getQtySaleOfCategoryByYear);
 module.exports = router;

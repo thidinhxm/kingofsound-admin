@@ -11,15 +11,22 @@
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
             <div class="tm-bg-primary-dark tm-block">
                 <h2 class="tm-block-title">Khả năng tiếp cận </h2>
+                <div class="row justify-content-between">
+                    <div class=" col-3">
+                        <select id="year-quantity" class="select-revenue" onchange="changeQuantityByYear()">
+                            {{#each years}}
+                            <option value="{{this}}">{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <p class="tm-block-title mt--4 col-7" id="total-quantity">Số lượng đã bán: {{totalQtyInYear}}</p>
+                </div>
                 <canvas id="lineChart"></canvas>
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
             <div class="tm-bg-primary-dark tm-block">
-                <div class="row">
-                    <h2 class="tm-block-title col-9">Mức độ tăng trưởng</h2>
-                    
-                </div>
+                <h2 class="tm-block-title">Mức độ tăng trưởng</h2>
                 <div class="row justify-content-between">
                     <div class=" col-3">
                         <select id="year-revenue" class="select-revenue" onchange="changeRevenueByYear()">
@@ -166,8 +173,7 @@
     barChart, pieChart;
     // DOM is ready
     $(function () {
-        drawLineChart(); // Line Chart
-        {{!-- drawBarChart(); // Bar Chart --}}
+        {{{drawLineChartQtyMonth qtyCategoryMonths}}}
         {{{drawBarChartRevenueMonth revenueMonths}}}
         {{{drawPieChartOrder orderCount orderStatus}}}
         $(window).resize(function () {
