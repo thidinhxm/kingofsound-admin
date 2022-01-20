@@ -799,6 +799,18 @@ h1.tm-site-title.mb-0{
   color: #333;
 }
 
+.select-revenue {
+  width: 100%;
+  border: 3px solid #a59e91;
+  padding: 5px;
+  height: 36px;
+  font-weight: 600;
+  border-radius: 5px;
+  outline: none;
+  color: #333;
+  margin-top: -10px;
+}
+
 /*Notification*/
 
 .Notification{
@@ -978,4 +990,8 @@ h1.tm-site-title.mb-0{
   background-color: #fff;
   color: #f5a623;
   cursor: pointer;
+}
+
+.mt--4 {
+  margin-top: -4px;
 }

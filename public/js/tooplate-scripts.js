@@ -1,5 +1,13 @@
-const width_threshold = 480;
-
+/**
+ * COLOR CODES
+ * Red: #F7604D
+ * Aqua: #4ED6B8
+ * Green: #A8D582
+ * Yellow: #D7D768
+ * Purple: #9D66CC
+ * Orange: #DB9C3F
+ * Blue: #3889FC
+ */
 function drawPieChart() {
 	if ($("#pieChart").length) {
 		const chartHeight = 300;
@@ -48,6 +56,7 @@ function drawPieChart() {
 }
 
  function drawLineChart() {
+	const width_threshold = 480;
 	if ($("#lineChart").length) {
 		ctxLine = document.getElementById("lineChart").getContext("2d");
 		optionsLine = {
@@ -107,6 +116,7 @@ function drawPieChart() {
 }
 
 function drawBarChart() {
+	const width_threshold = 480;
 	if ($("#barChart").length) {
 		ctxBar = document.getElementById("barChart").getContext("2d");
 
@@ -121,7 +131,7 @@ function drawBarChart() {
 						},
 						scaleLabel: {
 							display: true,
-							labelString: "Hits"
+							labelString: "Doanh thu theo từng tháng"
 						}
 					}
 				]
@@ -131,25 +141,16 @@ function drawBarChart() {
 		optionsBar.maintainAspectRatio =
 			$(window).width() < width_threshold ? false : true;
 
-		/**
-		 * COLOR CODES
-		 * Red: #F7604D
-		 * Aqua: #4ED6B8
-		 * Green: #A8D582
-		 * Yellow: #D7D768
-		 * Purple: #9D66CC
-		 * Orange: #DB9C3F
-		 * Blue: #3889FC
-		 */
+		
 
 		configBar = {
 			type: "horizontalBar",
 			data: {
-				labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7"],
+				labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
 				datasets: [
 					{
-						label: "Tiêu chuẩn",
-						data: [33, 40, 28, 49, 58, 38, 44],
+						label: "Doanh thu",
+						data: [33, 40, 28, 490, 58, 38, 44, 55, 37, 49, 58, 38],
 						backgroundColor: [
 							"#F7604D",
 							"#4ED6B8",
@@ -157,7 +158,12 @@ function drawBarChart() {
 							"#D7D768",
 							"#9D66CC",
 							"#DB9C3F",
-							"#3889FC"
+							"#3889FC",
+							"#F7604D",
+							"#4ED6B8",
+							"#A8D582",
+							"#D7D768",
+							"#9D66CC",
 						],
 						borderWidth: 0
 					}
